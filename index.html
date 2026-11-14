@@ -656,7 +656,25 @@ history = currentChat.history || [];
     panel.style.display = "none";
     button.style.display = "block";
   });
+newChatButton.addEventListener("click", () => {
+  history = [];
 
+  currentChat = {
+    id: Date.now().toString(),
+    title: "Yeni sohbet",
+    history: history
+  };
+
+  currentChatId = currentChat.id;
+  chats.push(currentChat);
+
+  localStorage.setItem("zeydalChats", JSON.stringify(chats));
+  localStorage.setItem("zeydalCurrentChatId", currentChatId);
+
+  messages.innerHTML = "";
+
+  addMessage("Merhaba! Ben ZEYDAL AI. Sana nasıl yardımcı olabilirim?", "assistant");
+});
   function addMessage(text, type) {
     const item = document.createElement("div");
     item.className = "zeydal-message " +
