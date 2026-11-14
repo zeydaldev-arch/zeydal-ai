@@ -644,7 +644,12 @@ footer a {
     messages.scrollTop = messages.scrollHeight;
     return item;
   }
-
+history.forEach((entry) => {
+  const text = entry.parts?.map(part => part.text || "").join("") || "";
+  if (text) {
+    addMessage(text, entry.role === "user" ? "user" : "assistant");
+  }
+});
   form.addEventListener("submit", async (event) => {
     event.preventDefault();
 
