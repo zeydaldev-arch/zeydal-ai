@@ -623,7 +623,7 @@ footer a {
   const input = document.getElementById("zeydal-chat-input");
   const messages = document.getElementById("zeydal-chat-messages");
   const send = document.getElementById("zeydal-chat-send");
-  const history = [];
+  const history = JSON.parse(localStorage.getItem("zeydalChatHistory") || "[]");
   button.addEventListener("click", () => {
     panel.style.display = "block";
     button.style.display = "none";
