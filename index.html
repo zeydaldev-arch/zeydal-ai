@@ -623,7 +623,7 @@ footer a {
   const input = document.getElementById("zeydal-chat-input");
   const messages = document.getElementById("zeydal-chat-messages");
   const send = document.getElementById("zeydal-chat-send");
-
+  const history = [];
   button.addEventListener("click", () => {
     panel.style.display = "block";
     button.style.display = "none";
@@ -663,7 +663,7 @@ footer a {
         headers: {
           "Content-Type": "application/json"
         },
-        body: JSON.stringify({ message }) 
+        body: JSON.stringify({ message, history }) 
       });
 
       const data = await response.json();
