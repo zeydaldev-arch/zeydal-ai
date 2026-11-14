@@ -703,7 +703,9 @@ waiting.textContent = reply;
 
 history.push({ role: "user", parts: [{ text: message }] });
 history.push({ role: "model", parts: [{ text: reply }] });
-localStorage.setItem("zeydalChatHistory", JSON.stringify(history));
+currentChat.history = history;
+localStorage.setItem("zeydalChats", JSON.stringify(chats));
+localStorage.setItem("zeydalCurrentChatId", currentChatId);
     } catch (error) {
       waiting.textContent = "Bağlantı hatası: " + error.message;
     } finally {
