@@ -468,6 +468,223 @@ footer a {
   <p><a href="https://zeydaldev-arch.github.io/zeydrion-forge-entertainment/">ZEYDRION FORGE</a></p>
 </footer>
 
+<style>
+  #zeydal-chat-button {
+    position: fixed;
+    right: 24px;
+    bottom: 24px;
+    z-index: 9999;
+    border: 0;
+    border-radius: 50px;
+    padding: 15px 22px;
+    background: #1769ff;
+    color: white;
+    font-size: 15px;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 0 0 25px #1769ff66;
+  }
+
+  #zeydal-chat-panel {
+    display: none;
+    position: fixed;
+    right: 24px;
+    bottom: 85px;
+    z-index: 9999;
+    width: 350px;
+    max-width: calc(100vw - 32px);
+    height: 480px;
+    max-height: calc(100vh - 120px);
+    background: #101a2d;
+    border: 1px solid #2878ff;
+    border-radius: 18px;
+    overflow: hidden;
+    color: white;
+    box-shadow: 0 0 35px #1769ff44;
+    font-family: Arial, sans-serif;
+  }
+
+  #zeydal-chat-header {
+    padding: 17px;
+    background: #172b4c;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  #zeydal-chat-header strong {
+    color: #70aaff;
+    font-size: 17px;
+  }
+
+  #zeydal-chat-close {
+    border: 0;
+    background: transparent;
+    color: white;
+    font-size: 23px;
+    cursor: pointer;
+  }
+
+  #zeydal-chat-messages {
+    height: calc(100% - 140px);
+    padding: 14px;
+    overflow-y: auto;
+  }
+
+  .zeydal-message {
+    padding: 11px 13px;
+    margin-bottom: 12px;
+    border-radius: 12px;
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+    line-height: 1.5;
+    font-size: 14px;
+  }
+
+  .zeydal-user {
+    background: #1769ff;
+    margin-left: 35px;
+  }
+
+  .zeydal-assistant {
+    background: #1d2b42;
+    margin-right: 25px;
+  }
+
+  #zeydal-chat-form {
+    display: flex;
+    gap: 8px;
+    padding: 12px;
+    border-top: 1px solid #293b57;
+  }
+
+  #zeydal-chat-input {
+    flex: 1;
+    min-width: 0;
+    padding: 11px;
+    border: 1px solid #405575;
+    border-radius: 10px;
+    background: #0b1423;
+    color: white;
+    outline: none;
+  }
+
+  #zeydal-chat-send {
+    border: 0;
+    border-radius: 10px;
+    padding: 0 15px;
+    background: #1769ff;
+    color: white;
+    cursor: pointer;
+  }
+
+  #zeydal-chat-send:disabled {
+    opacity: 0.5;
+    cursor: wait;
+  }
+</style>
+
+<button id="zeydal-chat-button" type="button">
+  ✦ ZEYDAL AI
+</button>
+
+<div id="zeydal-chat-panel">
+  <div id="zeydal-chat-header">
+    <strong>✦ ZEYDAL AI Assistant</strong>
+    <button id="zeydal-chat-close" type="button">×</button>
+  </div>
+
+  <div id="zeydal-chat-messages" aria-live="polite">
+    <div class="zeydal-message zeydal-assistant">
+      Merhaba! Ben ZEYDAL AI. Sana nasıl yardımcı olabilirim?
+    </div>
+  </div>
+
+  <form id="zeydal-chat-form">
+    <input
+      id="zeydal-chat-input"
+      type="text"
+      placeholder="Mesajını yaz..."
+      autocomplete="off"
+      required
+    />
+    <button id="zeydal-chat-send" type="submit">Gönder</button>
+  </form>
+</div>
+
+<script>
+(() => {
+  const API_URL = "https://zeydal-ai-api.zeydal-dev.workers.dev/";
+
+  const button = document.getElementById("zeydal-chat-button");
+  const panel = document.getElementById("zeydal-chat-panel");
+  const close = document.getElementById("zeydal-chat-close");
+  const form = document.getElementById("zeydal-chat-form");
+  const input = document.getElementById("zeydal-chat-input");
+  const messages = document.getElementById("zeydal-chat-messages");
+  const send = document.getElementById("zeydal-chat-send");
+
+  button.addEventListener("click", () => {
+    panel.style.display = "block";
+    button.style.display = "none";
+    input.focus();
+  });
+
+  close.addEventListener("click", () => {
+    panel.style.display = "none";
+    button.style.display = "block";
+  });
+
+  function addMessage(text, type) {
+    const item = document.createElement("div");
+    item.className = "zeydal-message " +
+      (type === "user" ? "zeydal-user" : "zeydal-assistant");
+    item.textContent = text;
+    messages.appendChild(item);
+    messages.scrollTop = messages.scrollHeight;
+    return item;
+  }
+
+  form.addEventListener("submit", async (event) => {
+    event.preventDefault();
+
+    const message = input.value.trim();
+    if (!message || send.disabled) return;
+
+    addMessage(message, "user");
+    input.value = "";
+    send.disabled = true;
+
+    const waiting = addMessage("ZEYDAL AI düşünüyor...", "assistant");
+
+    try {
+      const response = await fetch(API_URL, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ message })
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.error || "Sunucu hatası: " + response.status);
+      }
+
+      waiting.textContent = data.reply || "Yanıt alınamadı.";
+
+    } catch (error) {
+      waiting.textContent = "Bağlantı hatası: " + error.message;
+    } finally {
+      send.disabled = false;
+      input.focus();
+      messages.scrollTop = messages.scrollHeight;
+    }
+  });
+})();
+</script>
+
 </body>
 </html>
 
