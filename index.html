@@ -709,6 +709,20 @@ history.forEach((entry) => {
           "Content-Type": "application/json"
         },
         body: JSON.stringify({ message, history }) 
+        body: JSON.stringify({
+  message,
+  history,
+  memory: chats
+    .filter(chat => chat.id !== currentChatId)
+    .flatMap(chat => chat.history || [])
+    .slice(-20)
+    .map(entry => {
+      const speaker = entry.role === "user" ? "Kullanıcı" : "ZEYDAL AI";
+      const text = entry.parts?.map(part => part.text || "").join("") || "";
+      return `${speaker}: ${text}`;
+    })
+    .join("\n")
+})
       });
 
       const data = await response.json();
