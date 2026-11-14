@@ -716,7 +716,7 @@ history.forEach((entry) => {
       if (!response.ok) {
         throw new Error(data.error || "Sunucu hatası: " + response.status);
       }
-
+ 
       const reply = data.reply || "Yanıt alınamadı.";
 waiting.textContent = reply;
 
