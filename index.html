@@ -623,7 +623,28 @@ footer a {
   const input = document.getElementById("zeydal-chat-input");
   const messages = document.getElementById("zeydal-chat-messages");
   const send = document.getElementById("zeydal-chat-send");
-  const history = JSON.parse(localStorage.getItem("zeydalChatHistory") || "[]");
+  let chats = JSON.parse(localStorage.getItem("zeydalChats") || "[]");
+let currentChatId = localStorage.getItem("zeydalCurrentChatId");
+let history = []; 
+ const oldHistory = JSON.parse(localStorage.getItem("zeydalChatHistory") || "[]");
+
+if (chats.length === 0) {
+  const firstChat = {
+    id: Date.now().toString(),
+    title: "Eski sohbet",
+    history: oldHistory
+  };
+
+  chats.push(firstChat);
+  currentChatId = firstChat.id;
+
+  localStorage.setItem("zeydalChats", JSON.stringify(chats));
+  localStorage.setItem("zeydalCurrentChatId", currentChatId);
+}
+
+let currentChat = chats.find(chat => chat.id === currentChatId) || chats[0];
+currentChatId = currentChat.id;
+history = currentChat.history || [];
   button.addEventListener("click", () => {
     panel.style.display = "block";
     button.style.display = "none";
