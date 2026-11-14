@@ -2,258 +2,471 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ZEYDAL AI | Artificial Intelligence</title>
-  <meta name="description" content="ZEYDAL AI - Yapay zekâ asistanları ve akıllı dijital teknolojiler.">
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ZEYDAL AI | Beyond Intelligence</title>
+<meta name="description" content="ZEYDAL AI - Yapay zekâ ve yeni nesil dijital teknolojiler.">
 
-    body {
-      font-family: Arial, sans-serif;
-      background: #07111f;
-      color: #ffffff;
-      line-height: 1.6;
-    }
+<style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
 
-    header {
-      padding: 24px 8%;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      border-bottom: 1px solid #20344c;
-    }
+html {
+  scroll-behavior: smooth;
+}
 
-    .brand {
-      color: #55baff;
-      font-size: 25px;
-      font-weight: bold;
-      letter-spacing: 2px;
-    }
+body {
+  font-family: Inter, Arial, sans-serif;
+  background: #050b16;
+  color: #f4f8ff;
+  line-height: 1.6;
+}
 
-    nav a {
-      color: #dce8f5;
-      text-decoration: none;
-      margin-left: 22px;
-      font-size: 14px;
-    }
+a {
+  text-decoration: none;
+  color: inherit;
+}
 
-    nav a:hover {
-      color: #55baff;
-    }
+header {
+  width: 100%;
+  padding: 22px 8%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid rgba(130,180,230,.13);
+  background: rgba(5,11,22,.9);
+}
 
-    .hero {
-      min-height: 520px;
-      padding: 110px 8%;
-      text-align: center;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      background: radial-gradient(ellipse at center, #12365b 0%, #07111f 68%);
-    }
+.logo {
+  font-size: 25px;
+  font-weight: 800;
+  letter-spacing: 2px;
+  color: #65baff;
+}
 
-    .eyebrow {
-      color: #55baff;
-      letter-spacing: 4px;
-      font-size: 13px;
-      margin-bottom: 20px;
-    }
+.logo span {
+  color: #fff;
+}
 
-    h1 {
-      font-size: clamp(38px, 7vw, 70px);
-      line-height: 1.15;
-      margin-bottom: 22px;
-    }
+nav {
+  display: flex;
+  gap: 30px;
+}
 
-    .hero p {
-      max-width: 650px;
-      color: #b8c9dc;
-      font-size: 18px;
-      margin-bottom: 32px;
-    }
+nav a {
+  color: #aebdd0;
+  font-size: 14px;
+  transition: .3s;
+}
 
-    .button {
-      display: inline-block;
-      padding: 13px 28px;
-      background: #168bd0;
-      color: white;
-      text-decoration: none;
-      border-radius: 5px;
-      font-weight: bold;
-    }
+nav a:hover {
+  color: #65baff;
+}
 
-    section {
-      padding: 75px 8%;
-    }
+.header-button {
+  padding: 10px 19px;
+  border: 1px solid #268fd7;
+  border-radius: 6px;
+  color: #75c5ff;
+  font-size: 13px;
+}
 
-    .section-title {
-      text-align: center;
-      font-size: 32px;
-      margin-bottom: 15px;
-    }
+.hero {
+  min-height: 680px;
+  padding: 110px 8%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  background:
+    radial-gradient(ellipse at 50% 45%, rgba(18,100,170,.30), transparent 55%),
+    linear-gradient(180deg,#071426,#050b16);
+}
 
-    .section-description {
-      text-align: center;
-      color: #aebfd2;
-      margin-bottom: 40px;
-    }
+.hero::before {
+  content: "";
+  position: absolute;
+  width: 500px;
+  height: 500px;
+  border: 1px solid rgba(77,170,255,.13);
+  border-radius: 50%;
+  box-shadow:
+    0 0 100px rgba(28,135,220,.12),
+    inset 0 0 100px rgba(28,135,220,.08);
+}
 
-    .cards {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
-      gap: 22px;
-    }
+.hero-content {
+  position: relative;
+  z-index: 1;
+  max-width: 850px;
+}
 
-    .card {
-      background: #0d1d30;
-      border: 1px solid #203c59;
-      border-radius: 10px;
-      padding: 28px;
-    }
+.tag {
+  display: inline-block;
+  color: #70c5ff;
+  border: 1px solid rgba(79,170,255,.35);
+  background: rgba(25,115,190,.12);
+  padding: 8px 18px;
+  border-radius: 30px;
+  font-size: 12px;
+  letter-spacing: 2px;
+  margin-bottom: 30px;
+}
 
-    .card h3 {
-      color: #55baff;
-      margin-bottom: 12px;
-    }
+.hero h1 {
+  font-size: clamp(45px,7vw,82px);
+  line-height: 1.08;
+  font-weight: 800;
+  letter-spacing: -3px;
+  margin-bottom: 25px;
+}
 
-    .card p {
-      color: #b8c9dc;
-    }
+.gradient-text {
+  background: linear-gradient(90deg,#ffffff,#69baff,#a8d9ff);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
 
-    .about {
-      background: #091726;
-      text-align: center;
-    }
+.hero p {
+  max-width: 650px;
+  margin: 0 auto 35px;
+  color: #a8b9ce;
+  font-size: 17px;
+}
 
-    .about p {
-      max-width: 750px;
-      margin: auto;
-      color: #b8c9dc;
-    }
+.actions {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  flex-wrap: wrap;
+}
 
-    footer {
-      padding: 28px 8%;
-      text-align: center;
-      color: #8298af;
-      border-top: 1px solid #20344c;
-      font-size: 13px;
-    }
+.primary-button,
+.secondary-button {
+  display: inline-block;
+  padding: 14px 26px;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 700;
+  transition: .3s;
+}
 
-    @media (max-width: 650px) {
-      header {
-        flex-direction: column;
-        gap: 16px;
-      }
+.primary-button {
+  background: linear-gradient(100deg,#168bd4,#42b7ff);
+  color: white;
+  box-shadow: 0 0 25px rgba(35,150,230,.2);
+}
 
-      nav {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: center;
-        gap: 12px;
-      }
+.primary-button:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 0 35px rgba(35,150,230,.4);
+}
 
-      nav a {
-        margin: 0;
-      }
+.secondary-button {
+  border: 1px solid #49647f;
+  color: #d8e7f7;
+}
 
-      .hero {
-        padding: 80px 6%;
-      }
-    }
-  </style>
+.secondary-button:hover {
+  border-color: #55baff;
+  color: #55baff;
+}
+
+.section {
+  padding: 90px 8%;
+}
+
+.section-heading {
+  text-align: center;
+  margin-bottom: 50px;
+}
+
+.section-heading small {
+  color: #5ebcff;
+  letter-spacing: 3px;
+  font-size: 12px;
+}
+
+.section-heading h2 {
+  font-size: 38px;
+  margin: 12px 0;
+}
+
+.section-heading p {
+  color: #9eafc3;
+}
+
+.cards {
+  display: grid;
+  grid-template-columns: repeat(3,1fr);
+  gap: 22px;
+}
+
+.card {
+  background: linear-gradient(145deg,#101f33,#091423);
+  border: 1px solid #203b58;
+  border-radius: 12px;
+  padding: 32px;
+  transition: .3s;
+}
+
+.card:hover {
+  transform: translateY(-6px);
+  border-color: #318dca;
+  box-shadow: 0 15px 35px rgba(0,0,0,.25);
+}
+
+.card-icon {
+  width: 48px;
+  height: 48px;
+  display: grid;
+  place-items: center;
+  border-radius: 10px;
+  background: rgba(40,145,220,.15);
+  color: #65baff;
+  font-size: 23px;
+  margin-bottom: 22px;
+}
+
+.card h3 {
+  font-size: 20px;
+  margin-bottom: 12px;
+}
+
+.card p {
+  color: #9eafc3;
+  font-size: 14px;
+}
+
+.about {
+  background: linear-gradient(180deg,#081525,#050b16);
+  text-align: center;
+}
+
+.about-content {
+  max-width: 750px;
+  margin: auto;
+}
+
+.about-content p {
+  color: #aabbd0;
+  margin: 15px 0;
+}
+
+.about-content strong {
+  color: #70c5ff;
+}
+
+.cta {
+  text-align: center;
+  padding: 80px 8%;
+  background: radial-gradient(ellipse at center,rgba(25,100,160,.2),transparent 70%);
+}
+
+.cta h2 {
+  font-size: 34px;
+  margin-bottom: 15px;
+}
+
+.cta p {
+  color: #aabbd0;
+  margin-bottom: 25px;
+}
+
+footer {
+  padding: 30px 8%;
+  text-align: center;
+  border-top: 1px solid #1b3048;
+  color: #8297ae;
+  font-size: 13px;
+}
+
+footer a {
+  color: #66baff;
+}
+
+@media(max-width:850px) {
+  header {
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  nav {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 17px;
+  }
+
+  .cards {
+    grid-template-columns: 1fr;
+  }
+
+  .hero {
+    min-height: 570px;
+  }
+
+  .hero h1 {
+    letter-spacing: -1px;
+  }
+
+  .section-heading h2 {
+    font-size: 30px;
+  }
+}
+</style>
 </head>
 
 <body>
 
-  <header>
-    <div class="brand">ZEYDAL AI</div>
-    <nav>
-      <a href="#home">Ana Sayfa</a>
-      <a href="#assistant">AI Assistant</a>
-      <a href="#tools">AI Tools</a>
-      <a href="#projects">Projeler</a>
-      <a href="#about">Hakkımızda</a>
-    </nav>
-  </header>
+<header>
+  <a href="#home" class="logo">ZEYDAL <span>AI</span></a>
 
-  <main>
-    <section class="hero" id="home">
-      <div class="eyebrow">ARTIFICIAL INTELLIGENCE</div>
-      <h1>Intelligence.<br>Beyond Limits.</h1>
-      <p>
-        Yapay zekâ, akıllı yazılımlar ve yeni nesil dijital
-        teknolojilerle geleceği birlikte inşa ediyoruz.
-      </p>
-      <a class="button" href="#assistant">ZEYDAL AI'ı Keşfet</a>
-    </section>
+  <nav>
+    <a href="#home">Ana Sayfa</a>
+    <a href="#assistant">AI Assistant</a>
+    <a href="#tools">AI Tools</a>
+    <a href="#projects">Projeler</a>
+    <a href="#about">Hakkımızda</a>
+  </nav>
 
-    <section id="assistant">
-      <h2 class="section-title">ZEYDAL AI Assistant</h2>
-      <p class="section-description">
-        Kendi yapay zekâ asistanımızı geliştiriyoruz.
-      </p>
-      <div class="cards">
-        <article class="card">
-          <h3>AI Assistant</h3>
-          <p>Akıllı sohbet ve bilgi desteği sunacak yapay zekâ asistanı.</p>
-        </article>
-        <article class="card">
-          <h3>Smart Solutions</h3>
-          <p>Günlük ihtiyaçlara yönelik akıllı dijital çözümler.</p>
-        </article>
-      </div>
-    </section>
+  <a href="#assistant" class="header-button">Keşfet ↗</a>
+</header>
 
-    <section id="tools">
-      <h2 class="section-title">AI Tools</h2>
-      <p class="section-description">
-        Yapay zekâ destekli araçlarımızı keşfedin.
-      </p>
-      <div class="cards">
-        <article class="card">
-          <h3>Text AI</h3>
-          <p>Metin oluşturma ve düzenleme araçları.</p>
-        </article>
-        <article class="card">
-          <h3>Image AI</h3>
-          <p>Görsel üretimi ve görsel işleme projeleri.</p>
-        </article>
-        <article class="card">
-          <h3>Developer AI</h3>
-          <p>Yazılım geliştirme süreçlerine yönelik araçlar.</p>
-        </article>
-      </div>
-    </section>
+<main>
 
-    <section id="projects" class="about">
-      <h2 class="section-title">AI Projects</h2>
-      <p>
-        ZEYDAL AI bünyesinde geliştirilen yapay zekâ projeleri
-        ve teknolojik çalışmalar burada yer alacak.
-      </p>
-    </section>
+<section class="hero" id="home">
+  <div class="hero-content">
 
-    <section id="about">
-      <h2 class="section-title">About ZEYDAL AI</h2>
-      <p class="section-description">
-        Build the Future. Forge the Impossible.
-      </p>
-      <p class="section-description">
-        ZEYDAL AI, ZEYDRION FORGE ENTERTAINMENT çatısı altında
-        geliştirilen yapay zekâ ve akıllı yazılım markasıdır.
-      </p>
-    </section>
-  </main>
+    <div class="tag">✦ NEXT GENERATION ARTIFICIAL INTELLIGENCE</div>
 
-  <footer>
-    ZEYDAL AI | ZEYDRION FORGE ENTERTAINMENT<br>
-    Telif Hakkı © 2026. Tüm Hakları Saklıdır.
-  </footer>
+    <h1>
+      Intelligence.<br>
+      <span class="gradient-text">Beyond Limits.</span>
+    </h1>
+
+    <p>
+      Yapay zekânın gücüyle yeni fikirler, akıllı çözümler
+      ve geleceğin dijital teknolojilerini keşfedin.
+      ZEYDAL AI ile sınırların ötesine geçin.
+    </p>
+
+    <div class="actions">
+      <a href="#assistant" class="primary-button">ZEYDAL AI'ı Keşfet →</a>
+      <a href="#about" class="secondary-button">Daha Fazla Bilgi</a>
+    </div>
+
+  </div>
+</section>
+
+<section class="section" id="assistant">
+  <div class="section-heading">
+    <small>INTELLIGENT TECHNOLOGY</small>
+    <h2>ZEYDAL AI Assistant</h2>
+    <p>Yeni nesil yapay zekâ deneyimi için geliştiriliyor.</p>
+  </div>
+
+  <div class="cards">
+    <article class="card">
+      <div class="card-icon">✧</div>
+      <h3>AI Assistant</h3>
+      <p>Akıllı sohbet ve bilgi desteği sunacak yapay zekâ asistanımız.</p>
+    </article>
+
+    <article class="card">
+      <div class="card-icon">◇</div>
+      <h3>Smart Intelligence</h3>
+      <p>Bilgi işleme ve akıllı çözümler geliştirmeye yönelik teknolojiler.</p>
+    </article>
+
+    <article class="card">
+      <div class="card-icon">⌘</div>
+      <h3>AI Integration</h3>
+      <p>Farklı yazılımlarla birlikte çalışabilen yapay zekâ sistemleri.</p>
+    </article>
+  </div>
+</section>
+
+<section class="section" id="tools">
+  <div class="section-heading">
+    <small>POWERFUL DIGITAL TOOLS</small>
+    <h2>AI Tools</h2>
+    <p>Yapay zekâ destekli araç ve teknolojiler.</p>
+  </div>
+
+  <div class="cards">
+    <article class="card">
+      <div class="card-icon">✎</div>
+      <h3>Text AI</h3>
+      <p>Metin oluşturma, düzenleme ve içerik geliştirme araçları.</p>
+    </article>
+
+    <article class="card">
+      <div class="card-icon">▧</div>
+      <h3>Image AI</h3>
+      <p>Görsel üretimi ve görüntü işleme teknolojileri.</p>
+    </article>
+
+    <article class="card">
+      <div class="card-icon">⌘</div>
+      <h3>Developer AI</h3>
+      <p>Yazılım geliştirme süreçlerini destekleyen akıllı araçlar.</p>
+    </article>
+  </div>
+</section>
+
+<section class="section about" id="projects">
+  <div class="about-content">
+    <div class="section-heading">
+      <small>INNOVATION & DEVELOPMENT</small>
+      <h2>Our AI Projects</h2>
+    </div>
+    <p>
+      ZEYDAL AI bünyesinde geliştirilen yapay zekâ
+      projeleri ve yenilikçi teknolojiler burada tanıtılacak.
+    </p>
+  </div>
+</section>
+
+<section class="section about" id="about">
+  <div class="about-content">
+    <div class="section-heading">
+      <small>ABOUT ZEYDAL AI</small>
+      <h2>Building Tomorrow</h2>
+    </div>
+
+    <p>
+      ZEYDAL AI, ZEYDRION FORGE ENTERTAINMENT çatısı altında
+      geliştirilen yapay zekâ ve akıllı yazılım markasıdır.
+    </p>
+
+    <p>
+      Amacımız yenilikçi teknolojiler geliştirerek
+      geleceğin dijital dünyasına katkıda bulunmaktır.
+    </p>
+
+    <p><strong>Build the Future. Forge the Impossible.</strong></p>
+  </div>
+</section>
+
+<section class="cta">
+  <h2>The Future Starts Here.</h2>
+  <p>Yapay zekâ ile geleceği birlikte şekillendirelim.</p>
+  <a href="#home" class="primary-button">Yukarı Dön ↑</a>
+</section>
+
+</main>
+
+<footer>
+  <p>ZEYDAL AI | ZEYDRION FORGE ENTERTAINMENT</p>
+  <p>Copyright © 2026. All Rights Reserved.</p>
+  <p><a href="https://zeydaldev-arch.github.io/zeydrion-forge-entertainment/">ZEYDRION FORGE</a></p>
+</footer>
 
 </body>
 </html>
