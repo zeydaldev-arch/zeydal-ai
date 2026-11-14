@@ -672,7 +672,11 @@ footer a {
         throw new Error(data.error || "Sunucu hatası: " + response.status);
       }
 
-      waiting.textContent = data.reply || "Yanıt alınamadı.";
+      const reply = data.reply || "Yanıt alınamadı.";
+waiting.textContent = reply;
+
+history.push({ role: "user", parts: [{ text: message }] });
+history.push({ role: "model", parts: [{ text: reply }] });
 
     } catch (error) {
       waiting.textContent = "Bağlantı hatası: " + error.message;
