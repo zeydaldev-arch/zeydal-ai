@@ -1,1 +1,261 @@
 
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ZEYDAL AI | Artificial Intelligence</title>
+  <meta name="description" content="ZEYDAL AI - Yapay zekâ asistanları ve akıllı dijital teknolojiler.">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background: #07111f;
+      color: #ffffff;
+      line-height: 1.6;
+    }
+
+    header {
+      padding: 24px 8%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid #20344c;
+    }
+
+    .brand {
+      color: #55baff;
+      font-size: 25px;
+      font-weight: bold;
+      letter-spacing: 2px;
+    }
+
+    nav a {
+      color: #dce8f5;
+      text-decoration: none;
+      margin-left: 22px;
+      font-size: 14px;
+    }
+
+    nav a:hover {
+      color: #55baff;
+    }
+
+    .hero {
+      min-height: 520px;
+      padding: 110px 8%;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background: radial-gradient(ellipse at center, #12365b 0%, #07111f 68%);
+    }
+
+    .eyebrow {
+      color: #55baff;
+      letter-spacing: 4px;
+      font-size: 13px;
+      margin-bottom: 20px;
+    }
+
+    h1 {
+      font-size: clamp(38px, 7vw, 70px);
+      line-height: 1.15;
+      margin-bottom: 22px;
+    }
+
+    .hero p {
+      max-width: 650px;
+      color: #b8c9dc;
+      font-size: 18px;
+      margin-bottom: 32px;
+    }
+
+    .button {
+      display: inline-block;
+      padding: 13px 28px;
+      background: #168bd0;
+      color: white;
+      text-decoration: none;
+      border-radius: 5px;
+      font-weight: bold;
+    }
+
+    section {
+      padding: 75px 8%;
+    }
+
+    .section-title {
+      text-align: center;
+      font-size: 32px;
+      margin-bottom: 15px;
+    }
+
+    .section-description {
+      text-align: center;
+      color: #aebfd2;
+      margin-bottom: 40px;
+    }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+      gap: 22px;
+    }
+
+    .card {
+      background: #0d1d30;
+      border: 1px solid #203c59;
+      border-radius: 10px;
+      padding: 28px;
+    }
+
+    .card h3 {
+      color: #55baff;
+      margin-bottom: 12px;
+    }
+
+    .card p {
+      color: #b8c9dc;
+    }
+
+    .about {
+      background: #091726;
+      text-align: center;
+    }
+
+    .about p {
+      max-width: 750px;
+      margin: auto;
+      color: #b8c9dc;
+    }
+
+    footer {
+      padding: 28px 8%;
+      text-align: center;
+      color: #8298af;
+      border-top: 1px solid #20344c;
+      font-size: 13px;
+    }
+
+    @media (max-width: 650px) {
+      header {
+        flex-direction: column;
+        gap: 16px;
+      }
+
+      nav {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 12px;
+      }
+
+      nav a {
+        margin: 0;
+      }
+
+      .hero {
+        padding: 80px 6%;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <header>
+    <div class="brand">ZEYDAL AI</div>
+    <nav>
+      <a href="#home">Ana Sayfa</a>
+      <a href="#assistant">AI Assistant</a>
+      <a href="#tools">AI Tools</a>
+      <a href="#projects">Projeler</a>
+      <a href="#about">Hakkımızda</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero" id="home">
+      <div class="eyebrow">ARTIFICIAL INTELLIGENCE</div>
+      <h1>Intelligence.<br>Beyond Limits.</h1>
+      <p>
+        Yapay zekâ, akıllı yazılımlar ve yeni nesil dijital
+        teknolojilerle geleceği birlikte inşa ediyoruz.
+      </p>
+      <a class="button" href="#assistant">ZEYDAL AI'ı Keşfet</a>
+    </section>
+
+    <section id="assistant">
+      <h2 class="section-title">ZEYDAL AI Assistant</h2>
+      <p class="section-description">
+        Kendi yapay zekâ asistanımızı geliştiriyoruz.
+      </p>
+      <div class="cards">
+        <article class="card">
+          <h3>AI Assistant</h3>
+          <p>Akıllı sohbet ve bilgi desteği sunacak yapay zekâ asistanı.</p>
+        </article>
+        <article class="card">
+          <h3>Smart Solutions</h3>
+          <p>Günlük ihtiyaçlara yönelik akıllı dijital çözümler.</p>
+        </article>
+      </div>
+    </section>
+
+    <section id="tools">
+      <h2 class="section-title">AI Tools</h2>
+      <p class="section-description">
+        Yapay zekâ destekli araçlarımızı keşfedin.
+      </p>
+      <div class="cards">
+        <article class="card">
+          <h3>Text AI</h3>
+          <p>Metin oluşturma ve düzenleme araçları.</p>
+        </article>
+        <article class="card">
+          <h3>Image AI</h3>
+          <p>Görsel üretimi ve görsel işleme projeleri.</p>
+        </article>
+        <article class="card">
+          <h3>Developer AI</h3>
+          <p>Yazılım geliştirme süreçlerine yönelik araçlar.</p>
+        </article>
+      </div>
+    </section>
+
+    <section id="projects" class="about">
+      <h2 class="section-title">AI Projects</h2>
+      <p>
+        ZEYDAL AI bünyesinde geliştirilen yapay zekâ projeleri
+        ve teknolojik çalışmalar burada yer alacak.
+      </p>
+    </section>
+
+    <section id="about">
+      <h2 class="section-title">About ZEYDAL AI</h2>
+      <p class="section-description">
+        Build the Future. Forge the Impossible.
+      </p>
+      <p class="section-description">
+        ZEYDAL AI, ZEYDRION FORGE ENTERTAINMENT çatısı altında
+        geliştirilen yapay zekâ ve akıllı yazılım markasıdır.
+      </p>
+    </section>
+  </main>
+
+  <footer>
+    ZEYDAL AI | ZEYDRION FORGE ENTERTAINMENT<br>
+    Telif Hakkı © 2026. Tüm Hakları Saklıdır.
+  </footer>
+
+</body>
+</html>
+
+
