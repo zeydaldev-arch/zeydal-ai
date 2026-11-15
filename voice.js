@@ -86,6 +86,7 @@
   : event.data;
 
 const message = JSON.parse(rawData);
+console.log("ZEYDAL Live mesajı:", Object.keys(message), message);
         if (message.setupComplete) {
           active = true;
           starting = false;
