@@ -616,6 +616,31 @@ footer a {
 (() => {
   const API_URL = "https://zeydal-ai-api.zeydal-dev.workers.dev/";
 let zeydalAccessPassword = "";
+  window.zeydalRequestVoiceToken = async () => {
+  if (!zeydalAccessPassword) {
+    const enteredPassword = window.prompt("ZEYDAL AI yönetici şifreni gir:");
+    if (!enteredPassword) throw new Error("Giriş iptal edildi.");
+    zeydalAccessPassword = enteredPassword;
+  }
+
+  const response = await fetch(API_URL, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      "Authorization": "Bearer " + zeydalAccessPassword
+    },
+    body: JSON.stringify({ action: "voice-token" })
+  });
+
+  const data = await response.json();
+
+  if (!response.ok) {
+    if (response.status === 401) zeydalAccessPassword = "";
+    throw new Error(data.error || "Ses bağlantısı kurulamadı.");
+  }
+
+  return data.token;
+};
   const button = document.getElementById("zeydal-chat-button");
   const panel = document.getElementById("zeydal-chat-panel");
   const close = document.getElementById("zeydal-chat-close");
