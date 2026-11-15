@@ -78,17 +78,7 @@
             }
           }
         }));
-        if (!microphoneDebugLogged) {
-  let peak = 0;
-
-  for (let i = 0; i < samples.length; i++) {
-    peak = Math.max(peak, Math.abs(samples[i]));
-  }
-
-  console.log("ZEYDAL mikrofon testi:", {
-    paket: pcm.length,
-    sesSeviyesi: peak
-  });
+    
 
   microphoneDebugLogged = true;
 }
@@ -150,18 +140,16 @@ console.log("ZEYDAL Live mesajı:", Object.keys(message), message);
 
   function startMicrophone() {
     microphoneSource =
-      audioContext.createMediaStreamSource(microphoneStream);
+audioContext.createMediaStreamSource(microphoneStream);
 
-    processor = audioContext.createScriptProcessor(4096, 1, 1);
+processor = audioContext.createScriptProcessor(4096, 1, 1);
 
-    silentGain = audioContext.createGain();
-    silentGain.gain.value = 0;
+silentGain = audioContext.createGain();
+silentGain.gain.value = 0;
+
 let microphoneDebugLogged = false;
-    processor.onaudioprocess = (event) => {
-      if (!active || !websocket || websocket.readyState !== WebSocket.OPEN) {
-        return;
-      }
 
+processor.onaudioprocess = (event) => {
       const input = event.inputBuffer.getChannelData(0);
 
       const samples = resampleAudio(
@@ -192,6 +180,20 @@ let microphoneDebugLogged = false;
           }
         }
       }));
+  if (!microphoneDebugLogged) {
+  let peak = 0;
+
+  for (let i = 0; i < samples.length; i++) {
+    peak = Math.max(peak, Math.abs(samples[i]));
+  }
+
+  console.log("ZEYDAL mikrofon testi:", {
+    paket: pcm.length,
+    sesSeviyesi: peak
+  });
+
+  microphoneDebugLogged = true;
+}
     };
 
     microphoneSource.connect(processor);
