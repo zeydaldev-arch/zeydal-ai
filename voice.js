@@ -78,6 +78,20 @@
             }
           }
         }));
+        if (!microphoneDebugLogged) {
+  let peak = 0;
+
+  for (let i = 0; i < samples.length; i++) {
+    peak = Math.max(peak, Math.abs(samples[i]));
+  }
+
+  console.log("ZEYDAL mikrofon testi:", {
+    paket: pcm.length,
+    sesSeviyesi: peak
+  });
+
+  microphoneDebugLogged = true;
+}
       };
 
       websocket.onmessage = async (event) => {
@@ -142,7 +156,7 @@ console.log("ZEYDAL Live mesajı:", Object.keys(message), message);
 
     silentGain = audioContext.createGain();
     silentGain.gain.value = 0;
-
+let microphoneDebugLogged = false;
     processor.onaudioprocess = (event) => {
       if (!active || !websocket || websocket.readyState !== WebSocket.OPEN) {
         return;
