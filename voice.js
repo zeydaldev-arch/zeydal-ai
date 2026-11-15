@@ -114,11 +114,13 @@
         stopVoice();
       };
 
-      websocket.onclose = () => {
-        if (active || starting) {
-          stopVoice();
-        }
-      };
+      websocket.onclose = (event) => {
+  console.log("ZEYDAL WebSocket kapandı:", event.code, event.reason);
+
+  if (active || starting) {
+    stopVoice();
+  }
+};
 
     } catch (error) {
       stopVoice();
