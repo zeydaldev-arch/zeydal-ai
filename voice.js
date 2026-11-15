@@ -81,8 +81,11 @@
       };
 
       websocket.onmessage = async (event) => {
-        const message = JSON.parse(event.data);
+       const rawData = event.data instanceof Blob
+  ? await event.data.text()
+  : event.data;
 
+const message = JSON.parse(rawData);
         if (message.setupComplete) {
           active = true;
           starting = false;
