@@ -100,11 +100,13 @@ const message = JSON.parse(rawData);
 
         const parts = message.serverContent?.modelTurn?.parts || [];
 
-        for (const part of parts) {
-          if (part.inlineData?.data) {
-            playAudio(part.inlineData.data);
-          }
-        }
+     for (const part of parts) {
+  if (part.inlineData?.data) {
+    console.log("ZEYDAL AI sesli cevap gönderdi.");
+    button.textContent = "🔊 ZEYDAL cevap veriyor...";
+    playAudio(part.inlineData.data);
+  }
+}
 
         if (message.error) {
           alert("ZEYDAL AI: " + message.error.message);
