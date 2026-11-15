@@ -78,10 +78,8 @@
             }
           }
         }));
-    
 
-  microphoneDebugLogged = true;
-}
+        
       };
 
       websocket.onmessage = async (event) => {
