@@ -615,7 +615,7 @@ footer a {
 <script>
 (() => {
   const API_URL = "https://zeydal-ai-api.zeydal-dev.workers.dev/";
-
+let zeydalAccessPassword = "";
   const button = document.getElementById("zeydal-chat-button");
   const panel = document.getElementById("zeydal-chat-panel");
   const close = document.getElementById("zeydal-chat-close");
@@ -695,7 +695,11 @@ history.forEach((entry) => {
 
     const message = input.value.trim();
     if (!message || send.disabled) return;
-
+if (!zeydalAccessPassword) {
+  const enteredPassword = window.prompt("ZEYDAL AI yönetici şifreni gir:");
+  if (!enteredPassword) return;
+  zeydalAccessPassword = enteredPassword;
+}
     addMessage(message, "user");
     input.value = "";
     send.disabled = true;
@@ -705,9 +709,10 @@ history.forEach((entry) => {
     try {
       const response = await fetch(API_URL, {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
+      headers: {
+  "Content-Type": "application/json",
+  "Authorization": "Bearer " + zeydalAccessPassword
+},
         body: JSON.stringify({
   message,
   history,
@@ -738,13 +743,18 @@ history.push({ role: "model", parts: [{ text: reply }] });
 currentChat.history = history;
 localStorage.setItem("zeydalChats", JSON.stringify(chats));
 localStorage.setItem("zeydalCurrentChatId", currentChatId);
-    } catch (error) {
-      waiting.textContent = "Bağlantı hatası: " + error.message;
-    } finally {
-      send.disabled = false;
-      input.focus();
-      messages.scrollTop = messages.scrollHeight;
-    }
+   } catch (error) {
+  if (error.message.includes("Giriş gerekli")) {
+    zeydalAccessPassword = "";
+    waiting.textContent = "Şifre hatalı veya oturum süresi doldu. Yeniden mesaj göndererek giriş yapabilirsin.";
+  } else {
+    waiting.textContent = "Bağlantı hatası: " + error.message;
+  }
+} finally {
+  send.disabled = false;
+  input.focus();
+  messages.scrollTop = messages.scrollHeight;
+}
   });
 })();
 </script>
