@@ -910,64 +910,86 @@ footer a { color: #66baff; }
     renderHistory();
   }
 
-  // Giriş veya kayıt işlemi.
-  async function authenticate(action, email, password) {
-    authMessage.textContent = "İşlem yapılıyor...";
+  /
+async function authenticate(action, email, password) {
+  authMessage.textContent = "İşlem yapılıyor...";
 
-    const loginButton = loginForm.querySelector("button");
-    const registerButton = registerForm.querySelector("button");
+  const loginButton = loginForm.querySelector("button");
+  const registerButton = registerForm.querySelector("button");
 
-    loginButton.disabled = true;
-    registerButton.disabled = true;
+  loginButton.disabled = true;
+  registerButton.disabled = true;
 
-    try {
-      const response = await fetch(API_URL, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-          action,
-          email,
-          password
-        })
-      });
+  try {
+    const response = await fetch(API_URL, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        action: action,
+        email: email.trim().toLowerCase(),
+        password: password
+      })
+    });
 
-      const data = await response.json();
+    const data = await response.json();
 
-      if (!response.ok) {
-        throw new Error(data.error || "İşlem başarısız.");
-      }
-
-      if (!data.token || !data.userId) {
-        throw new Error("Sunucudan oturum bilgisi alınamadı.");
-      }
-
-      zeydalSessionToken = data.token;
-
-      localStorage.setItem("zeydalSessionToken", data.token);
-      localStorage.setItem("zeydalUserId", data.userId);
-      localStorage.setItem("zeydalUserEmail", data.email || email);
-      localStorage.setItem("zeydalUserRole", data.role || "user");
-
-      // Kullanıcı değiştiği için kendi sohbet alanını yükle.
-      loadChats();
-      renderHistory();
-
-      authMessage.textContent = "Giriş başarılı. Hoş geldin!";
-      authPanel.style.display = "none";
-      button.style.display = "block";
-
-      loginForm.reset();
-      registerForm.reset();
-
-    } catch (error) {
-      authMessage.textContent = error.message;
-    } finally {
-      loginButton.disabled = false;
-      registerButton.disabled = false;
+    if (!response.ok || data.success === false) {
+      throw new Error(
+        data.message || data.error || "İşlem başarısız."
+      );
     }
+
+    const token =
+      data.token ||
+      data.sessionToken ||
+      data.session?.token;
+
+    if (!token) {
+      throw new Error(
+        "Sunucudan oturum token'ı alınamadı. Worker yanıtını kontrol etmeliyiz."
+      );
+    }
+
+    const userId =
+      data.userId ||
+      data.user?.id ||
+      email.trim().toLowerCase();
+
+    zeydalSessionToken = token;
+
+    localStorage.setItem("zeydalSessionToken", token);
+    localStorage.setItem("zeydalUserId", userId);
+    localStorage.setItem(
+      "zeydalUserEmail",
+      data.email || data.user?.email || email
+    );
+    localStorage.setItem(
+      "zeydalUserRole",
+      data.role || data.user?.role || "user"
+    );
+
+    loadChats();
+    renderHistory();
+
+    authMessage.textContent =
+      data.message || "İşlem başarılı. ZEYDAL AI'a hoş geldin!";
+
+    authPanel.style.display = "none";
+    button.style.display = "block";
+
+    loginForm.reset();
+    registerForm.reset();
+
+  } catch (error) {
+    authMessage.textContent = error.message;
+  } finally {
+    loginButton.disabled = false;
+    registerButton.disabled = false;
   }
+}
+
 
   loginForm.addEventListener("submit", async event => {
     event.preventDefault();
