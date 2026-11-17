@@ -14,9 +14,7 @@
   box-sizing: border-box;
 }
 
-html {
-  scroll-behavior: smooth;
-}
+html { scroll-behavior: smooth; }
 
 body {
   font-family: Inter, Arial, sans-serif;
@@ -25,10 +23,7 @@ body {
   line-height: 1.6;
 }
 
-a {
-  text-decoration: none;
-  color: inherit;
-}
+a { text-decoration: none; color: inherit; }
 
 header {
   width: 100%;
@@ -47,14 +42,9 @@ header {
   color: #65baff;
 }
 
-.logo span {
-  color: #fff;
-}
+.logo span { color: #fff; }
 
-nav {
-  display: flex;
-  gap: 30px;
-}
+nav { display: flex; gap: 30px; }
 
 nav a {
   color: #aebdd0;
@@ -62,9 +52,7 @@ nav a {
   transition: .3s;
 }
 
-nav a:hover {
-  color: #65baff;
-}
+nav a:hover { color: #65baff; }
 
 .header-button {
   padding: 10px 19px;
@@ -95,8 +83,7 @@ nav a:hover {
   height: 500px;
   border: 1px solid rgba(77,170,255,.13);
   border-radius: 50%;
-  box-shadow:
-    0 0 100px rgba(28,135,220,.12),
+  box-shadow: 0 0 100px rgba(28,135,220,.12),
     inset 0 0 100px rgba(28,135,220,.08);
 }
 
@@ -117,7 +104,7 @@ nav a:hover {
   letter-spacing: 2px;
   margin-bottom: 30px;
 }
- 
+
 .hero h1 {
   font-size: clamp(45px,7vw,82px);
   line-height: 1.08;
@@ -178,9 +165,7 @@ nav a:hover {
   color: #55baff;
 }
 
-.section {
-  padding: 90px 8%;
-}
+.section { padding: 90px 8%; }
 
 .section-heading {
   text-align: center;
@@ -198,9 +183,7 @@ nav a:hover {
   margin: 12px 0;
 }
 
-.section-heading p {
-  color: #9eafc3;
-}
+.section-heading p { color: #9eafc3; }
 
 .cards {
   display: grid;
@@ -259,9 +242,7 @@ nav a:hover {
   margin: 15px 0;
 }
 
-.about-content strong {
-  color: #70c5ff;
-}
+.about-content strong { color: #70c5ff; }
 
 .cta {
   text-align: center;
@@ -287,8 +268,207 @@ footer {
   font-size: 13px;
 }
 
-footer a {
-  color: #66baff;
+footer a { color: #66baff; }
+
+/* Giriş ve kayıt ekranı */
+#zeydal-auth-panel {
+  display: none;
+  position: fixed;
+  z-index: 10001;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 390px;
+  max-width: calc(100vw - 30px);
+  max-height: 90vh;
+  overflow-y: auto;
+  padding: 28px;
+  background: linear-gradient(145deg,#101f33,#071426);
+  border: 1px solid #2878ff;
+  border-radius: 16px;
+  color: white;
+  box-shadow: 0 0 40px #1769ff55;
+}
+
+#zeydal-auth-panel h2 {
+  text-align: center;
+  color: #70baff;
+  margin-bottom: 22px;
+}
+
+#zeydal-auth-panel h3 {
+  margin-bottom: 12px;
+  color: #dcecff;
+  font-size: 16px;
+}
+
+#zeydal-auth-panel form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+#zeydal-auth-panel input {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #405575;
+  border-radius: 8px;
+  background: #0b1423;
+  color: white;
+  outline: none;
+}
+
+#zeydal-auth-panel input:focus {
+  border-color: #55baff;
+}
+
+#zeydal-auth-panel button {
+  padding: 12px;
+  border: 0;
+  border-radius: 8px;
+  background: linear-gradient(100deg,#168bd4,#42b7ff);
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+#zeydal-auth-panel hr {
+  border: 0;
+  border-top: 1px solid #293b57;
+  margin: 22px 0;
+}
+
+#zeydal-auth-message {
+  margin-top: 15px;
+  color: #70baff;
+  font-size: 13px;
+}
+
+/* Sohbet penceresi */
+#zeydal-chat-button {
+  display: none;
+  position: fixed;
+  right: 24px;
+  bottom: 24px;
+  z-index: 9999;
+  border: 0;
+  border-radius: 50px;
+  padding: 15px 22px;
+  background: #1769ff;
+  color: white;
+  font-size: 15px;
+  font-weight: bold;
+  cursor: pointer;
+  box-shadow: 0 0 25px #1769ff66;
+}
+
+#zeydal-chat-panel {
+  display: none;
+  position: fixed;
+  right: 24px;
+  bottom: 85px;
+  z-index: 9999;
+  width: 350px;
+  max-width: calc(100vw - 32px);
+  height: 480px;
+  max-height: calc(100vh - 120px);
+  background: #101a2d;
+  border: 1px solid #2878ff;
+  border-radius: 18px;
+  overflow: hidden;
+  color: white;
+  box-shadow: 0 0 35px #1769ff44;
+  font-family: Arial, sans-serif;
+}
+
+#zeydal-chat-header {
+  padding: 17px;
+  background: #172b4c;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+}
+
+#zeydal-chat-header strong {
+  color: #70aaff;
+  font-size: 17px;
+}
+
+#zeydal-chat-close {
+  border: 0;
+  background: transparent;
+  color: white;
+  font-size: 23px;
+  cursor: pointer;
+}
+
+#zeydal-new-chat {
+  border: 0;
+  border-radius: 6px;
+  padding: 6px 9px;
+  background: #1769ff;
+  color: white;
+  cursor: pointer;
+}
+
+#zeydal-chat-messages {
+  height: calc(100% - 140px);
+  padding: 14px;
+  overflow-y: auto;
+}
+
+.zeydal-message {
+  padding: 11px 13px;
+  margin-bottom: 12px;
+  border-radius: 12px;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  line-height: 1.5;
+  font-size: 14px;
+}
+
+.zeydal-user {
+  background: #1769ff;
+  margin-left: 35px;
+}
+
+.zeydal-assistant {
+  background: #1d2b42;
+  margin-right: 25px;
+}
+
+#zeydal-chat-form {
+  display: flex;
+  gap: 8px;
+  padding: 12px;
+  border-top: 1px solid #293b57;
+}
+
+#zeydal-chat-input {
+  flex: 1;
+  min-width: 0;
+  padding: 11px;
+  border: 1px solid #405575;
+  border-radius: 10px;
+  background: #0b1423;
+  color: white;
+  outline: none;
+}
+
+#zeydal-chat-send,
+#zeydal-voice-toggle {
+  border: 0;
+  border-radius: 10px;
+  padding: 0 12px;
+  background: #1769ff;
+  color: white;
+  cursor: pointer;
+}
+
+#zeydal-chat-send:disabled {
+  opacity: 0.5;
+  cursor: wait;
 }
 
 @media(max-width:850px) {
@@ -303,20 +483,28 @@ footer a {
     gap: 17px;
   }
 
-  .cards {
-    grid-template-columns: 1fr;
+  .cards { grid-template-columns: 1fr; }
+  .hero { min-height: 570px; }
+  .hero h1 { letter-spacing: -1px; }
+  .section-heading h2 { font-size: 30px; }
+}
+
+@media(max-width:480px) {
+  #zeydal-chat-panel {
+    right: 16px;
+    bottom: 82px;
+    width: calc(100vw - 32px);
   }
 
-  .hero {
-    min-height: 570px;
+  #zeydal-chat-form {
+    gap: 5px;
+    padding: 8px;
   }
 
-  .hero h1 {
-    letter-spacing: -1px;
-  }
-
-  .section-heading h2 {
-    font-size: 30px;
+  #zeydal-chat-send,
+  #zeydal-voice-toggle {
+    padding: 0 8px;
+    font-size: 12px;
   }
 }
 </style>
@@ -342,7 +530,6 @@ footer a {
 
 <section class="hero" id="home">
   <div class="hero-content">
-
     <div class="tag">✦ NEXT GENERATION ARTIFICIAL INTELLIGENCE</div>
 
     <h1>
@@ -360,7 +547,6 @@ footer a {
       <a href="#assistant" class="primary-button">ZEYDAL AI'ı Keşfet →</a>
       <a href="#about" class="secondary-button">Daha Fazla Bilgi</a>
     </div>
-
   </div>
 </section>
 
@@ -468,121 +654,54 @@ footer a {
   <p><a href="https://zeydaldev-arch.github.io/zeydrion-forge-entertainment/">ZEYDRION FORGE</a></p>
 </footer>
 
-<style>
-  #zeydal-chat-button {
-    position: fixed;
-    right: 24px;
-    bottom: 24px;
-    z-index: 9999;
-    border: 0;
-    border-radius: 50px;
-    padding: 15px 22px;
-    background: #1769ff;
-    color: white;
-    font-size: 15px;
-    font-weight: bold;
-    cursor: pointer;
-    box-shadow: 0 0 25px #1769ff66;
-  }
+<!-- ZEYDAL AI GİRİŞ VE KAYIT EKRANI -->
+<div id="zeydal-auth-panel">
+  <h2>ZEYDAL AI Hesabı</h2>
 
-  #zeydal-chat-panel {
-    display: none;
-    position: fixed;
-    right: 24px;
-    bottom: 85px;
-    z-index: 9999;
-    width: 350px;
-    max-width: calc(100vw - 32px);
-    height: 480px;
-    max-height: calc(100vh - 120px);
-    background: #101a2d;
-    border: 1px solid #2878ff;
-    border-radius: 18px;
-    overflow: hidden;
-    color: white;
-    box-shadow: 0 0 35px #1769ff44;
-    font-family: Arial, sans-serif;
-  }
+  <form id="zeydal-login-form">
+    <h3>Giriş Yap</h3>
+    <input
+      id="zeydal-login-email"
+      type="email"
+      placeholder="E-posta adresin"
+      autocomplete="email"
+      required
+    >
+    <input
+      id="zeydal-login-password"
+      type="password"
+      placeholder="Şifren"
+      autocomplete="current-password"
+      required
+    >
+    <button type="submit">Giriş Yap</button>
+  </form>
 
-  #zeydal-chat-header {
-    padding: 17px;
-    background: #172b4c;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
+  <hr>
 
-  #zeydal-chat-header strong {
-    color: #70aaff;
-    font-size: 17px;
-  }
+  <form id="zeydal-register-form">
+    <h3>Yeni Hesap Oluştur</h3>
+    <input
+      id="zeydal-register-email"
+      type="email"
+      placeholder="E-posta adresin"
+      autocomplete="email"
+      required
+    >
+    <input
+      id="zeydal-register-password"
+      type="password"
+      placeholder="En az 12 karakterli şifre"
+      minlength="12"
+      maxlength="128"
+      autocomplete="new-password"
+      required
+    >
+    <button type="submit">Kayıt Ol</button>
+  </form>
 
-  #zeydal-chat-close {
-    border: 0;
-    background: transparent;
-    color: white;
-    font-size: 23px;
-    cursor: pointer;
-  }
-
-  #zeydal-chat-messages {
-    height: calc(100% - 140px);
-    padding: 14px;
-    overflow-y: auto;
-  }
-
-  .zeydal-message {
-    padding: 11px 13px;
-    margin-bottom: 12px;
-    border-radius: 12px;
-    white-space: pre-wrap;
-    overflow-wrap: anywhere;
-    line-height: 1.5;
-    font-size: 14px;
-  }
-
-  .zeydal-user {
-    background: #1769ff;
-    margin-left: 35px;
-  }
-
-  .zeydal-assistant {
-    background: #1d2b42;
-    margin-right: 25px;
-  }
-
-  #zeydal-chat-form {
-    display: flex;
-    gap: 8px;
-    padding: 12px;
-    border-top: 1px solid #293b57;
-  }
-
-  #zeydal-chat-input {
-    flex: 1;
-    min-width: 0;
-    padding: 11px;
-    border: 1px solid #405575;
-    border-radius: 10px;
-    background: #0b1423;
-    color: white;
-    outline: none;
-  }
-
-  #zeydal-chat-send {
-    border: 0;
-    border-radius: 10px;
-    padding: 0 15px;
-    background: #1769ff;
-    color: white;
-    cursor: pointer;
-  }
-
-  #zeydal-chat-send:disabled {
-    opacity: 0.5;
-    cursor: wait;
-  }
-</style>
+  <p id="zeydal-auth-message" role="status" aria-live="polite"></p>
+</div>
 
 <button id="zeydal-chat-button" type="button">
   ✦ ZEYDAL AI
@@ -590,10 +709,11 @@ footer a {
 
 <div id="zeydal-chat-panel">
   <div id="zeydal-chat-header">
-  <strong>✦ ZEYDAL AI Assistant</strong>
-  <button id="zeydal-new-chat" type="button">+ Yeni Sohbet</button>
-  <button id="zeydal-chat-close" type="button">×</button>
-</div>   
+    <strong>✦ ZEYDAL AI Assistant</strong>
+    <button id="zeydal-new-chat" type="button">+ Yeni Sohbet</button>
+    <button id="zeydal-chat-close" type="button" aria-label="Sohbeti kapat">×</button>
+  </div>
+
   <div id="zeydal-chat-messages" aria-live="polite">
     <div class="zeydal-message zeydal-assistant">
       Merhaba! Ben ZEYDAL AI. Sana nasıl yardımcı olabilirim?
@@ -615,33 +735,15 @@ footer a {
 
 <script>
 (() => {
+  "use strict";
+
   const API_URL = "https://zeydal-ai-api.zeydal-dev.workers.dev/";
-let zeydalAccessPassword = "";
-  window.zeydalRequestVoiceToken = async () => {
-  if (!zeydalAccessPassword) {
-    const enteredPassword = window.prompt("ZEYDAL AI yönetici şifreni gir:");
-    if (!enteredPassword) throw new Error("Giriş iptal edildi.");
-    zeydalAccessPassword = enteredPassword;
-  }
 
-  const response = await fetch(API_URL, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      "Authorization": "Bearer " + zeydalAccessPassword
-    },
-    body: JSON.stringify({ action: "voice-token" })
-  });
+  // Oturum bilgisi
+  let zeydalSessionToken =
+    localStorage.getItem("zeydalSessionToken") || "";
 
-  const data = await response.json();
-
-  if (!response.ok) {
-    if (response.status === 401) zeydalAccessPassword = "";
-    throw new Error(data.error || "Ses bağlantısı kurulamadı.");
-  }
-
-  return data.token;
-};
+  // Sayfa elemanları
   const button = document.getElementById("zeydal-chat-button");
   const panel = document.getElementById("zeydal-chat-panel");
   const close = document.getElementById("zeydal-chat-close");
@@ -650,83 +752,355 @@ let zeydalAccessPassword = "";
   const input = document.getElementById("zeydal-chat-input");
   const messages = document.getElementById("zeydal-chat-messages");
   const send = document.getElementById("zeydal-chat-send");
-  let chats = JSON.parse(localStorage.getItem("zeydalChats") || "[]");
-let currentChatId = localStorage.getItem("zeydalCurrentChatId");
-let history = []; 
- const oldHistory = JSON.parse(localStorage.getItem("zeydalChatHistory") || "[]");
 
-if (chats.length === 0) {
-  const firstChat = {
-    id: Date.now().toString(),
-    title: "Eski sohbet",
-    history: oldHistory
+  const authPanel = document.getElementById("zeydal-auth-panel");
+  const loginForm = document.getElementById("zeydal-login-form");
+  const registerForm = document.getElementById("zeydal-register-form");
+  const authMessage = document.getElementById("zeydal-auth-message");
+
+  // Sohbet verileri
+  let chats = [];
+  let currentChatId = null;
+  let currentChat = null;
+  let history = [];
+
+  // Her kullanıcının sohbetlerini ayrı sakla.
+  function getChatStorageKeys() {
+    const userId = localStorage.getItem("zeydalUserId") || "guest";
+
+    return {
+      chats: "zeydalChats_" + userId,
+      current: "zeydalCurrentChatId_" + userId
+    };
+  }
+
+  function saveChats() {
+    const keys = getChatStorageKeys();
+
+    localStorage.setItem(keys.chats, JSON.stringify(chats));
+    localStorage.setItem(keys.current, currentChatId || "");
+  }
+
+  function loadChats() {
+    const keys = getChatStorageKeys();
+
+    try {
+      chats = JSON.parse(localStorage.getItem(keys.chats) || "[]");
+    } catch {
+      chats = [];
+    }
+
+    currentChatId = localStorage.getItem(keys.current);
+
+    // Eski, hesapsız sohbetleri yalnızca misafir alanına kopyala.
+    // Eski kayıtlar silinmez veya üzerine yazılmaz.
+    const isGuest = !localStorage.getItem("zeydalUserId");
+
+    if (isGuest && chats.length === 0) {
+      try {
+        const oldChats = JSON.parse(
+          localStorage.getItem("zeydalChats") || "[]"
+        );
+
+        if (oldChats.length > 0) {
+          chats = oldChats;
+          currentChatId = localStorage.getItem("zeydalCurrentChatId");
+        } else {
+          const oldHistory = JSON.parse(
+            localStorage.getItem("zeydalChatHistory") || "[]"
+          );
+
+          if (oldHistory.length > 0) {
+            chats = [{
+              id: Date.now().toString(),
+              title: "Eski sohbet",
+              history: oldHistory
+            }];
+
+            currentChatId = chats[0].id;
+          }
+        }
+      } catch {
+        chats = [];
+      }
+    }
+
+    if (!Array.isArray(chats)) {
+      chats = [];
+    }
+
+    if (chats.length === 0) {
+      const firstChat = {
+        id: Date.now().toString(),
+        title: "Yeni sohbet",
+        history: []
+      };
+
+      chats.push(firstChat);
+      currentChatId = firstChat.id;
+    }
+
+    currentChat =
+      chats.find(chat => chat.id === currentChatId) || chats[0];
+
+    currentChatId = currentChat.id;
+    history = currentChat.history || [];
+
+    saveChats();
+  }
+
+  // Sohbet mesajını ekrana ekle.
+  function addMessage(text, type) {
+    const item = document.createElement("div");
+
+    item.className =
+      "zeydal-message " +
+      (type === "user" ? "zeydal-user" : "zeydal-assistant");
+
+    item.textContent = text;
+    messages.appendChild(item);
+    messages.scrollTop = messages.scrollHeight;
+
+    return item;
+  }
+
+  // Seçili sohbetin mesajlarını göster.
+  function renderHistory() {
+    messages.innerHTML = "";
+
+    if (!history.length) {
+      addMessage(
+        "Merhaba! Ben ZEYDAL AI. Sana nasıl yardımcı olabilirim?",
+        "assistant"
+      );
+      return;
+    }
+
+    history.forEach(entry => {
+      const text =
+        entry.parts?.map(part => part.text || "").join("") || "";
+
+      if (text) {
+        addMessage(
+          text,
+          entry.role === "user" ? "user" : "assistant"
+        );
+      }
+    });
+  }
+
+  // Kullanıcı giriş yapmadıysa giriş ekranını göster.
+  function showLoginScreen(message) {
+    zeydalSessionToken = "";
+
+    localStorage.removeItem("zeydalSessionToken");
+    localStorage.removeItem("zeydalUserId");
+    localStorage.removeItem("zeydalUserEmail");
+    localStorage.removeItem("zeydalUserRole");
+
+    panel.style.display = "none";
+    button.style.display = "none";
+    authPanel.style.display = "block";
+
+    if (message) {
+      authMessage.textContent = message;
+    }
+
+    loadChats();
+    renderHistory();
+  }
+
+  // Giriş veya kayıt işlemi.
+  async function authenticate(action, email, password) {
+    authMessage.textContent = "İşlem yapılıyor...";
+
+    const loginButton = loginForm.querySelector("button");
+    const registerButton = registerForm.querySelector("button");
+
+    loginButton.disabled = true;
+    registerButton.disabled = true;
+
+    try {
+      const response = await fetch(API_URL, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          action,
+          email,
+          password
+        })
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.error || "İşlem başarısız.");
+      }
+
+      if (!data.token || !data.userId) {
+        throw new Error("Sunucudan oturum bilgisi alınamadı.");
+      }
+
+      zeydalSessionToken = data.token;
+
+      localStorage.setItem("zeydalSessionToken", data.token);
+      localStorage.setItem("zeydalUserId", data.userId);
+      localStorage.setItem("zeydalUserEmail", data.email || email);
+      localStorage.setItem("zeydalUserRole", data.role || "user");
+
+      // Kullanıcı değiştiği için kendi sohbet alanını yükle.
+      loadChats();
+      renderHistory();
+
+      authMessage.textContent = "Giriş başarılı. Hoş geldin!";
+      authPanel.style.display = "none";
+      button.style.display = "block";
+
+      loginForm.reset();
+      registerForm.reset();
+
+    } catch (error) {
+      authMessage.textContent = error.message;
+    } finally {
+      loginButton.disabled = false;
+      registerButton.disabled = false;
+    }
+  }
+
+  loginForm.addEventListener("submit", async event => {
+    event.preventDefault();
+
+    const email =
+      document.getElementById("zeydal-login-email").value.trim();
+
+    const password =
+      document.getElementById("zeydal-login-password").value;
+
+    await authenticate("login", email, password);
+  });
+
+  registerForm.addEventListener("submit", async event => {
+    event.preventDefault();
+
+    const email =
+      document.getElementById("zeydal-register-email").value.trim();
+
+    const password =
+      document.getElementById("zeydal-register-password").value;
+
+    await authenticate("register", email, password);
+  });
+
+  // Sayfa açıldığında oturum görünümünü ayarla.
+  if (zeydalSessionToken) {
+    authPanel.style.display = "none";
+    button.style.display = "block";
+  } else {
+    authPanel.style.display = "block";
+    button.style.display = "none";
+  }
+
+  loadChats();
+  renderHistory();
+
+  // Sesli görüşme için sunucudan geçici token al.
+  window.zeydalRequestVoiceToken = async () => {
+    if (!zeydalSessionToken) {
+      showLoginScreen("Sesli görüşme için önce hesabına giriş yapmalısın.");
+      throw new Error("Önce ZEYDAL AI hesabına giriş yapmalısın.");
+    }
+
+    const response = await fetch(API_URL, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": "Bearer " + zeydalSessionToken
+      },
+      body: JSON.stringify({
+        action: "voice-token"
+      })
+    });
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      if (response.status === 401) {
+        showLoginScreen("Oturumun sona ermiş. Lütfen tekrar giriş yap.");
+      }
+
+      throw new Error(data.error || "Ses bağlantısı kurulamadı.");
+    }
+
+    if (!data.token) {
+      throw new Error("Ses bağlantısı için token alınamadı.");
+    }
+
+    return data.token;
   };
 
-  chats.push(firstChat);
-  currentChatId = firstChat.id;
-
-  localStorage.setItem("zeydalChats", JSON.stringify(chats));
-  localStorage.setItem("zeydalCurrentChatId", currentChatId);
-}
-
-let currentChat = chats.find(chat => chat.id === currentChatId) || chats[0];
-currentChatId = currentChat.id;
-history = currentChat.history || [];
+  // Sohbet penceresini aç.
   button.addEventListener("click", () => {
+    if (!zeydalSessionToken) {
+      showLoginScreen("Sohbet için önce hesabına giriş yapmalısın.");
+      return;
+    }
+
     panel.style.display = "block";
     button.style.display = "none";
     input.focus();
   });
 
+  // Sohbet penceresini kapat.
   close.addEventListener("click", () => {
     panel.style.display = "none";
-    button.style.display = "block";
+
+    if (zeydalSessionToken) {
+      button.style.display = "block";
+    }
   });
-newChatButton.addEventListener("click", () => {
-  history = [];
 
-  currentChat = {
-    id: Date.now().toString(),
-    title: "Yeni sohbet",
-    history: history
-  };
+  // Yeni sohbet oluştur.
+  newChatButton.addEventListener("click", () => {
+    if (!zeydalSessionToken) {
+      showLoginScreen("Yeni sohbet açmak için giriş yapmalısın.");
+      return;
+    }
 
-  currentChatId = currentChat.id;
-  chats.push(currentChat);
+    history = [];
 
-  localStorage.setItem("zeydalChats", JSON.stringify(chats));
-  localStorage.setItem("zeydalCurrentChatId", currentChatId);
+    currentChat = {
+      id: Date.now().toString(),
+      title: "Yeni sohbet",
+      history: []
+    };
 
-  messages.innerHTML = "";
+    currentChatId = currentChat.id;
+    chats.push(currentChat);
 
-  addMessage("Merhaba! Ben ZEYDAL AI. Sana nasıl yardımcı olabilirim?", "assistant");
-});
-  function addMessage(text, type) {
-    const item = document.createElement("div");
-    item.className = "zeydal-message " +
-      (type === "user" ? "zeydal-user" : "zeydal-assistant");
-    item.textContent = text;
-    messages.appendChild(item);
-    messages.scrollTop = messages.scrollHeight;
-    return item;
-  }
-history.forEach((entry) => {
-  const text = entry.parts?.map(part => part.text || "").join("") || "";
-  if (text) {
-    addMessage(text, entry.role === "user" ? "user" : "assistant");
-  }
-});
-  form.addEventListener("submit", async (event) => {
+    saveChats();
+    renderHistory();
+    input.focus();
+  });
+
+  // Mesaj gönderme.
+  form.addEventListener("submit", async event => {
     event.preventDefault();
 
     const message = input.value.trim();
-    if (!message || send.disabled) return;
-if (!zeydalAccessPassword) {
-  const enteredPassword = window.prompt("ZEYDAL AI yönetici şifreni gir:");
-  if (!enteredPassword) return;
-  zeydalAccessPassword = enteredPassword;
-}
+
+    if (!message || send.disabled) {
+      return;
+    }
+
+    if (!zeydalSessionToken) {
+      showLoginScreen("Önce ZEYDAL AI hesabına giriş yapmalısın.");
+      return;
+    }
+
     addMessage(message, "user");
+
     input.value = "";
     send.disabled = true;
 
@@ -735,56 +1109,81 @@ if (!zeydalAccessPassword) {
     try {
       const response = await fetch(API_URL, {
         method: "POST",
-      headers: {
-  "Content-Type": "application/json",
-  "Authorization": "Bearer " + zeydalAccessPassword
-},
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": "Bearer " + zeydalSessionToken
+        },
         body: JSON.stringify({
-  message,
-  history,
-  memory: chats
-    .filter(chat => chat.id !== currentChatId)
-    .flatMap(chat => chat.history || [])
-    .slice(-20)
-    .map(entry => {
-      const speaker = entry.role === "user" ? "Kullanıcı" : "ZEYDAL AI";
-      const text = entry.parts?.map(part => part.text || "").join("") || "";
-      return `${speaker}: ${text}`;
-    })
-    .join("\n")
-})
+          message,
+          conversation_id: currentChatId,
+          history,
+          memory: chats
+            .filter(chat => chat.id !== currentChatId)
+            .flatMap(chat => chat.history || [])
+            .slice(-20)
+            .map(entry => {
+              const speaker =
+                entry.role === "user" ? "Kullanıcı" : "ZEYDAL AI";
+
+              const text =
+                entry.parts?.map(part => part.text || "").join("") || "";
+
+              return `${speaker}: ${text}`;
+            })
+            .join("\n")
+        })
       });
 
       const data = await response.json();
 
-      if (!response.ok) {
-        throw new Error(data.error || "Sunucu hatası: " + response.status);
-      }
- 
-      const reply = data.reply || "Yanıt alınamadı.";
-waiting.textContent = reply;
+      if (response.status === 401) {
+        waiting.textContent =
+          "Oturumun sona ermiş. Lütfen tekrar giriş yap.";
 
-history.push({ role: "user", parts: [{ text: message }] });
-history.push({ role: "model", parts: [{ text: reply }] });
-currentChat.history = history;
-localStorage.setItem("zeydalChats", JSON.stringify(chats));
-localStorage.setItem("zeydalCurrentChatId", currentChatId);
-   } catch (error) {
-  if (error.message.includes("Giriş gerekli")) {
-    zeydalAccessPassword = "";
-    waiting.textContent = "Şifre hatalı veya oturum süresi doldu. Yeniden mesaj göndererek giriş yapabilirsin.";
-  } else {
-    waiting.textContent = "Bağlantı hatası: " + error.message;
-  }
-} finally {
-  send.disabled = false;
-  input.focus();
-  messages.scrollTop = messages.scrollHeight;
-}
+        showLoginScreen(
+          "Oturumun sona ermiş. Lütfen tekrar giriş yap."
+        );
+
+        return;
+      }
+
+      if (!response.ok) {
+        throw new Error(
+          data.error || "Sunucu hatası: " + response.status
+        );
+      }
+
+      const reply = data.reply || "Yanıt alınamadı.";
+
+      waiting.textContent = reply;
+
+      history.push({
+        role: "user",
+        parts: [{ text: message }]
+      });
+
+      history.push({
+        role: "model",
+        parts: [{ text: reply }]
+      });
+
+      currentChat.history = history;
+      saveChats();
+
+    } catch (error) {
+      waiting.textContent =
+        "Bağlantı hatası: " + error.message;
+
+    } finally {
+      send.disabled = false;
+      input.focus();
+      messages.scrollTop = messages.scrollHeight;
+    }
   });
+
 })();
 </script>
+
 <script src="voice.js"></script>
 </body>
 </html>
-
