@@ -845,7 +845,12 @@
       panel.style.display = "none";
       button.style.display = "none";
       authPanel.style.display = "block";
-
+      
+authPanel.scrollIntoView({
+  behavior: "smooth",
+  block: "center"
+});
+      
       if (message) {
         authMessage.textContent = message;
       }
