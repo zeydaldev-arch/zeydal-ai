@@ -927,11 +927,10 @@ async function authenticate(action, email, password) {
         "Content-Type": "application/json"
       },
       body: JSON.stringify({
-        action: action,
-        email: email.trim().toLowerCase(),
-        password: password
-      })
-    });
+  action: action,
+  email: email.trim().toLowerCase(),
+  password: password
+})
 
     const data = await response.json();
 
