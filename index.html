@@ -708,11 +708,12 @@ footer a { color: #66baff; }
 </button>
 
 <div id="zeydal-chat-panel">
-  <div id="zeydal-chat-header">
-    <strong>✦ ZEYDAL AI Assistant</strong>
-    <button id="zeydal-new-chat" type="button">+ Yeni Sohbet</button>
-    <button id="zeydal-chat-close" type="button" aria-label="Sohbeti kapat">×</button>
-  </div>
+ <div id="zeydal-chat-header">
+  <strong>✦ ZEYDAL AI Assistant</strong>
+  <button id="zeydal-new-chat" type="button">+ Yeni Sohbet</button>
+  <button id="zeydal-logout" type="button">Çıkış</button>
+  <button id="zeydal-chat-close" type="button" aria-label="Sohbeti kapat">×</button>
+</div>
 
   <div id="zeydal-chat-messages" aria-live="polite">
     <div class="zeydal-message zeydal-assistant">
@@ -1205,7 +1206,7 @@ async function authenticate(action, email, password) {
 })();
 </script>
 
-<script src="auth.js"></script>
+
 <script src="voice.js"></script>
 </body>
 </html>
