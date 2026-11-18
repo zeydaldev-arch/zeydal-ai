@@ -1,20 +1,24 @@
 
-/* =================================
-   ZEYDAL AI - DESIGN SYSTEM
-   ================================= */
+/* ==========================================
+   ZEYDAL AI - OFFICIAL DESIGN SYSTEM
+   ZEYDRION FORGE ENTERTAINMENT
+   ========================================== */
 
 :root {
-  --navy: #071426;
-  --navy-light: #102541;
-  --blue: #1677ff;
-  --blue-light: #42a5ff;
-  --silver: #c0c9d6;
-  --white: #ffffff;
-  --text: #e7edf5;
-  --muted: #9eacc0;
+  --bg: #061222;
+  --panel: #0b1c32;
+  --panel-light: #102844;
+  --blue: #168bff;
+  --blue-light: #55b5ff;
+  --silver: #c6d4e5;
+  --text: #edf5ff;
+  --muted: #9db0c7;
+  --border: rgba(112, 174, 235, .2);
+  --danger: #ff7777;
+  --success: #64e0a1;
 }
 
-/* Genel ayarlar */
+/* GENEL */
 
 * {
   margin: 0;
@@ -27,73 +31,473 @@ html {
 }
 
 body {
-  font-family: Arial, sans-serif;
-  background: var(--navy);
+  font-family: Arial, Helvetica, sans-serif;
   color: var(--text);
+  background:
+    radial-gradient(circle at 80% 10%, rgba(16,112,204,.17), transparent 35%),
+    linear-gradient(135deg, #061222, #081a30 55%, #061222);
   line-height: 1.6;
-  overflow-x: hidden;
+  min-height: 100vh;
 }
-
-/* Bağlantılar */
 
 a {
   color: inherit;
   text-decoration: none;
 }
 
-/* Butonlar */
-
 button,
-.btn {
-  cursor: pointer;
-  transition: 0.3s ease;
-}
-
-.btn {
-  display: inline-block;
-  padding: 12px 26px;
-  border-radius: 8px;
-  background: var(--blue);
-  color: var(--white);
-  font-weight: bold;
-  border: 1px solid var(--blue);
-}
-
-.btn:hover {
-  background: var(--blue-light);
-  transform: translateY(-2px);
-}
-
-/* Başlıklar */
-
-h1, h2, h3 {
-  color: var(--white);
-  line-height: 1.2;
-}
-
-/* Form elemanları */
-
 input,
-textarea,
-select {
+textarea {
   font: inherit;
-  max-width: 100%;
 }
 
-/* Mobil uyumluluk */
+button {
+  cursor: pointer;
+}
 
 img {
   max-width: 100%;
-  height: auto;
 }
 
-@media (max-width: 768px) {
-  body {
-    font-size: 15px;
-  }
+/* CONTAINER */
 
-  .btn {
-    padding: 10px 20px;
-  }
+.container {
+  width: min(1150px, 92%);
+  margin: auto;
 }
 
+/* HEADER */
+
+header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: rgba(5,17,32,.94);
+  border-bottom: 1px solid var(--border);
+  backdrop-filter: blur(14px);
+}
+
+.navbar {
+  min-height: 76px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+}
+
+.logo {
+  font-size: 25px;
+  font-weight: 800;
+  letter-spacing: 2px;
+  color: white;
+}
+
+.logo span {
+  color: var(--blue-light);
+}
+
+nav {
+  display: flex;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+
+nav a {
+  color: var(--silver);
+  font-size: 14px;
+  transition: .2s;
+}
+
+nav a:hover {
+  color: var(--blue-light);
+}
+
+/* HERO */
+
+.hero {
+  min-height: 590px;
+  display: flex;
+  align-items: center;
+  text-align: center;
+  padding: 90px 0;
+  background:
+    radial-gradient(ellipse at center, rgba(16,115,210,.2), transparent 65%);
+}
+
+.hero-content {
+  max-width: 850px;
+  margin: auto;
+}
+
+.eyebrow {
+  color: var(--blue-light);
+  letter-spacing: 4px;
+  font-size: 13px;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.hero h1 {
+  font-size: clamp(38px, 7vw, 76px);
+  line-height: 1.08;
+  margin-bottom: 24px;
+  letter-spacing: 2px;
+}
+
+.hero h1 span {
+  color: var(--blue-light);
+}
+
+.hero p {
+  color: var(--muted);
+  max-width: 680px;
+  margin: 0 auto 32px;
+  font-size: 17px;
+}
+
+/* BUTTONS */
+
+.button {
+  display: inline-block;
+  padding: 13px 25px;
+  border-radius: 7px;
+  background: linear-gradient(100deg, #0877dc, #24a6ff);
+  color: white;
+  border: 1px solid rgba(255,255,255,.15);
+  font-weight: bold;
+  transition: .2s;
+}
+
+.button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(22,139,255,.25);
+}
+
+/* SECTIONS */
+
+.section {
+  padding: 85px 0;
+  border-top: 1px solid rgba(112,174,235,.09);
+}
+
+.section-title {
+  font-size: clamp(27px, 4vw, 38px);
+  text-align: center;
+  margin-bottom: 14px;
+}
+
+.section-description {
+  color: var(--muted);
+  text-align: center;
+  max-width: 750px;
+  margin: 0 auto 35px;
+}
+
+/* CARDS */
+
+.cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  gap: 20px;
+  margin-top: 35px;
+}
+
+.card {
+  background: linear-gradient(145deg, rgba(16,40,68,.9), rgba(8,25,45,.9));
+  border: 1px solid var(--border);
+  border-radius: 13px;
+  padding: 28px;
+  transition: .25s;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  border-color: rgba(65,164,255,.65);
+}
+
+.card h3 {
+  color: var(--blue-light);
+  margin-bottom: 12px;
+}
+
+.card p {
+  color: var(--muted);
+  font-size: 14px;
+}
+
+/* ABOUT */
+
+.about-box {
+  max-width: 850px;
+  margin: auto;
+  text-align: center;
+}
+
+.about-box p {
+  color: var(--muted);
+  margin: 14px 0;
+}
+
+/* CTA */
+
+.cta {
+  text-align: center;
+  background: linear-gradient(120deg, rgba(11,75,132,.25), rgba(8,25,45,.4));
+}
+
+/* FOOTER */
+
+footer {
+  border-top: 1px solid var(--border);
+  padding: 28px 0;
+  color: var(--muted);
+  text-align: center;
+  font-size: 13px;
+}
+
+/* AUTH PANEL */
+
+#zeydal-auth-panel {
+  display: none;
+  width: min(440px, 92%);
+  margin: 55px auto;
+  padding: 30px;
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  box-shadow: 0 15px 50px rgba(0,0,0,.3);
+}
+
+#zeydal-auth-panel h2 {
+  text-align: center;
+  margin-bottom: 8px;
+}
+
+.auth-description {
+  text-align: center;
+  color: var(--muted);
+  font-size: 13px;
+  margin-bottom: 24px;
+}
+
+.auth-form {
+  display: grid;
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.auth-form h3 {
+  color: var(--blue-light);
+  font-size: 16px;
+}
+
+.auth-form input,
+#zeydal-chat-input {
+  width: 100%;
+  padding: 13px;
+  border: 1px solid var(--border);
+  border-radius: 7px;
+  outline: none;
+  background: #061426;
+  color: white;
+}
+
+.auth-form input:focus,
+#zeydal-chat-input:focus {
+  border-color: var(--blue);
+}
+
+.auth-form button {
+  border: none;
+  padding: 12px;
+  border-radius: 7px;
+  color: white;
+  background: linear-gradient(100deg, #0877dc, #24a6ff);
+  font-weight: bold;
+}
+
+.auth-form button:disabled {
+  opacity: .5;
+  cursor: wait;
+}
+
+#zeydal-auth-message {
+  min-height: 24px;
+  text-align: center;
+  color: var(--blue-light);
+  font-size: 13px;
+  overflow-wrap: anywhere;
+}
+
+/* CHAT BUTTON */
+
+#zeydal-chat-button {
+  display: none;
+  position: fixed;
+  right: 25px;
+  bottom: 25px;
+  z-index: 500;
+  width: 62px;
+  height: 62px;
+  border: none;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #0877dc, #24a6ff);
+  color: white;
+  font-size: 24px;
+  box-shadow: 0 5px 25px rgba(0,130,255,.35);
+}
+
+/* CHAT PANEL */
+
+#zeydal-chat-panel {
+  display: none;
+  position: fixed;
+  right: 25px;
+  bottom: 25px;
+  z-index: 600;
+  width: min(390px, calc(100vw - 30px));
+  height: min(570px, calc(100vh - 50px));
+  background: #08192d;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow: 0 15px 55px rgba(0,0,0,.5);
+}
+
+.chat-header {
+  min-height: 60px;
+  padding: 12px;
+  background: #102b49;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  border-bottom: 1px solid var(--border);
+}
+
+.chat-header strong {
+  color: white;
+  font-size: 15px;
+}
+
+.chat-header-actions {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.chat-header button,
+#zeydal-voice-toggle {
+  border: 1px solid var(--border);
+  background: #0a1c31;
+  color: var(--silver);
+  border-radius: 5px;
+  padding: 6px 8px;
+  font-size: 12px;
+}
+
+.chat-header button:hover,
+#zeydal-voice-toggle:hover {
+  border-color: var(--blue);
+  color: white;
+}
+
+/* CHAT MESSAGES */
+
+#zeydal-chat-messages {
+  height: calc(100% - 125px);
+  padding: 15px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.zeydal-message {
+  max-width: 88%;
+  padding: 11px 13px;
+  border-radius: 10px;
+  font-size: 14px;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+.zeydal-user {
+  align-self: flex-end;
+  background: #075ca8;
+  color: white;
+}
+
+.zeydal-assistant {
+  align-self: flex-start;
+  background: #142d49;
+  color: var(--silver);
+}
+
+/* CHAT FORM */
+
+#zeydal-chat-form {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  min-height: 65px;
+  padding: 10px;
+  display: flex;
+  gap: 8px;
+  background: #10233b;
+  border-top: 1px solid var(--border);
+}
+
+#zeydal-chat-input {
+  flex: 1;
+  min-width: 0;
+  padding: 10px;
+}
+
+#zeydal-chat-send {
+  border: none;
+  border-radius: 7px;
+  padding: 0 15px;
+  color: white;
+  background: #087fe5;
+}
+
+#zeydal-chat-send:disabled {
+  opacity: .5;
+  cursor: wait;
+}
+
+/* MOBILE */
+
+@media (max-width: 700px) {
+  .navbar {
+    padding: 15px 0;
+    flex-direction: column;
+  }
+
+  nav {
+    justify-content: center;
+    gap: 13px;
+  }
+
+  .hero {
+    min-height: 480px;
+  }
+
+  .section {
+    padding: 60px 0;
+  }
+
+  #zeydal-chat-panel {
+    right: 10px;
+    bottom: 10px;
+    width: calc(100vw - 20px);
+    height: min(570px, calc(100vh - 20px));
+  }
+
+  #zeydal-chat-button {
+    right: 15px;
+    bottom: 15px;
+  }
+}
