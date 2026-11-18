@@ -32,41 +32,45 @@
   const conversationHistory = [];
 
   // ------------------------------------------
-  // SESLENDİRME METNİNİ TEMİZLE
+  // SESLENDİRME METNİNİ DÜZENLE
   // ------------------------------------------
 
   function prepareSpeechText(text) {
-    return String(text)
+    let speechText = String(text);
 
-      // Markdown kalın yazı işaretlerini kaldır
+    // HTML etiketlerini temizle
+    speechText = speechText.replace(/<[^>]*>/g, " ");
+
+    // Markdown biçimlendirmelerini temizle
+    speechText = speechText
       .replace(/\*\*(.*?)\*\*/gs, "$1")
-
-      // Markdown italik yazı işaretlerini kaldır
       .replace(/\*(.*?)\*/gs, "$1")
       .replace(/__(.*?)__/gs, "$1")
       .replace(/_(.*?)_/gs, "$1")
+      .replace(/`([^`]*)`/g, "$1");
 
-      // Kod işaretlerini kaldır
-      .replace(/`([^`]*)`/g, "$1")
+    // ZEYDAL harflerinin arasındaki boşluk ve
+    // noktalama işaretlerini kaldırarak tek hedefe dönüştür
+    speechText = speechText.replace(
+      /Z[\s.,;:_-]*E[\s.,;:_-]*Y[\s.,;:_-]*D[\s.,;:_-]*A[\s.,;:_-]*L/gi,
+      "zey-dal"
+    );
 
-      // HTML etiketlerini kaldır
-      .replace(/<[^>]*>/g, " ")
+    // Bitişik yazılmış marka adını da dönüştür
+    speechText = speechText.replace(
+      /\bZEYDAL\b/gi,
+      "zey-dal"
+    );
 
-      // ZEYDAL harf harf yazılmışsa tek kelimeye dönüştür
-      .replace(
-        /\bZ[\s.,;:_-]*E[\s.,;:_-]*Y[\s.,;:_-]*D[\s.,;:_-]*A[\s.,;:_-]*L\b/gi,
-        "Zeydal"
-      )
+    // Kalan Markdown işaretlerini temizle
+    speechText = speechText.replace(/[*_#~`]/g, " ");
 
-      // Büyük harfli marka adını normalleştir
-      .replace(/\bZEYDAL\b/gi, "Zeydal")
-
-      // Kalan Markdown işaretlerini temizle
-      .replace(/[*_#~`]/g, " ")
-
-      // Gereksiz boşlukları temizle
+    // Fazla boşlukları temizle
+    speechText = speechText
       .replace(/\s+/g, " ")
       .trim();
+
+    return speechText;
   }
 
   // ------------------------------------------
@@ -391,6 +395,11 @@
       window.speechSynthesis.cancel();
 
       const speechText = prepareSpeechText(text);
+
+      console.log(
+        SYSTEM_NAME + " seslendirme metni:",
+        speechText
+      );
 
       const utterance =
         new SpeechSynthesisUtterance(speechText);
