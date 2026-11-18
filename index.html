@@ -1,4 +1,4 @@
-```html
+
 <!DOCTYPE html>
 <html lang="tr">
 <head>
@@ -218,7 +218,8 @@
       $("zeydal-logout"),
       $("zeydal-chat-form"),
       $("zeydal-login-form"),
-      $("zeydal-register-form")
+      $("zeydal-register-form"),
+      $("zeydal-voice-toggle")
     ];
 
     if (requiredElements.some(element => !element)) {
@@ -329,6 +330,33 @@
       return result;
     }
 
+    // SESLİ GÖRÜŞME TOKEN BAĞLANTISI
+    // voice.js bu fonksiyonu kullanır.
+    window.zeydalRequestVoiceToken = async function () {
+      if (!sessionToken) {
+        throw new Error("Önce hesabına giriş yapmalısın.");
+      }
+
+      const result = await apiRequest(
+        "voice-token",
+        {},
+        true
+      );
+
+      const token =
+        result.token ||
+        result.data?.token ||
+        result.client_secret?.value ||
+        result.data?.client_secret?.value;
+
+      if (!token) {
+        console.error("ZEYDAL AI: Token yanıtı:", result);
+        throw new Error("Ses bağlantı anahtarı alınamadı.");
+      }
+
+      return token;
+    };
+
     // GEMINI API İSTEĞİ
     async function sendChatMessage() {
       const response = await fetch(CHAT_API_URL, {
@@ -407,9 +435,15 @@
         waiting.querySelector("p").textContent =
           "Bağlantı sorunu: " + error.message;
 
-        history.pop();
-        saveHistory();
+        const lastUserIndex = history.findLastIndex
+          ? history.findLastIndex(item => item.role === "user" && item.content === message)
+          : history.length - 1;
 
+        if (lastUserIndex >= 0 && history[lastUserIndex].role === "user") {
+          history.splice(lastUserIndex, 1);
+        }
+
+        saveHistory();
         console.error("ZEYDAL AI chat error:", error);
 
       } finally {
@@ -441,7 +475,7 @@
       input.focus();
     }
 
-    // İKİ SOHBET AÇMA DÜĞMESİ
+    // SOHBET AÇMA DÜĞMELERİ
     button.addEventListener("click", openChat);
     $("zeydal-open-assistant").addEventListener("click", openChat);
 
