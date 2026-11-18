@@ -120,6 +120,26 @@
 
       const pc = peerConnection;
 
+      pc.onconnectionstatechange = () => {
+        console.log(
+          SYSTEM_NAME + " bağlantı durumu:",
+          pc.connectionState
+        );
+
+        if (pc.connectionState === "failed") {
+          notify("error", {
+            message: "Ses bağlantısı başarısız oldu."
+          });
+        }
+
+        if (
+          pc.connectionState === "disconnected" &&
+          active
+        ) {
+          setStatus("disconnected");
+        }
+      };
+
       // 4. Uzak ses için oynatıcı
       remoteAudio = document.createElement("audio");
       remoteAudio.autoplay = true;
@@ -173,9 +193,7 @@
 
         try {
           const message = JSON.parse(event.data);
-
           handleRealtimeEvent(message);
-
         } catch (error) {
           console.error(
             "ZEYDAL olay işleme hatası:",
@@ -280,7 +298,9 @@
       const timeout = setTimeout(() => {
         cleanup();
         reject(
-          new Error("WebRTC bağlantı hazırlığı zaman aşımına uğradı.")
+          new Error(
+            "WebRTC bağlantı hazırlığı zaman aşımına uğradı."
+          )
         );
       }, 15000);
 
@@ -332,7 +352,6 @@
       case "input_audio_buffer.speech_started":
         setButton("🎙️ Seni dinliyorum...");
         setStatus("listening");
-
         notify("user-speaking");
         break;
 
@@ -381,12 +400,7 @@
       case "response.done":
         setButton("🎙️ Seni dinliyorum...");
         setStatus("listening");
-
         notify("response-complete");
-        break;
-
-      case "input_audio_buffer.speech_started":
-        notify("user-speaking");
         break;
 
       case "error":
