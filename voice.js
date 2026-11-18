@@ -14,6 +14,7 @@
   // ------------------------------------------
 
   const SYSTEM_NAME = "ZEYDAL AI";
+
   const CHAT_API_URL =
     "https://zeydal-api.zeydal-dev.workers.dev/api/chat";
 
@@ -22,12 +23,12 @@
     window.webkitSpeechRecognition;
 
   let recognition = null;
+
   let active = false;
   let listening = false;
   let speaking = false;
   let busy = false;
 
-  // Sesli görüşme geçmişi
   const conversationHistory = [];
 
   // ------------------------------------------
@@ -52,16 +53,6 @@
   }
 
   // ------------------------------------------
-  // TARAYICI DESTEĞİ
-  // ------------------------------------------
-
-  if (!SpeechRecognition) {
-    console.warn(
-      SYSTEM_NAME + ": Tarayıcı konuşma tanımayı desteklemiyor."
-    );
-  }
-
-  // ------------------------------------------
   // DÜĞME
   // ------------------------------------------
 
@@ -82,14 +73,16 @@
 
     if (!SpeechRecognition) {
       alert(
-        "Tarayıcınız ses tanıma özelliğini desteklemiyor. " +
+        "Tarayıcınız ses tanımayı desteklemiyor. " +
         "Lütfen Android telefonda Chrome kullanın."
       );
       return;
     }
 
     if (!window.speechSynthesis) {
-      alert("Tarayıcınız seslendirme özelliğini desteklemiyor.");
+      alert(
+        "Tarayıcınız seslendirme özelliğini desteklemiyor."
+      );
       return;
     }
 
@@ -156,7 +149,11 @@
         });
 
         stopVoice();
-        alert("Lütfen tarayıcı ayarlarından mikrofon izni verin.");
+
+        alert(
+          "Lütfen tarayıcı ayarlarından mikrofon izni verin."
+        );
+
         return;
       }
 
@@ -196,11 +193,13 @@
 
         setButton("🎙️ Seni dinliyorum...");
         setStatus("listening");
+
         notify("connected");
       }, 500);
 
     } catch (error) {
       console.error(error);
+
       stopVoice();
 
       alert(
@@ -248,13 +247,11 @@
     setStatus("thinking");
 
     try {
-      // Son kullanıcı mesajını geçmişe ekle
       conversationHistory.push({
         role: "user",
         content: message
       });
 
-      // Son 12 mesajı gönder
       const messages =
         conversationHistory.slice(-12);
 
@@ -279,7 +276,6 @@
         );
       }
 
-      // Farklı olası cevap biçimlerini kontrol et
       const reply =
         result.reply ||
         result.data?.reply ||
@@ -328,6 +324,7 @@
       if (active) {
         setButton("🎙️ Seni dinliyorum...");
         setStatus("listening");
+
         restartRecognition();
       }
     }
@@ -347,7 +344,6 @@
 
       speaking = true;
 
-      // Konuşma sırasında mikrofonu durdur
       if (recognition && listening) {
         try {
           recognition.stop();
@@ -364,7 +360,6 @@
       utterance.pitch = 1;
       utterance.volume = 1;
 
-      // Türkçe ses varsa tercih et
       const voices =
         window.speechSynthesis.getVoices();
 
