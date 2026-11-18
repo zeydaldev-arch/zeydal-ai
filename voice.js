@@ -32,14 +32,41 @@
   const conversationHistory = [];
 
   // ------------------------------------------
-  // SESLENDİRME METNİNİ DÜZENLE
+  // SESLENDİRME METNİNİ TEMİZLE
   // ------------------------------------------
 
   function prepareSpeechText(text) {
-    return text.replace(
-      /\bZ[\s.,-]*E[\s.,-]*Y[\s.,-]*D[\s.,-]*A[\s.,-]*L\b/gi,
-      "Zeydal"
-    );
+    return String(text)
+
+      // Markdown kalın yazı işaretlerini kaldır
+      .replace(/\*\*(.*?)\*\*/gs, "$1")
+
+      // Markdown italik yazı işaretlerini kaldır
+      .replace(/\*(.*?)\*/gs, "$1")
+      .replace(/__(.*?)__/gs, "$1")
+      .replace(/_(.*?)_/gs, "$1")
+
+      // Kod işaretlerini kaldır
+      .replace(/`([^`]*)`/g, "$1")
+
+      // HTML etiketlerini kaldır
+      .replace(/<[^>]*>/g, " ")
+
+      // ZEYDAL harf harf yazılmışsa tek kelimeye dönüştür
+      .replace(
+        /\bZ[\s.,;:_-]*E[\s.,;:_-]*Y[\s.,;:_-]*D[\s.,;:_-]*A[\s.,;:_-]*L\b/gi,
+        "Zeydal"
+      )
+
+      // Büyük harfli marka adını normalleştir
+      .replace(/\bZEYDAL\b/gi, "Zeydal")
+
+      // Kalan Markdown işaretlerini temizle
+      .replace(/[*_#~`]/g, " ")
+
+      // Gereksiz boşlukları temizle
+      .replace(/\s+/g, " ")
+      .trim();
   }
 
   // ------------------------------------------
