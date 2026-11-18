@@ -9,234 +9,248 @@
   <title>ZEYDAL AI | Artificial Intelligence</title>
   <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
 
-  <header>
-    <div class="container navbar">
-      <a href="#home" class="logo">ZEYDAL <span>AI</span></a>
-      <nav>
-        <a href="#home">Ana Sayfa</a>
-        <a href="#assistant">Asistan</a>
-        <a href="#tools">Teknolojiler</a>
-        <a href="#projects">Projeler</a>
-        <a href="#about">Hakkımızda</a>
-      </nav>
+<header>
+  <div class="container navbar">
+    <a href="#home" class="logo">ZEYDAL <span>AI</span></a>
+    <nav>
+      <a href="#home">Ana Sayfa</a>
+      <a href="#assistant">Asistan</a>
+      <a href="#tools">Teknolojiler</a>
+      <a href="#projects">Projeler</a>
+      <a href="#about">Hakkımızda</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section class="hero" id="home">
+    <div class="container hero-content">
+      <div class="eyebrow">ZEYDRION FORGE ENTERTAINMENT</div>
+      <h1>BUILDING THE <span>FUTURE</span></h1>
+      <p>
+        Yapay zekâ, akıllı yazılımlar ve yenilikçi dijital teknolojilerle
+        geleceği bugünden şekillendiriyoruz.
+      </p>
+      <a class="button" href="#assistant">ZEYDAL AI'ı Keşfet</a>
     </div>
-  </header>
+  </section>
 
-  <main>
-    <section class="hero" id="home">
-      <div class="container hero-content">
-        <div class="eyebrow">ZEYDRION FORGE ENTERTAINMENT</div>
-        <h1>BUILDING THE <span>FUTURE</span></h1>
-        <p>
-          Yapay zekâ, akıllı yazılımlar ve yenilikçi dijital teknolojilerle
-          geleceği bugünden şekillendiriyoruz.
-        </p>
-        <a class="button" href="#assistant">ZEYDAL AI'ı Keşfet</a>
-      </div>
-    </section>
-
-    <section class="section" id="assistant">
-      <div class="container">
-        <h2 class="section-title">ZEYDAL AI Assistant</h2>
-        <p class="section-description">
-          Sorularına yanıt veren, fikirlerini geliştirmene yardımcı olan
-          yapay zekâ asistanı.
-        </p>
-        <div style="text-align:center">
-          <button class="button" id="zeydal-open-assistant" type="button">
-            Asistanı Aç
-          </button>
-        </div>
-      </div>
-    </section>
-
-    <section class="section" id="tools">
-      <div class="container">
-        <h2 class="section-title">AI Technologies</h2>
-        <p class="section-description">
-          Akıllı yazılım çözümleri ve yeni nesil dijital teknolojiler.
-        </p>
-        <div class="cards">
-          <article class="card">
-            <h3>AI Assistant</h3>
-            <p>Yapay zekâ destekli dijital asistan teknolojileri.</p>
-          </article>
-          <article class="card">
-            <h3>Smart Software</h3>
-            <p>Günlük ihtiyaçlara yönelik akıllı yazılım çözümleri.</p>
-          </article>
-          <article class="card">
-            <h3>AI Development</h3>
-            <p>Makine öğrenmesi ve üretken yapay zekâ uygulamaları.</p>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <section class="section" id="projects">
-      <div class="container">
-        <h2 class="section-title">Our Projects</h2>
-        <p class="section-description">
-          ZEYDRION FORGE ENTERTAINMENT çatısı altında geliştirilen projeler.
-        </p>
-        <div class="cards">
-          <article class="card">
-            <h3>ZEYDAL AI</h3>
-            <p>Yapay zekâ ve akıllı yazılım geliştirme.</p>
-          </article>
-          <article class="card">
-            <h3>ZEYDAL DRONE AI</h3>
-            <p>Otonom drone ve uçuş teknolojileri.</p>
-          </article>
-          <article class="card">
-            <h3>ZEYDAL GAMING</h3>
-            <p>Bilgisayar oyunları ve interaktif eğlence deneyimleri.</p>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <section class="section" id="about">
-      <div class="container about-box">
-        <h2 class="section-title">About ZEYDAL AI</h2>
-        <p class="section-description">Build the Future. Forge the Impossible.</p>
-        <p>
-          ZEYDAL AI, ZEYDRION FORGE ENTERTAINMENT çatısı altında
-          geliştirilen yapay zekâ ve akıllı yazılım markasıdır.
-        </p>
-        <p>
-          Amacımız yenilikçi teknolojiler geliştirerek geleceğin
-          dijital dünyasına katkı sağlamaktır.
-        </p>
-      </div>
-    </section>
-
-    <section class="section cta">
-      <div class="container">
-        <h2 class="section-title">The Future Starts Here</h2>
-        <p class="section-description">Build the Future. Forge the Impossible.</p>
-        <a href="#assistant" class="button">ZEYDAL AI ile Tanış</a>
-      </div>
-    </section>
-  </main>
-
-  <footer>
+  <section class="section" id="assistant">
     <div class="container">
-      © 2026 ZEYDAL AI | ZEYDRION FORGE ENTERTAINMENT
-    </div>
-  </footer>
-
-  <!-- HESAP PANELİ -->
-  <section id="zeydal-auth-panel">
-    <h2>ZEYDAL AI</h2>
-    <p class="auth-description">
-      Devam etmek için hesabına giriş yap veya yeni hesap oluştur.
-    </p>
-
-    <form id="zeydal-login-form" class="auth-form">
-      <h3>Giriş Yap</h3>
-      <input id="zeydal-login-email" type="email"
-        placeholder="E-posta adresin" autocomplete="email" required>
-      <input id="zeydal-login-password" type="password"
-        placeholder="Şifren" autocomplete="current-password"
-        minlength="12" maxlength="128" required>
-      <button type="submit">Giriş Yap</button>
-    </form>
-
-    <form id="zeydal-register-form" class="auth-form">
-      <h3>Yeni Hesap Oluştur</h3>
-      <input id="zeydal-register-email" type="email"
-        placeholder="E-posta adresin" autocomplete="email" required>
-      <input id="zeydal-register-password" type="password"
-        placeholder="Şifre (12-128 karakter)" autocomplete="new-password"
-        minlength="12" maxlength="128" required>
-      <button type="submit">Kayıt Ol</button>
-    </form>
-
-    <p id="zeydal-auth-message" role="status" aria-live="polite"></p>
-  </section>
-
-  <!-- SOHBET DÜĞMESİ -->
-  <button id="zeydal-chat-button" type="button"
-    aria-label="ZEYDAL AI sohbetini aç">AI</button>
-
-  <!-- SOHBET PANELİ -->
-  <section id="zeydal-chat-panel" aria-label="ZEYDAL AI sohbet">
-    <div class="chat-header">
-      <strong>ZEYDAL AI</strong>
-      <div class="chat-header-actions">
-        <button id="zeydal-new-chat" type="button">Yeni</button>
-        <button id="zeydal-voice-toggle" type="button">🎙️ Sesli Görüşme</button>
-        <button id="zeydal-logout" type="button">Çıkış</button>
-        <button id="zeydal-chat-close" type="button"
-          aria-label="Sohbeti kapat">✕</button>
+      <h2 class="section-title">ZEYDAL AI Assistant</h2>
+      <p class="section-description">
+        Sorularına yanıt veren, fikirlerini geliştirmene yardımcı olan
+        yapay zekâ asistanı.
+      </p>
+      <div style="text-align:center">
+        <button class="button" id="zeydal-open-assistant" type="button">
+          Asistanı Aç
+        </button>
       </div>
     </div>
-
-    <div id="zeydal-chat-messages" aria-live="polite"></div>
-
-    <form id="zeydal-chat-form">
-      <input id="zeydal-chat-input" type="text"
-        placeholder="Mesajını yaz..." autocomplete="off" required>
-      <button id="zeydal-chat-send" type="submit">Gönder</button>
-    </form>
   </section>
 
-  <script>
-  (() => {
-    "use strict";
+  <section class="section" id="tools">
+    <div class="container">
+      <h2 class="section-title">AI Technologies</h2>
+      <p class="section-description">
+        Akıllı yazılım çözümleri ve yeni nesil dijital teknolojiler.
+      </p>
+      <div class="cards">
+        <article class="card">
+          <h3>AI Assistant</h3>
+          <p>Yapay zekâ destekli dijital asistan teknolojileri.</p>
+        </article>
+        <article class="card">
+          <h3>Smart Software</h3>
+          <p>Günlük ihtiyaçlara yönelik akıllı yazılım çözümleri.</p>
+        </article>
+        <article class="card">
+          <h3>AI Development</h3>
+          <p>Makine öğrenmesi ve üretken yapay zekâ uygulamaları.</p>
+        </article>
+      </div>
+    </div>
+  </section>
 
-    // HESAP VE OTURUM API'Sİ
+  <section class="section" id="projects">
+    <div class="container">
+      <h2 class="section-title">Our Projects</h2>
+      <p class="section-description">
+        ZEYDRION FORGE ENTERTAINMENT çatısı altında geliştirilen projeler.
+      </p>
+      <div class="cards">
+        <article class="card">
+          <h3>ZEYDAL AI</h3>
+          <p>Yapay zekâ ve akıllı yazılım geliştirme.</p>
+        </article>
+        <article class="card">
+          <h3>ZEYDAL DRONE AI</h3>
+          <p>Otonom drone ve uçuş teknolojileri.</p>
+        </article>
+        <article class="card">
+          <h3>ZEYDAL GAMING</h3>
+          <p>Bilgisayar oyunları ve interaktif eğlence deneyimleri.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="about">
+    <div class="container about-box">
+      <h2 class="section-title">About ZEYDAL AI</h2>
+      <p class="section-description">Build the Future. Forge the Impossible.</p>
+      <p>
+        ZEYDAL AI, ZEYDRION FORGE ENTERTAINMENT çatısı altında
+        geliştirilen yapay zekâ ve akıllı yazılım markasıdır.
+      </p>
+      <p>
+        Amacımız yenilikçi teknolojiler geliştirerek geleceğin
+        dijital dünyasına katkı sağlamaktır.
+      </p>
+    </div>
+  </section>
+
+  <section class="section cta">
+    <div class="container">
+      <h2 class="section-title">The Future Starts Here</h2>
+      <p class="section-description">Build the Future. Forge the Impossible.</p>
+      <a href="#assistant" class="button">ZEYDAL AI ile Tanış</a>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="container">
+    © 2026 ZEYDAL AI | ZEYDRION FORGE ENTERTAINMENT
+  </div>
+</footer>
+
+<!-- AUTH PANEL -->
+<section id="zeydal-auth-panel">
+  <h2>ZEYDAL AI</h2>
+  <p class="auth-description">
+    Devam etmek için hesabına giriş yap veya yeni hesap oluştur.
+  </p>
+
+  <form id="zeydal-login-form" class="auth-form">
+    <h3>Giriş Yap</h3>
+    <input id="zeydal-login-email" type="email"
+      placeholder="E-posta adresin" autocomplete="email" required>
+    <input id="zeydal-login-password" type="password"
+      placeholder="Şifren" autocomplete="current-password"
+      minlength="12" maxlength="128" required>
+    <button type="submit">Giriş Yap</button>
+  </form>
+
+  <form id="zeydal-register-form" class="auth-form">
+    <h3>Yeni Hesap Oluştur</h3>
+    <input id="zeydal-register-email" type="email"
+      placeholder="E-posta adresin" autocomplete="email" required>
+    <input id="zeydal-register-password" type="password"
+      placeholder="Şifre (12-128 karakter)" autocomplete="new-password"
+      minlength="12" maxlength="128" required>
+    <button type="submit">Kayıt Ol</button>
+  </form>
+
+  <p id="zeydal-auth-message" role="status" aria-live="polite"></p>
+</section>
+
+<!-- CHAT BUTTON -->
+<button id="zeydal-chat-button" type="button"
+  aria-label="ZEYDAL AI sohbetini aç">AI</button>
+
+<!-- CHAT PANEL -->
+<section id="zeydal-chat-panel" aria-label="ZEYDAL AI sohbet">
+  <div class="chat-header">
+    <strong>ZEYDAL AI</strong>
+    <div class="chat-header-actions">
+      <button id="zeydal-new-chat" type="button">Yeni</button>
+      <button id="zeydal-voice-toggle" type="button">🎙️ Sesli Görüşme</button>
+      <button id="zeydal-logout" type="button">Çıkış</button>
+      <button id="zeydal-chat-close" type="button"
+        aria-label="Sohbeti kapat">✕</button>
+    </div>
+  </div>
+
+  <div id="zeydal-chat-messages" aria-live="polite"></div>
+
+  <form id="zeydal-chat-form">
+    <input id="zeydal-chat-input" type="text"
+      placeholder="Mesajını yaz..." autocomplete="off" required>
+    <button id="zeydal-chat-send" type="submit">Gönder</button>
+  </form>
+</section>
+
+<script>
+(() => {
+  "use strict";
+
+  document.addEventListener("DOMContentLoaded", initializeZeydal);
+
+  function initializeZeydal() {
+
+    // API ADRESLERİ
     const API_URL = "https://zeydal-ai-api.zeydal-dev.workers.dev/";
-
-    // GEMINI SOHBET API'Sİ
     const CHAT_API_URL =
       "https://zeydal-api.zeydal-dev.workers.dev/api/chat";
 
     const SESSION_KEY = "zeydalSessionToken";
     const HISTORY_KEY = "zeydalChatHistory";
 
-    let sessionToken = localStorage.getItem(SESSION_KEY) || "";
-    let history = [];
-    let isSending = false;
-
     const $ = id => document.getElementById(id);
 
     const button = $("zeydal-chat-button");
     const panel = $("zeydal-chat-panel");
-    const closeButton = $("zeydal-chat-close");
-    const newChatButton = $("zeydal-new-chat");
-    const logoutButton = $("zeydal-logout");
-    const form = $("zeydal-chat-form");
-    const input = $("zeydal-chat-input");
-    const messages = $("zeydal-chat-messages");
-    const sendButton = $("zeydal-chat-send");
     const authPanel = $("zeydal-auth-panel");
     const authMessage = $("zeydal-auth-message");
+    const messages = $("zeydal-chat-messages");
+    const input = $("zeydal-chat-input");
+    const sendButton = $("zeydal-chat-send");
 
-    // KONUŞMA GEÇMİŞİNİ YÜKLE
+    const requiredElements = [
+      button, panel, authPanel, messages, input, sendButton,
+      $("zeydal-open-assistant"),
+      $("zeydal-chat-close"),
+      $("zeydal-new-chat"),
+      $("zeydal-logout"),
+      $("zeydal-chat-form"),
+      $("zeydal-login-form"),
+      $("zeydal-register-form")
+    ];
+
+    if (requiredElements.some(element => !element)) {
+      console.error("ZEYDAL AI: Gerekli HTML öğeleri bulunamadı.");
+      return;
+    }
+
+    let sessionToken = localStorage.getItem(SESSION_KEY) || "";
+    let history = [];
+    let isSending = false;
+
+    // GEÇMİŞİ YÜKLE
     function loadHistory() {
       try {
-        const saved = JSON.parse(localStorage.getItem(HISTORY_KEY) || "[]");
+        const saved = JSON.parse(
+          localStorage.getItem(HISTORY_KEY) || "[]"
+        );
 
         if (Array.isArray(saved)) {
-          history = saved
-            .filter(item =>
-              item &&
-              ["user", "assistant"].includes(item.role) &&
-              typeof item.content === "string"
-            )
-            .slice(-12);
+          history = saved.filter(item =>
+            item &&
+            ["user", "assistant"].includes(item.role) &&
+            typeof item.content === "string" &&
+            item.content.trim()
+          ).slice(-12);
         }
       } catch {
         history = [];
       }
     }
 
-    // KONUŞMA GEÇMİŞİNİ KAYDET
+    // GEÇMİŞİ KAYDET
     function saveHistory() {
       try {
         localStorage.setItem(
@@ -248,7 +262,7 @@
       }
     }
 
-    // EKRANA MESAJ EKLE
+    // MESAJ GÖSTER
     function addMessage(role, content) {
       const message = document.createElement("div");
       message.className = role === "user"
@@ -265,7 +279,7 @@
       return message;
     }
 
-    // KAYITLI MESAJLARI EKRANA GETİR
+    // GEÇMİŞİ GÖSTER
     function renderHistory() {
       messages.replaceChildren();
 
@@ -295,10 +309,7 @@
       const response = await fetch(API_URL, {
         method: "POST",
         headers,
-        body: JSON.stringify({
-          action,
-          ...data
-        })
+        body: JSON.stringify({ action, ...data })
       });
 
       let result;
@@ -318,7 +329,7 @@
       return result;
     }
 
-    // GEMINI SOHBET İSTEĞİ
+    // GEMINI API İSTEĞİ
     async function sendChatMessage() {
       const response = await fetch(CHAT_API_URL, {
         method: "POST",
@@ -351,8 +362,8 @@
       return result.response;
     }
 
-    // SOHBET GÖNDERME
-    form.addEventListener("submit", async event => {
+    // SOHBET GÖNDER
+    $("zeydal-chat-form").addEventListener("submit", async event => {
       event.preventDefault();
 
       const message = input.value.trim();
@@ -374,7 +385,10 @@
 
       input.value = "";
 
-      const waiting = addMessage("assistant", "ZEYDAL AI yanıt hazırlıyor...");
+      const waiting = addMessage(
+        "assistant",
+        "ZEYDAL AI yanıt hazırlıyor..."
+      );
 
       try {
         const reply = await sendChatMessage();
@@ -391,9 +405,8 @@
 
       } catch (error) {
         waiting.querySelector("p").textContent =
-          "Bir bağlantı sorunu oluştu: " + error.message;
+          "Bağlantı sorunu: " + error.message;
 
-        // Hata durumunda başarısız kullanıcı mesajını geçmişten çıkar.
         history.pop();
         saveHistory();
 
@@ -408,17 +421,10 @@
       }
     });
 
-    // YENİ SOHBET
-    newChatButton.addEventListener("click", () => {
-      history = [];
-      localStorage.removeItem(HISTORY_KEY);
-      renderHistory();
-      input.focus();
-    });
-
-    // SOHBET PANELİNİ AÇ
+    // SOHBETİ AÇ
     function openChat() {
       if (!sessionToken) {
+        panel.style.display = "none";
         authPanel.style.display = "block";
         authPanel.scrollIntoView({
           behavior: "smooth",
@@ -427,25 +433,35 @@
         return;
       }
 
+      authPanel.style.display = "none";
       panel.style.display = "block";
       button.style.display = "none";
+
       renderHistory();
       input.focus();
     }
 
+    // İKİ SOHBET AÇMA DÜĞMESİ
     button.addEventListener("click", openChat);
-
     $("zeydal-open-assistant").addEventListener("click", openChat);
 
-    closeButton.addEventListener("click", () => {
+    // SOHBETİ KAPAT
+    $("zeydal-chat-close").addEventListener("click", () => {
       panel.style.display = "none";
       button.style.display = "block";
+    });
+
+    // YENİ SOHBET
+    $("zeydal-new-chat").addEventListener("click", () => {
+      history = [];
+      localStorage.removeItem(HISTORY_KEY);
+      renderHistory();
+      input.focus();
     });
 
     // GİRİŞ
     $("zeydal-login-form").addEventListener("submit", async event => {
       event.preventDefault();
-
       authMessage.textContent = "Giriş yapılıyor...";
 
       try {
@@ -464,4 +480,99 @@
         }
 
         sessionToken = token;
-        local
+        localStorage.setItem(SESSION_KEY, sessionToken);
+
+        authMessage.textContent = "Giriş başarılı.";
+        openChat();
+
+      } catch (error) {
+        authMessage.textContent = error.message;
+      }
+    });
+
+    // KAYIT
+    $("zeydal-register-form").addEventListener("submit", async event => {
+      event.preventDefault();
+      authMessage.textContent = "Hesap oluşturuluyor...";
+
+      try {
+        const result = await apiRequest("register", {
+          email: $("zeydal-register-email").value.trim(),
+          password: $("zeydal-register-password").value
+        });
+
+        authMessage.textContent =
+          result.message ||
+          "Kayıt işlemi tamamlandı. Giriş yapabilirsiniz.";
+
+      } catch (error) {
+        authMessage.textContent = error.message;
+      }
+    });
+
+    // OTURUM KONTROLÜ
+    async function checkSession() {
+      if (!sessionToken) {
+        authPanel.style.display = "block";
+        button.style.display = "block";
+        return;
+      }
+
+      try {
+        const result = await apiRequest(
+          "check-session",
+          {},
+          true
+        );
+
+        if (
+          result.valid === false ||
+          result.authenticated === false
+        ) {
+          throw new Error("Oturum geçersiz.");
+        }
+
+        authPanel.style.display = "none";
+        button.style.display = "block";
+
+      } catch (error) {
+        sessionToken = "";
+        localStorage.removeItem(SESSION_KEY);
+        authPanel.style.display = "block";
+        button.style.display = "block";
+      }
+    }
+
+    // ÇIKIŞ
+    $("zeydal-logout").addEventListener("click", async () => {
+      try {
+        if (sessionToken) {
+          await apiRequest("logout", {}, true);
+        }
+      } catch (error) {
+        console.warn("Oturum kapatma isteği tamamlanamadı.");
+      }
+
+      sessionToken = "";
+      localStorage.removeItem(SESSION_KEY);
+
+      panel.style.display = "none";
+      authPanel.style.display = "block";
+      button.style.display = "block";
+      authMessage.textContent = "Oturum kapatıldı.";
+    });
+
+    // BAŞLANGIÇ
+    loadHistory();
+    checkSession();
+
+    console.log("ZEYDAL AI: Arayüz başarıyla başlatıldı.");
+  }
+})();
+</script>
+
+<script src="voice.js"></script>
+
+</body>
+</html>
+```
