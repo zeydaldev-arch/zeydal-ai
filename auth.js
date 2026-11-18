@@ -1,12 +1,33 @@
 
-const ZEYDAL_API_URL = "https://zeydal-ai-api.zeydal-dev.workers.dev";
+"use strict";
 
-// Kullanıcı oturumunu saklama
+// ------------------------------------------
+// ZEYDAL AI API AYARLARI
+// ------------------------------------------
+
+const ZEYDAL_API_URL =
+  "https://zeydal-ai-api.zeydal-dev.workers.dev";
+
 const ZEYDAL_SESSION_KEY = "zeydal_ai_session";
 
-// API istekleri
-async function zeydalRequest(action, data = {}, authenticated = false) {
-  const token = sessionStorage.getItem(ZEYDAL_SESSION_KEY);
+// ------------------------------------------
+// OTURUM TOKEN'INI AL
+// ------------------------------------------
+
+function getZeydalToken() {
+  return localStorage.getItem(ZEYDAL_SESSION_KEY);
+}
+
+// ------------------------------------------
+// API İSTEKLERİ
+// ------------------------------------------
+
+async function zeydalRequest(
+  action,
+  data = {},
+  authenticated = false
+) {
+  const token = getZeydalToken();
 
   const headers = {
     "Content-Type": "application/json"
@@ -28,13 +49,20 @@ async function zeydalRequest(action, data = {}, authenticated = false) {
   const result = await response.json().catch(() => ({}));
 
   if (!response.ok || result.success === false) {
-    throw new Error(result.message || result.error || "İşlem başarısız.");
+    throw new Error(
+      result.message ||
+      result.error ||
+      "İşlem başarısız."
+    );
   }
 
   return result;
 }
 
-// Yeni kullanıcı kaydı
+// ------------------------------------------
+// YENİ KULLANICI KAYDI
+// ------------------------------------------
+
 async function zeydalRegister(email, password) {
   const result = await zeydalRequest("register", {
     email,
@@ -42,13 +70,19 @@ async function zeydalRegister(email, password) {
   });
 
   if (result.token) {
-    sessionStorage.setItem(ZEYDAL_SESSION_KEY, result.token);
+    localStorage.setItem(
+      ZEYDAL_SESSION_KEY,
+      result.token
+    );
   }
 
   return result;
 }
 
-// Kullanıcı girişi
+// ------------------------------------------
+// KULLANICI GİRİŞİ
+// ------------------------------------------
+
 async function zeydalLogin(email, password) {
   const result = await zeydalRequest("login", {
     email,
@@ -56,38 +90,84 @@ async function zeydalLogin(email, password) {
   });
 
   if (result.token) {
-    sessionStorage.setItem(ZEYDAL_SESSION_KEY, result.token);
+    localStorage.setItem(
+      ZEYDAL_SESSION_KEY,
+      result.token
+    );
   }
 
   return result;
 }
 
-// Oturum kapatma
-async function zeydalLogout() {
+// ------------------------------------------
+// OTURUM KONTROLÜ
+// ------------------------------------------
+
+async function zeydalCheckSession() {
+  const token = getZeydalToken();
+
+  if (!token) {
+    return false;
+  }
+
   try {
-    await zeydalRequest("logout", {}, true);
-  } finally {
-    sessionStorage.removeItem(ZEYDAL_SESSION_KEY);
+    // Sunucuda session doğrulama işlemi
+    const result = await zeydalRequest(
+      "checkSession",
+      {},
+      true
+    );
+
+    return result.success !== false;
+
+  } catch (error) {
+    console.warn(
+      "ZEYDAL AI oturum kontrolü:",
+      error.message
+    );
+
+    return false;
   }
 }
 
-// Giriş gerektiren API istekleri
+// ------------------------------------------
+// OTURUM KAPATMA
+// ------------------------------------------
+
+async function zeydalLogout() {
+  try {
+    if (getZeydalToken()) {
+      await zeydalRequest("logout", {}, true);
+    }
+  } finally {
+    localStorage.removeItem(ZEYDAL_SESSION_KEY);
+  }
+}
+
+// ------------------------------------------
+// GİRİŞ GEREKTİREN API İSTEKLERİ
+// ------------------------------------------
+
 async function zeydalAuthenticatedRequest(action, data = {}) {
-  if (!sessionStorage.getItem(ZEYDAL_SESSION_KEY)) {
+  if (!getZeydalToken()) {
     throw new Error("Önce giriş yapmalısınız.");
   }
 
   return await zeydalRequest(action, data, true);
 }
 
-// Diğer dosyalardan erişim
+// ------------------------------------------
+// DİĞER DOSYALARDAN ERİŞİM
+// ------------------------------------------
+
 window.ZEYDAL_AUTH = {
   register: zeydalRegister,
   login: zeydalLogin,
   logout: zeydalLogout,
   request: zeydalAuthenticatedRequest,
-  isLoggedIn: () => Boolean(
-    sessionStorage.getItem(ZEYDAL_SESSION_KEY)
-  )
+  checkSession: zeydalCheckSession,
+
+  isLoggedIn: () => Boolean(getZeydalToken())
 };
 
+console.log("ZEYDAL AI: Kalıcı oturum sistemi hazır.");
