@@ -32,6 +32,17 @@
   const conversationHistory = [];
 
   // ------------------------------------------
+  // SESLENDİRME METNİNİ DÜZENLE
+  // ------------------------------------------
+
+  function prepareSpeechText(text) {
+    return text.replace(
+      /\bZ[\s.,-]*E[\s.,-]*Y[\s.,-]*D[\s.,-]*A[\s.,-]*L\b/gi,
+      "Zeydal"
+    );
+  }
+
+  // ------------------------------------------
   // ARAYÜZ
   // ------------------------------------------
 
@@ -352,8 +363,10 @@
 
       window.speechSynthesis.cancel();
 
+      const speechText = prepareSpeechText(text);
+
       const utterance =
-        new SpeechSynthesisUtterance(text);
+        new SpeechSynthesisUtterance(speechText);
 
       utterance.lang = "tr-TR";
       utterance.rate = 1;
