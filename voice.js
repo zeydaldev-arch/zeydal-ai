@@ -14,15 +14,21 @@
   // ------------------------------------------
 
   const SYSTEM_NAME = "ZEYDAL AI";
+  const CHAT_API_URL =
+    "https://zeydal-api.zeydal-dev.workers.dev/api/chat";
 
-  let peerConnection = null;
-  let microphoneStream = null;
-  let remoteAudio = null;
-  let dataChannel = null;
+  const SpeechRecognition =
+    window.SpeechRecognition ||
+    window.webkitSpeechRecognition;
 
+  let recognition = null;
   let active = false;
-  let starting = false;
-  let stopping = false;
+  let listening = false;
+  let speaking = false;
+  let busy = false;
+
+  // Sesli görüşme geçmişi
+  const conversationHistory = [];
 
   // ------------------------------------------
   // ARAYÜZ
@@ -46,376 +52,371 @@
   }
 
   // ------------------------------------------
+  // TARAYICI DESTEĞİ
+  // ------------------------------------------
+
+  if (!SpeechRecognition) {
+    console.warn(
+      SYSTEM_NAME + ": Tarayıcı konuşma tanımayı desteklemiyor."
+    );
+  }
+
+  // ------------------------------------------
   // DÜĞME
   // ------------------------------------------
 
-  button.addEventListener("click", async () => {
-    if (active || starting) {
+  button.addEventListener("click", () => {
+    if (active) {
       stopVoice();
-      return;
+    } else {
+      startVoice();
     }
-
-    await startVoice();
   });
 
   // ------------------------------------------
   // SESLİ GÖRÜŞMEYİ BAŞLAT
   // ------------------------------------------
 
-  async function startVoice() {
-    if (starting || active) return;
+  function startVoice() {
+    if (active) return;
 
-    starting = true;
-    stopping = false;
+    if (!SpeechRecognition) {
+      alert(
+        "Tarayıcınız ses tanıma özelliğini desteklemiyor. " +
+        "Lütfen Android telefonda Chrome kullanın."
+      );
+      return;
+    }
 
-    setButton("Bağlanıyor...", true);
-    setStatus("connecting");
+    if (!window.speechSynthesis) {
+      alert("Tarayıcınız seslendirme özelliğini desteklemiyor.");
+      return;
+    }
 
-    try {
-      if (!window.zeydalRequestVoiceToken) {
-        throw new Error(
-          "Ses bağlantısı fonksiyonu bulunamadı."
-        );
+    active = true;
+    busy = false;
+    speaking = false;
+
+    conversationHistory.length = 0;
+
+    recognition = new SpeechRecognition();
+
+    recognition.lang = "tr-TR";
+    recognition.continuous = true;
+    recognition.interimResults = false;
+    recognition.maxAlternatives = 1;
+
+    // ------------------------------------------
+    // KONUŞMA ALGILAMA
+    // ------------------------------------------
+
+    recognition.onstart = () => {
+      listening = true;
+
+      if (!busy && !speaking) {
+        setButton("🎙️ Seni dinliyorum...");
+        setStatus("listening");
       }
+    };
 
-      if (!navigator.mediaDevices?.getUserMedia) {
-        throw new Error(
-          "Tarayıcı mikrofon kullanımını desteklemiyor."
-        );
-      }
+    recognition.onresult = async (event) => {
+      for (
+        let i = event.resultIndex;
+        i < event.results.length;
+        i++
+      ) {
+        if (!event.results[i].isFinal) continue;
 
-      // 1. Mikrofon izni al
-      microphoneStream =
-        await navigator.mediaDevices.getUserMedia({
-          audio: {
-            echoCancellation: true,
-            noiseSuppression: true,
-            autoGainControl: true
-          }
+        const transcript =
+          event.results[i][0].transcript.trim();
+
+        if (!transcript || !active || busy) continue;
+
+        notify("user-transcription", {
+          text: transcript
         });
 
-      if (stopping) return;
-
-      // 2. Sunucudan geçici OpenAI anahtarı al
-      const tokenResult =
-        await window.zeydalRequestVoiceToken();
-
-      const token =
-        typeof tokenResult === "string"
-          ? tokenResult
-          : tokenResult?.token ||
-            tokenResult?.value ||
-            tokenResult?.name;
-
-      if (!token) {
-        throw new Error(
-          "OpenAI geçici bağlantı anahtarı alınamadı."
-        );
+        await sendToZeydal(transcript);
       }
+    };
 
-      if (stopping) return;
+    // ------------------------------------------
+    // HATA YÖNETİMİ
+    // ------------------------------------------
 
-      // 3. WebRTC bağlantısını oluştur
-      peerConnection = new RTCPeerConnection();
-
-      const pc = peerConnection;
-
-      pc.onconnectionstatechange = () => {
-        console.log(
-          SYSTEM_NAME + " bağlantı durumu:",
-          pc.connectionState
-        );
-
-        if (pc.connectionState === "failed") {
-          notify("error", {
-            message: "Ses bağlantısı başarısız oldu."
-          });
-        }
-
-        if (
-          pc.connectionState === "disconnected" &&
-          active
-        ) {
-          setStatus("disconnected");
-        }
-      };
-
-      // 4. Uzak ses için oynatıcı
-      remoteAudio = document.createElement("audio");
-      remoteAudio.autoplay = true;
-      remoteAudio.playsInline = true;
-      remoteAudio.style.display = "none";
-
-      document.body.appendChild(remoteAudio);
-
-      // 5. OpenAI'den gelen sesi oynat
-      pc.ontrack = async (event) => {
-        if (peerConnection !== pc || stopping) return;
-
-        remoteAudio.srcObject =
-          event.streams?.[0] ||
-          new MediaStream([event.track]);
-
-        try {
-          await remoteAudio.play();
-        } catch (error) {
-          console.warn(
-            "Ses otomatik oynatılamadı:",
-            error
-          );
-
-          notify("audio-playback-error", {
-            message: "Ses oynatma izni gerekli olabilir."
-          });
-        }
-      };
-
-      // 6. Mikrofon sesini WebRTC'ye ekle
-      microphoneStream.getTracks().forEach(track => {
-        pc.addTrack(track, microphoneStream);
-      });
-
-      // 7. Olay ve metin aktarımı kanalı
-      dataChannel = pc.createDataChannel("oai-events");
-
-      const channel = dataChannel;
-
-      channel.onopen = () => {
-        if (dataChannel !== channel || stopping) return;
-
-        console.log(
-          SYSTEM_NAME + ": Olay kanalı açıldı."
-        );
-      };
-
-      channel.onmessage = (event) => {
-        if (dataChannel !== channel || stopping) return;
-
-        try {
-          const message = JSON.parse(event.data);
-          handleRealtimeEvent(message);
-        } catch (error) {
-          console.error(
-            "ZEYDAL olay işleme hatası:",
-            error
-          );
-        }
-      };
-
-      channel.onerror = (error) => {
-        console.error(
-          "ZEYDAL olay kanalı hatası:",
-          error
-        );
-      };
-
-      // 8. SDP teklifini oluştur
-      const offer = await pc.createOffer();
-
-      await pc.setLocalDescription(offer);
-
-      // ICE adaylarının toplanmasını bekle
-      await waitForIceGathering(pc);
-
-      if (stopping) return;
-
-      // 9. OpenAI Realtime bağlantısını kur
-      const response = await fetch(
-        "https://api.openai.com/v1/realtime/calls",
-        {
-          method: "POST",
-          headers: {
-            "Authorization": "Bearer " + token,
-            "Content-Type": "application/sdp"
-          },
-          body: pc.localDescription.sdp
-        }
+    recognition.onerror = (event) => {
+      console.error(
+        SYSTEM_NAME + " konuşma tanıma hatası:",
+        event.error
       );
 
-      const answerSdp = await response.text();
+      if (event.error === "not-allowed") {
+        notify("error", {
+          message: "Mikrofon izni verilmedi."
+        });
 
-      if (!response.ok) {
-        let errorMessage = answerSdp;
-
-        try {
-          const errorData = JSON.parse(answerSdp);
-          errorMessage =
-            errorData.error?.message || answerSdp;
-        } catch (_) {}
-
-        throw new Error(
-          "OpenAI bağlantı hatası: " + errorMessage
-        );
+        stopVoice();
+        alert("Lütfen tarayıcı ayarlarından mikrofon izni verin.");
+        return;
       }
 
-      if (stopping) return;
+      if (event.error === "audio-capture") {
+        notify("error", {
+          message: "Mikrofon bulunamadı."
+        });
 
-      // 10. OpenAI yanıtını WebRTC'ye uygula
-      await pc.setRemoteDescription({
-        type: "answer",
-        sdp: answerSdp
-      });
+        stopVoice();
+      }
+    };
 
-      if (stopping) return;
+    // ------------------------------------------
+    // DİNLEME BİTTİĞİNDE
+    // ------------------------------------------
 
-      active = true;
-      starting = false;
+    recognition.onend = () => {
+      listening = false;
 
-      setButton("🔴 Görüşmeyi Bitir");
-      setStatus("listening");
+      if (
+        active &&
+        !busy &&
+        !speaking
+      ) {
+        restartRecognition();
+      }
+    };
 
-      notify("connected");
+    try {
+      recognition.start();
 
-      console.log(
-        SYSTEM_NAME + ": OpenAI Realtime bağlantısı kuruldu."
-      );
+      setButton("🎙️ Bağlanıyor...", true);
+      setStatus("connecting");
+
+      setTimeout(() => {
+        if (!active) return;
+
+        setButton("🎙️ Seni dinliyorum...");
+        setStatus("listening");
+        notify("connected");
+      }, 500);
 
     } catch (error) {
-      console.error(
-        "ZEYDAL ses başlatma hatası:",
-        error
-      );
-
+      console.error(error);
       stopVoice();
 
       alert(
-        "ZEYDAL AI ses bağlantısı kurulamadı:\n" +
+        "ZEYDAL AI mikrofonu başlatamadı: " +
         error.message
       );
     }
   }
 
   // ------------------------------------------
-  // ICE ADAYLARINI BEKLE
+  // DİNLEMEYİ YENİDEN BAŞLAT
   // ------------------------------------------
 
-  function waitForIceGathering(pc) {
-    if (pc.iceGatheringState === "complete") {
-      return Promise.resolve();
+  function restartRecognition() {
+    if (
+      !active ||
+      busy ||
+      speaking ||
+      listening ||
+      !recognition
+    ) {
+      return;
     }
 
-    return new Promise((resolve, reject) => {
-      const timeout = setTimeout(() => {
-        cleanup();
-        reject(
-          new Error(
-            "WebRTC bağlantı hazırlığı zaman aşımına uğradı."
-          )
-        );
-      }, 15000);
-
-      function cleanup() {
-        clearTimeout(timeout);
-        pc.removeEventListener(
-          "icegatheringstatechange",
-          checkState
-        );
-      }
-
-      function checkState() {
-        if (pc.iceGatheringState === "complete") {
-          cleanup();
-          resolve();
-        }
-      }
-
-      pc.addEventListener(
-        "icegatheringstatechange",
-        checkState
+    try {
+      recognition.start();
+    } catch (error) {
+      console.warn(
+        SYSTEM_NAME + ": Dinleme yeniden başlatılamadı.",
+        error
       );
-
-      checkState();
-    });
+    }
   }
 
   // ------------------------------------------
-  // OPENAI GERÇEK ZAMANLI OLAYLARI
+  // GEMINI API'YE MESAJ GÖNDER
   // ------------------------------------------
 
-  function handleRealtimeEvent(message) {
-    const type = message.type;
+  async function sendToZeydal(message) {
+    if (!active || busy) return;
 
-    console.log(
-      "ZEYDAL Realtime:",
-      type
-    );
+    busy = true;
 
-    switch (type) {
+    setButton("ZEYDAL AI düşünüyor...");
+    setStatus("thinking");
 
-      case "session.created":
-      case "session.updated":
-        console.log(
-          "ZEYDAL oturumu hazır."
+    try {
+      // Son kullanıcı mesajını geçmişe ekle
+      conversationHistory.push({
+        role: "user",
+        content: message
+      });
+
+      // Son 12 mesajı gönder
+      const messages =
+        conversationHistory.slice(-12);
+
+      const response = await fetch(CHAT_API_URL, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          messages: messages
+        })
+      });
+
+      const result = await response.json();
+
+      if (!response.ok) {
+        throw new Error(
+          result.error?.message ||
+          result.error ||
+          result.message ||
+          "Gemini API bağlantı hatası."
         );
-        break;
+      }
 
-      case "input_audio_buffer.speech_started":
+      // Farklı olası cevap biçimlerini kontrol et
+      const reply =
+        result.reply ||
+        result.data?.reply ||
+        result.response ||
+        result.text ||
+        result.data?.text ||
+        result.candidates?.[0]?.content?.parts
+          ?.map(part => part.text || "")
+          .join("") ||
+        "";
+
+      if (!reply || typeof reply !== "string") {
+        throw new Error(
+          "ZEYDAL AI'den geçerli bir cevap alınamadı."
+        );
+      }
+
+      conversationHistory.push({
+        role: "assistant",
+        content: reply
+      });
+
+      notify("assistant-text", {
+        text: reply
+      });
+
+      await speakReply(reply);
+
+    } catch (error) {
+      console.error(
+        SYSTEM_NAME + " API hatası:",
+        error
+      );
+
+      notify("error", {
+        message: error.message
+      });
+
+      alert(
+        "ZEYDAL AI cevap veremedi:\n" +
+        error.message
+      );
+
+      busy = false;
+
+      if (active) {
         setButton("🎙️ Seni dinliyorum...");
         setStatus("listening");
-        notify("user-speaking");
-        break;
-
-      case "input_audio_buffer.speech_stopped":
-        setButton("Düşünüyorum...");
-        setStatus("thinking");
-        break;
-
-      case "conversation.item.input_audio_transcription.completed":
-        if (message.transcript) {
-          notify("user-transcription", {
-            text: message.transcript
-          });
-        }
-        break;
-
-      case "response.created":
-        setButton("Düşünüyorum...");
-        setStatus("thinking");
-        break;
-
-      case "response.output_audio_transcript.delta":
-        if (message.delta) {
-          notify("assistant-transcription", {
-            text: message.delta
-          });
-        }
-        break;
-
-      case "response.output_audio_transcript.done":
-        if (message.transcript) {
-          notify("assistant-text", {
-            text: message.transcript
-          });
-        }
-        break;
-
-      case "response.output_text.delta":
-        if (message.delta) {
-          notify("assistant-text", {
-            text: message.delta
-          });
-        }
-        break;
-
-      case "response.done":
-        setButton("🎙️ Seni dinliyorum...");
-        setStatus("listening");
-        notify("response-complete");
-        break;
-
-      case "error":
-        console.error(
-          "OpenAI Realtime hatası:",
-          message.error
-        );
-
-        notify("error", {
-          message:
-            message.error?.message ||
-            "Ses bağlantısında hata oluştu."
-        });
-        break;
+        restartRecognition();
+      }
     }
+  }
+
+  // ------------------------------------------
+  // ZEYDAL AI CEVABINI SESLENDİR
+  // ------------------------------------------
+
+  function speakReply(text) {
+    return new Promise((resolve) => {
+      if (!active) {
+        busy = false;
+        resolve();
+        return;
+      }
+
+      speaking = true;
+
+      // Konuşma sırasında mikrofonu durdur
+      if (recognition && listening) {
+        try {
+          recognition.stop();
+        } catch (_) {}
+      }
+
+      window.speechSynthesis.cancel();
+
+      const utterance =
+        new SpeechSynthesisUtterance(text);
+
+      utterance.lang = "tr-TR";
+      utterance.rate = 1;
+      utterance.pitch = 1;
+      utterance.volume = 1;
+
+      // Türkçe ses varsa tercih et
+      const voices =
+        window.speechSynthesis.getVoices();
+
+      const turkishVoice = voices.find(voice =>
+        voice.lang.toLowerCase().startsWith("tr")
+      );
+
+      if (turkishVoice) {
+        utterance.voice = turkishVoice;
+      }
+
+      utterance.onstart = () => {
+        if (!active) return;
+
+        setButton("🔊 ZEYDAL AI konuşuyor...");
+        setStatus("speaking");
+      };
+
+      utterance.onend = () => {
+        speaking = false;
+        busy = false;
+
+        resolve();
+
+        if (active) {
+          setButton("🎙️ Seni dinliyorum...");
+          setStatus("listening");
+
+          setTimeout(() => {
+            restartRecognition();
+          }, 300);
+        }
+      };
+
+      utterance.onerror = (event) => {
+        console.error(
+          SYSTEM_NAME + " seslendirme hatası:",
+          event
+        );
+
+        speaking = false;
+        busy = false;
+
+        resolve();
+
+        if (active) {
+          restartRecognition();
+        }
+      };
+
+      window.speechSynthesis.speak(utterance);
+    });
   }
 
   // ------------------------------------------
@@ -423,60 +424,36 @@
   // ------------------------------------------
 
   function stopVoice() {
-    if (stopping) return;
-
-    stopping = true;
-
     active = false;
-    starting = false;
+    listening = false;
+    speaking = false;
+    busy = false;
 
-    setStatus("stopping");
-
-    // Olay kanalını kapat
-    if (dataChannel) {
+    if (recognition) {
       try {
-        dataChannel.close();
+        recognition.onend = null;
+        recognition.stop();
       } catch (_) {}
 
-      dataChannel = null;
+      recognition = null;
     }
 
-    // WebRTC bağlantısını kapat
-    if (peerConnection) {
-      try {
-        peerConnection.close();
-      } catch (_) {}
-
-      peerConnection = null;
+    if (window.speechSynthesis) {
+      window.speechSynthesis.cancel();
     }
 
-    // Mikrofonu kapat
-    if (microphoneStream) {
-      microphoneStream.getTracks().forEach(track => {
-        track.stop();
-      });
-
-      microphoneStream = null;
-    }
-
-    // Uzak sesi kapat
-    if (remoteAudio) {
-      remoteAudio.pause();
-      remoteAudio.srcObject = null;
-      remoteAudio.remove();
-      remoteAudio = null;
-    }
-
-    setButton("🎙️ Sesli Görüşme", false);
+    setButton("🎙️ Sesli Görüşme");
     setStatus("disconnected");
 
     notify("disconnected");
 
-    stopping = false;
-
     console.log(
-      SYSTEM_NAME + ": Sesli görüşme kapatıldı."
+      SYSTEM_NAME + ": Ücretsiz sesli görüşme kapatıldı."
     );
   }
+
+  console.log(
+    SYSTEM_NAME + ": Ücretsiz tarayıcı ses sistemi hazır."
+  );
 
 })();
