@@ -129,7 +129,7 @@
 </footer>
 
 <!-- AUTH PANEL -->
-<section id="zeydal-auth-panel">
+<section id="zeydal-auth-panel" style="display:none;">
   <h2>ZEYDAL AI</h2>
   <p class="auth-description">
     Devam etmek için hesabına giriş yap veya yeni hesap oluştur.
@@ -160,10 +160,11 @@
 
 <!-- CHAT BUTTON -->
 <button id="zeydal-chat-button" type="button"
-  aria-label="ZEYDAL AI sohbetini aç">AI</button>
+  aria-label="ZEYDAL AI sohbetini aç" style="display:none;">AI</button>
 
 <!-- CHAT PANEL -->
-<section id="zeydal-chat-panel" aria-label="ZEYDAL AI sohbet">
+<section id="zeydal-chat-panel" aria-label="ZEYDAL AI sohbet"
+  style="display:none;">
   <div class="chat-header">
     <strong>ZEYDAL AI</strong>
     <div class="chat-header-actions">
@@ -188,8 +189,6 @@
 (() => {
   "use strict";
 
-  document.addEventListener("DOMContentLoaded", initializeZeydal);
-
   function initializeZeydal() {
 
     // API ADRESLERİ
@@ -211,7 +210,7 @@
     const sendButton = $("zeydal-chat-send");
 
     const requiredElements = [
-      button, panel, authPanel, messages, input, sendButton,
+      button, panel, authPanel, authMessage, messages, input, sendButton,
       $("zeydal-open-assistant"),
       $("zeydal-chat-close"),
       $("zeydal-new-chat"),
@@ -227,9 +226,23 @@
       return;
     }
 
+    // ESKİ OTURUM ANAHTARINI TAŞI
     let sessionToken = localStorage.getItem(SESSION_KEY) || "";
+
+    if (!sessionToken) {
+      const oldToken = localStorage.getItem("zeydal_ai_session");
+
+      if (oldToken) {
+        sessionToken = oldToken;
+        localStorage.setItem(SESSION_KEY, oldToken);
+        localStorage.removeItem("zeydal_ai_session");
+      }
+    }
+
     let history = [];
     let isSending = false;
+    let sessionVerified = false;
+    let isCheckingSession = false;
 
     // GEÇMİŞİ YÜKLE
     function loadHistory() {
@@ -266,6 +279,7 @@
     // MESAJ GÖSTER
     function addMessage(role, content) {
       const message = document.createElement("div");
+
       message.className = role === "user"
         ? "user-message"
         : "assistant-message";
@@ -331,9 +345,8 @@
     }
 
     // SESLİ GÖRÜŞME TOKEN BAĞLANTISI
-    // voice.js bu fonksiyonu kullanır.
     window.zeydalRequestVoiceToken = async function () {
-      if (!sessionToken) {
+      if (!sessionToken || !sessionVerified) {
         throw new Error("Önce hesabına giriş yapmalısın.");
       }
 
@@ -394,6 +407,11 @@
     $("zeydal-chat-form").addEventListener("submit", async event => {
       event.preventDefault();
 
+      if (!sessionVerified) {
+        authMessage.textContent = "Oturum doğrulanmadı. Lütfen tekrar giriş yap.";
+        return;
+      }
+
       const message = input.value.trim();
 
       if (!message || isSending) return;
@@ -435,12 +453,14 @@
         waiting.querySelector("p").textContent =
           "Bağlantı sorunu: " + error.message;
 
-        const lastUserIndex = history.findLastIndex
-          ? history.findLastIndex(item => item.role === "user" && item.content === message)
-          : history.length - 1;
+        const lastItem = history[history.length - 1];
 
-        if (lastUserIndex >= 0 && history[lastUserIndex].role === "user") {
-          history.splice(lastUserIndex, 1);
+        if (
+          lastItem &&
+          lastItem.role === "user" &&
+          lastItem.content === message
+        ) {
+          history.pop();
         }
 
         saveHistory();
@@ -457,13 +477,19 @@
 
     // SOHBETİ AÇ
     function openChat() {
-      if (!sessionToken) {
+      if (!sessionToken || !sessionVerified) {
         panel.style.display = "none";
         authPanel.style.display = "block";
+
+        authMessage.textContent = sessionToken
+          ? "Oturum doğrulanamadı. Bağlantını kontrol edip sayfayı yenile."
+          : "Devam etmek için giriş yapmalısın.";
+
         authPanel.scrollIntoView({
           behavior: "smooth",
           block: "center"
         });
+
         return;
       }
 
@@ -482,11 +508,16 @@
     // SOHBETİ KAPAT
     $("zeydal-chat-close").addEventListener("click", () => {
       panel.style.display = "none";
-      button.style.display = "block";
+
+      if (sessionVerified) {
+        button.style.display = "block";
+      }
     });
 
     // YENİ SOHBET
     $("zeydal-new-chat").addEventListener("click", () => {
+      if (!sessionVerified) return;
+
       history = [];
       localStorage.removeItem(HISTORY_KEY);
       renderHistory();
@@ -496,6 +527,7 @@
     // GİRİŞ
     $("zeydal-login-form").addEventListener("submit", async event => {
       event.preventDefault();
+
       authMessage.textContent = "Giriş yapılıyor...";
 
       try {
@@ -516,6 +548,9 @@
         sessionToken = token;
         localStorage.setItem(SESSION_KEY, sessionToken);
 
+        // Başarılı giriş yanıtı oturumun ilk doğrulamasıdır.
+        sessionVerified = true;
+
         authMessage.textContent = "Giriş başarılı.";
         openChat();
 
@@ -527,6 +562,7 @@
     // KAYIT
     $("zeydal-register-form").addEventListener("submit", async event => {
       event.preventDefault();
+
       authMessage.textContent = "Hesap oluşturuluyor...";
 
       try {
@@ -546,11 +582,24 @@
 
     // OTURUM KONTROLÜ
     async function checkSession() {
+      if (isCheckingSession) return;
+
+      isCheckingSession = true;
+      sessionVerified = false;
+
+      panel.style.display = "none";
+      authPanel.style.display = "none";
+      button.style.display = "none";
+
       if (!sessionToken) {
         authPanel.style.display = "block";
         button.style.display = "block";
+        authMessage.textContent = "Devam etmek için giriş yapmalısın.";
+        isCheckingSession = false;
         return;
       }
+
+      authMessage.textContent = "Oturum kontrol ediliyor...";
 
       try {
         const result = await apiRequest(
@@ -559,48 +608,97 @@
           true
         );
 
-        if (
-          result.valid === false ||
-          result.authenticated === false
-        ) {
-          throw new Error("Oturum geçersiz.");
+        const isValid =
+          result.valid === true ||
+          result.authenticated === true ||
+          result.data?.valid === true ||
+          result.data?.authenticated === true;
+
+        if (!isValid) {
+          // Sunucu açıkça geçersiz dediğinde token silinir.
+          const isInvalid =
+            result.valid === false ||
+            result.authenticated === false ||
+            result.data?.valid === false ||
+            result.data?.authenticated === false;
+
+          if (isInvalid) {
+            sessionToken = "";
+            localStorage.removeItem(SESSION_KEY);
+            authMessage.textContent = "Oturum süresi sona ermiş. Tekrar giriş yap.";
+          } else {
+            authMessage.textContent =
+              "Sunucu oturum doğrulama yanıtı beklenen biçimde değil.";
+          }
+
+          authPanel.style.display = "block";
+          button.style.display = "block";
+          return;
         }
+
+        sessionVerified = true;
 
         authPanel.style.display = "none";
         button.style.display = "block";
 
+        console.log("ZEYDAL AI: Oturum doğrulandı.");
+
       } catch (error) {
-        sessionToken = "";
-        localStorage.removeItem(SESSION_KEY);
+        // Ağ hatasında token silinmez.
+        // Ancak doğrulama yapılmadan sohbet açılmaz.
+        sessionVerified = false;
+
         authPanel.style.display = "block";
         button.style.display = "block";
+
+        authMessage.textContent =
+          "Oturum sunucuda doğrulanamadı. İnternet bağlantını kontrol edip sayfayı yenile.";
+
+        console.warn("ZEYDAL AI session check:", error);
+
+      } finally {
+        isCheckingSession = false;
       }
     }
 
     // ÇIKIŞ
     $("zeydal-logout").addEventListener("click", async () => {
+      $("zeydal-logout").disabled = true;
+
       try {
         if (sessionToken) {
           await apiRequest("logout", {}, true);
         }
       } catch (error) {
-        console.warn("Oturum kapatma isteği tamamlanamadı.");
+        console.warn("Sunucu çıkış isteği tamamlanamadı:", error);
+      } finally {
+        sessionToken = "";
+        sessionVerified = false;
+
+        localStorage.removeItem(SESSION_KEY);
+        localStorage.removeItem("zeydal_ai_session");
+
+        panel.style.display = "none";
+        authPanel.style.display = "block";
+        button.style.display = "block";
+
+        authMessage.textContent = "Oturum kapatıldı.";
+
+        $("zeydal-logout").disabled = false;
       }
-
-      sessionToken = "";
-      localStorage.removeItem(SESSION_KEY);
-
-      panel.style.display = "none";
-      authPanel.style.display = "block";
-      button.style.display = "block";
-      authMessage.textContent = "Oturum kapatıldı.";
     });
 
     // BAŞLANGIÇ
     loadHistory();
     checkSession();
 
-    console.log("ZEYDAL AI: Arayüz başarıyla başlatıldı.");
+    console.log("ZEYDAL AI: Arayüz başlatıldı.");
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", initializeZeydal);
+  } else {
+    initializeZeydal();
   }
 })();
 </script>
@@ -609,4 +707,3 @@
 
 </body>
 </html>
-```
