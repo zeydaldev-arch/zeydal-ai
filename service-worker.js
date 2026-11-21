@@ -1,7 +1,7 @@
 
 "use strict";
 
-const CACHE_NAME = "zeydal-ai-offline-v3";
+const CACHE_NAME = "zeydal-ai-offline-v4";
 
 const APP_FILES = [
   "./",
