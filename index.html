@@ -5,8 +5,11 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="theme-color" content="#071426">
+  <meta name="description" content="ZEYDAL AI - Yeni nesil yapay zekâ asistanı.">
   <title>ZEYDAL AI</title>
+
   <link rel="stylesheet" href="style.css">
+  <link rel="manifest" href="manifest.json">
 </head>
 <body>
 
@@ -39,9 +42,18 @@
     <h2>Yeni nesil yapay zekâ deneyimi</h2>
     <p>Akıllı sohbet, sesli asistan, kişisel ayarlar ve üretkenlik araçları.</p>
     <div class="info-grid">
-      <article class="info-card"><h3>Akıllı Sohbet</h3><p>Sorularını sor, fikirlerini geliştir ve bilgi edin.</p></article>
-      <article class="info-card"><h3>Sesli Asistan</h3><p>ZEYDAL AI ile sesli etkileşim kur.</p></article>
-      <article class="info-card"><h3>Görselleştirme</h3><p>Fikirlerini görsel üretim promptlarına dönüştür.</p></article>
+      <article class="info-card">
+        <h3>Akıllı Sohbet</h3>
+        <p>Sorularını sor, fikirlerini geliştir ve bilgi edin.</p>
+      </article>
+      <article class="info-card">
+        <h3>Sesli Asistan</h3>
+        <p>ZEYDAL AI ile sesli etkileşim kur.</p>
+      </article>
+      <article class="info-card">
+        <h3>Görselleştirme</h3>
+        <p>Fikirlerini görsel üretim promptlarına dönüştür.</p>
+      </article>
     </div>
   </section>
 
@@ -233,6 +245,10 @@ async function initializeZeydal() {
   }
 
   async function apiRequest(action, data = {}, authenticated = false) {
+    if (!navigator.onLine) {
+      throw new Error("Bu işlem için internet bağlantısı gerekiyor.");
+    }
+
     const headers = { "Content-Type": "application/json" };
     if (authenticated && sessionToken) {
       headers.Authorization = "Bearer " + sessionToken;
@@ -439,6 +455,11 @@ async function initializeZeydal() {
   }
 
   async function sendChatMessage(message) {
+    if (!navigator.onLine) {
+      addMessage("assistant", "Şu anda çevrimdışısın. Yerel yapay zekâ motoru henüz kurulmadı. Sohbet geçmişin cihazında saklanıyor.");
+      return;
+    }
+
     if (!sessionToken) {
       showAuth("login");
       return;
@@ -597,6 +618,7 @@ async function initializeZeydal() {
           <p class="muted-note">Bu aşamada prompt hazırlanır. Görsel dosyası oluşturmak için ayrıca görsel üretim API bağlantısı gereklidir.</p>
         </div>
       </div>`;
+
     $("build-prompt").addEventListener("click", buildVisualPrompt);
     $("copy-prompt").addEventListener("click", copyVisualPrompt);
   }
@@ -666,6 +688,7 @@ async function initializeZeydal() {
         <span id="library-count"></span>
       </div>
       <div class="library-list" id="library-list"></div>`;
+
     renderLibraryItems();
     $("library-search").addEventListener("input", renderLibraryItems);
   }
@@ -673,8 +696,12 @@ async function initializeZeydal() {
   function renderLibraryItems() {
     const list = $("library-list");
     if (!list) return;
+
     const query = ($("library-search")?.value || "").toLocaleLowerCase("tr");
-    const items = savedLibrary.filter(item => item.content.toLocaleLowerCase("tr").includes(query));
+    const items = savedLibrary.filter(item =>
+      item.content.toLocaleLowerCase("tr").includes(query)
+    );
+
     $("library-count").textContent = savedLibrary.length + " kayıt";
 
     if (!items.length) {
@@ -698,8 +725,10 @@ async function initializeZeydal() {
   $("feature-content").addEventListener("click", async event => {
     const button = event.target.closest("[data-library-action]");
     if (!button) return;
+
     const card = button.closest(".library-card");
     if (!card) return;
+
     const item = savedLibrary.find(entry => entry.id === card.dataset.id);
     if (!item) return;
 
@@ -780,16 +809,19 @@ async function initializeZeydal() {
       savePreferences();
       $("settings-status").textContent = "Tema kaydedildi.";
     });
+
     $("setting-font").addEventListener("change", event => {
       preferences.fontSize = event.target.value;
       savePreferences();
       $("settings-status").textContent = "Yazı boyutu kaydedildi.";
     });
+
     $("setting-density").addEventListener("change", event => {
       preferences.density = event.target.value;
       savePreferences();
       $("settings-status").textContent = "Sohbet görünümü kaydedildi.";
     });
+
     $("reset-settings").addEventListener("click", () => {
       preferences = { theme: "dark", fontSize: "medium", density: "wide" };
       savePreferences();
@@ -804,7 +836,10 @@ async function initializeZeydal() {
         <h1>Remote</h1>
         <p>Bu bölümün bağlantı ve uzaktan erişim özellikleri sonraki geliştirme aşamasında eklenecek.</p>
       </div>
-      <div class="workspace-card"><h3>Remote çalışma alanı</h3><p>Bu alan şimdilik hazırlanıyor. Mevcut sohbet ve diğer özellikler kullanılabilir.</p></div>`;
+      <div class="workspace-card">
+        <h3>Remote çalışma alanı</h3>
+        <p>Bu alan şimdilik hazırlanıyor. Mevcut sohbet ve diğer özellikler kullanılabilir.</p>
+      </div>`;
   }
 
   function renderDiscoverPage() {
@@ -824,6 +859,12 @@ async function initializeZeydal() {
   // GİRİŞ VE KAYIT
   authForm.addEventListener("submit", async event => {
     event.preventDefault();
+
+    if (!navigator.onLine) {
+      authMessage.textContent = "Giriş ve kayıt işlemleri için internet bağlantısı gerekiyor.";
+      return;
+    }
+
     authMessage.textContent = "İşlem gerçekleştiriliyor...";
     authSubmit.disabled = true;
 
@@ -832,6 +873,7 @@ async function initializeZeydal() {
         email: authEmail.value.trim(),
         password: authPassword.value
       };
+
       let result;
 
       if (authMode === "register") {
@@ -842,13 +884,13 @@ async function initializeZeydal() {
       }
 
       const token = result.token || result.data?.token;
+
       if (token) {
         sessionToken = token;
         localStorage.setItem(TOKEN_KEY, token);
         closeAuth();
         openApp();
       } else if (authMode === "register") {
-        authMessage.textContent = result.message || "Kayıt işlemi tamamlandı. Şimdi giriş yapabilirsin.";
         showAuth("login");
         authMessage.textContent = "Kayıt işlemi tamamlandı. Giriş yapabilirsin.";
       } else {
@@ -864,11 +906,13 @@ async function initializeZeydal() {
   $("login-tab").addEventListener("click", () => showAuth("login"));
   $("register-tab").addEventListener("click", () => showAuth("register"));
   $("auth-close").addEventListener("click", closeAuth);
+
   authModal.addEventListener("click", event => {
     if (event.target === authModal) closeAuth();
   });
 
   $("open-auth").addEventListener("click", () => showAuth("login"));
+
   $("hero-start").addEventListener("click", () => {
     if (sessionToken) openApp();
     else showAuth("login");
@@ -884,8 +928,13 @@ async function initializeZeydal() {
   $("close-app").addEventListener("click", closeApp);
   $("new-chat").addEventListener("click", createChatRecord);
 
-  $("sidebar-open").addEventListener("click", () => $("sidebar").classList.add("mobile-open"));
-  $("sidebar-close").addEventListener("click", () => $("sidebar").classList.remove("mobile-open"));
+  $("sidebar-open").addEventListener("click", () =>
+    $("sidebar").classList.add("mobile-open")
+  );
+
+  $("sidebar-close").addEventListener("click", () =>
+    $("sidebar").classList.remove("mobile-open")
+  );
 
   document.querySelectorAll(".side-link").forEach(button => {
     button.addEventListener("click", () => {
@@ -898,30 +947,39 @@ async function initializeZeydal() {
   conversationList.addEventListener("click", event => {
     const item = event.target.closest(".conversation-item");
     if (!item) return;
+
     const chat = chats.find(entry => entry.id === item.dataset.id);
     if (!chat) return;
+
     const action = event.target.dataset.action;
 
     if (action === "pin") {
       chat.pinned = !chat.pinned;
       saveHistory();
       renderConversationList();
+
     } else if (action === "rename") {
       const name = prompt("Yeni sohbet adı:", chat.title);
+
       if (name && name.trim()) {
         chat.title = name.trim();
         saveHistory();
         renderConversationList();
       }
+
     } else if (action === "delete") {
       if (!confirm("Bu sohbet silinsin mi?")) return;
+
       chats = chats.filter(entry => entry.id !== chat.id);
+
       if (activeChatId === chat.id) {
         activeChatId = chats[0]?.id || null;
         loadActiveChat();
       }
+
       saveHistory();
       renderConversationList();
+
     } else {
       activeChatId = chat.id;
       loadActiveChat();
@@ -934,9 +992,12 @@ async function initializeZeydal() {
 
   chatForm.addEventListener("submit", event => {
     event.preventDefault();
+
     const message = chatInput.value.trim();
     if (!message) return;
+
     if (!activeChatId) createChatRecord();
+
     chatInput.value = "";
     sendChatMessage(message);
   });
@@ -973,5 +1034,7 @@ async function initializeZeydal() {
 </script>
 
 <script src="voice.js"></script>
+<script src="offline.js"></script>
+
 </body>
 </html>
