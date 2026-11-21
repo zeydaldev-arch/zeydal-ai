@@ -1,24 +1,24 @@
 
-/* ==========================================
-   ZEYDAL AI - OFFICIAL DESIGN SYSTEM
-   ZEYDRION FORGE ENTERTAINMENT
-   ========================================== */
+/* =========================================
+   ZEYDAL AI
+   Main Interface Stylesheet
+   ========================================= */
+
+/* 1. GLOBAL VARIABLES */
 
 :root {
-  --bg: #061222;
-  --panel: #0b1c32;
-  --panel-light: #102844;
-  --blue: #168bff;
-  --blue-light: #55b5ff;
-  --silver: #c6d4e5;
-  --text: #edf5ff;
-  --muted: #9db0c7;
-  --border: rgba(112, 174, 235, .2);
-  --danger: #ff7777;
-  --success: #64e0a1;
+  --bg: #080d18;
+  --panel: #0d1423;
+  --panel-light: #151f30;
+  --blue: #2678d5;
+  --blue-light: #398de9;
+  --silver: #c3d7ef;
+  --text: #e5edf9;
+  --muted: #8495ad;
+  --border: rgba(255, 255, 255, 0.08);
+  --danger: #e05252;
+  --success: #38b879;
 }
-
-/* GENEL */
 
 * {
   margin: 0;
@@ -31,23 +31,15 @@ html {
 }
 
 body {
-  font-family: Arial, Helvetica, sans-serif;
-  color: var(--text);
-  background:
-    radial-gradient(circle at 80% 10%, rgba(16,112,204,.17), transparent 35%),
-    linear-gradient(135deg, #061222, #081a30 55%, #061222);
-  line-height: 1.6;
   min-height: 100vh;
-}
-
-a {
-  color: inherit;
-  text-decoration: none;
+  background: var(--bg);
+  color: var(--text);
+  font-family: Arial, Helvetica, sans-serif;
+  line-height: 1.6;
 }
 
 button,
-input,
-textarea {
+input {
   font: inherit;
 }
 
@@ -55,537 +47,669 @@ button {
   cursor: pointer;
 }
 
-img {
-  max-width: 100%;
+a {
+  color: inherit;
+  text-decoration: none;
 }
 
-/* CONTAINER */
 
-.container {
-  width: min(1150px, 92%);
-  margin: auto;
-}
+/* 2. MAIN WEBSITE HEADER */
 
-/* HEADER */
-
-header {
+body > header {
   position: sticky;
   top: 0;
   z-index: 100;
-  background: rgba(5,17,32,.94);
+  background: rgba(8, 13, 24, 0.95);
   border-bottom: 1px solid var(--border);
-  backdrop-filter: blur(14px);
+  backdrop-filter: blur(12px);
 }
 
-.navbar {
-  min-height: 76px;
+body > header nav {
+  width: min(1200px, 92%);
+  min-height: 75px;
+  margin: auto;
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  gap: 20px;
+  justify-content: space-between;
+  gap: 25px;
 }
 
 .logo {
-  font-size: 25px;
-  font-weight: 800;
-  letter-spacing: 2px;
-  color: white;
-}
-
-.logo span {
-  color: var(--blue-light);
-}
-
-nav {
-  display: flex;
-  gap: 24px;
-  flex-wrap: wrap;
-}
-
-nav a {
   color: var(--silver);
-  font-size: 14px;
-  transition: .2s;
+  font-size: 23px;
+  font-weight: 800;
+  letter-spacing: 1px;
 }
 
-nav a:hover {
-  color: var(--blue-light);
-}
-
-/* HERO */
-
-.hero {
-  min-height: 590px;
+.nav-links {
   display: flex;
   align-items: center;
-  text-align: center;
-  padding: 90px 0;
-  background:
-    radial-gradient(ellipse at center, rgba(16,115,210,.2), transparent 65%);
+  gap: 25px;
 }
 
-.hero-content {
-  max-width: 850px;
-  margin: auto;
+.nav-links a {
+  color: var(--muted);
+  font-size: 14px;
+  transition: color 0.2s ease;
 }
 
-.eyebrow {
+.nav-links a:hover {
   color: var(--blue-light);
-  letter-spacing: 4px;
-  font-size: 13px;
-  font-weight: bold;
-  margin-bottom: 20px;
+}
+
+
+/* 3. HOMEPAGE */
+
+.hero {
+  min-height: 520px;
+  padding: 100px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  background:
+    radial-gradient(
+      circle at center,
+      rgba(38, 120, 213, 0.17),
+      transparent 65%
+    );
 }
 
 .hero h1 {
-  font-size: clamp(38px, 7vw, 76px);
-  line-height: 1.08;
-  margin-bottom: 24px;
-  letter-spacing: 2px;
-}
-
-.hero h1 span {
-  color: var(--blue-light);
+  margin-bottom: 20px;
+  color: var(--silver);
+  font-size: clamp(32px, 6vw, 58px);
 }
 
 .hero p {
+  margin-bottom: 28px;
   color: var(--muted);
-  max-width: 680px;
-  margin: 0 auto 32px;
   font-size: 17px;
 }
 
-/* BUTTONS */
-
-.button {
-  display: inline-block;
+.hero button,
+.section button {
   padding: 13px 25px;
-  border-radius: 7px;
-  background: linear-gradient(100deg, #0877dc, #24a6ff);
-  color: white;
-  border: 1px solid rgba(255,255,255,.15);
-  font-weight: bold;
-  transition: .2s;
+  border: none;
+  border-radius: 9px;
+  background: var(--blue);
+  color: #fff;
+  transition: background 0.2s ease;
 }
 
-.button:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 25px rgba(22,139,255,.25);
+.hero button:hover,
+.section button:hover {
+  background: var(--blue-light);
 }
-
-/* SECTIONS */
 
 .section {
-  padding: 85px 0;
-  border-top: 1px solid rgba(112,174,235,.09);
-}
-
-.section-title {
-  font-size: clamp(27px, 4vw, 38px);
-  text-align: center;
-  margin-bottom: 14px;
-}
-
-.section-description {
-  color: var(--muted);
-  text-align: center;
-  max-width: 750px;
-  margin: 0 auto 35px;
-}
-
-/* CARDS */
-
-.cards {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
-  gap: 20px;
-  margin-top: 35px;
-}
-
-.card {
-  background: linear-gradient(145deg, rgba(16,40,68,.9), rgba(8,25,45,.9));
-  border: 1px solid var(--border);
-  border-radius: 13px;
-  padding: 28px;
-  transition: .25s;
-}
-
-.card:hover {
-  transform: translateY(-5px);
-  border-color: rgba(65,164,255,.65);
-}
-
-.card h3 {
-  color: var(--blue-light);
-  margin-bottom: 12px;
-}
-
-.card p {
-  color: var(--muted);
-  font-size: 14px;
-}
-
-/* ABOUT */
-
-.about-box {
-  max-width: 850px;
+  width: min(1100px, 90%);
+  min-height: 220px;
   margin: auto;
+  padding: 65px 20px;
   text-align: center;
 }
 
-.about-box p {
+.section h2 {
+  margin-bottom: 15px;
+  color: var(--silver);
+  font-size: 28px;
+}
+
+.section p {
+  margin-bottom: 20px;
   color: var(--muted);
-  margin: 14px 0;
 }
 
-/* CTA */
 
-.cta {
-  text-align: center;
-  background: linear-gradient(120deg, rgba(11,75,132,.25), rgba(8,25,45,.4));
-}
+/* 4. FOOTER */
 
-/* FOOTER */
-
-footer {
+body > footer {
+  padding: 25px;
   border-top: 1px solid var(--border);
-  padding: 28px 0;
   color: var(--muted);
   text-align: center;
   font-size: 13px;
 }
 
-/* AUTH PANEL */
+
+/* 5. AUTHENTICATION PANEL */
 
 #zeydal-auth-panel {
-  display: none;
-  width: min(440px, 92%);
-  margin: 55px auto;
+  position: fixed;
+  inset: 0;
+  z-index: 10001;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  background: rgba(0, 0, 0, 0.82);
+  backdrop-filter: blur(8px);
+}
+
+.auth-box {
+  width: min(420px, 100%);
   padding: 30px;
-  background: var(--panel);
   border: 1px solid var(--border);
-  border-radius: 14px;
-  box-shadow: 0 15px 50px rgba(0,0,0,.3);
+  border-radius: 16px;
+  background: var(--panel);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.35);
 }
 
-#zeydal-auth-panel h2 {
+.auth-box h2 {
+  margin-bottom: 25px;
+  color: var(--silver);
   text-align: center;
-  margin-bottom: 8px;
 }
 
-.auth-description {
-  text-align: center;
-  color: var(--muted);
-  font-size: 13px;
-  margin-bottom: 24px;
-}
-
-.auth-form {
-  display: grid;
-  gap: 12px;
-  margin-bottom: 24px;
-}
-
-.auth-form h3 {
-  color: var(--blue-light);
+.auth-box h3 {
+  margin-bottom: 12px;
+  color: var(--text);
   font-size: 16px;
 }
 
-.auth-form input {
+.auth-box form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 25px;
+}
+
+.auth-box input {
   width: 100%;
   padding: 13px;
   border: 1px solid var(--border);
-  border-radius: 7px;
+  border-radius: 8px;
   outline: none;
-  background: #061426;
-  color: white;
+  background: var(--bg);
+  color: #fff;
 }
 
-.auth-form input:focus {
+.auth-box input:focus {
   border-color: var(--blue);
 }
 
-.auth-form button {
-  border: none;
+.auth-box button {
   padding: 12px;
-  border-radius: 7px;
+  border: none;
+  border-radius: 8px;
+  background: var(--blue);
   color: white;
-  background: linear-gradient(100deg, #0877dc, #24a6ff);
-  font-weight: bold;
 }
 
-.auth-form button:disabled {
-  opacity: .5;
-  cursor: wait;
+.auth-box button:hover {
+  background: var(--blue-light);
 }
 
 #zeydal-auth-message {
-  min-height: 24px;
-  text-align: center;
-  color: var(--blue-light);
+  color: var(--muted);
   font-size: 13px;
-  overflow-wrap: anywhere;
+  text-align: center;
 }
 
-/* CHAT BUTTON */
+
+/* 6. FLOATING CHAT BUTTON */
 
 #zeydal-chat-button {
-  display: none;
   position: fixed;
   right: 25px;
   bottom: 25px;
-  z-index: 500;
-  width: 62px;
-  height: 62px;
-  border: none;
-  border-radius: 50%;
-  background: linear-gradient(135deg, #0877dc, #24a6ff);
+  z-index: 9998;
+  padding: 15px 22px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 30px;
+  background: var(--blue);
   color: white;
-  font-size: 24px;
-  box-shadow: 0 5px 25px rgba(0,130,255,.35);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
 }
 
-/* ==========================================
-   CHAT INTERFACE - FULL SCREEN
-   ========================================== */
+#zeydal-chat-button:hover {
+  background: var(--blue-light);
+}
+
+
+/* =========================================
+   7. FULL SCREEN CHAT INTERFACE
+   ========================================= */
 
 #zeydal-chat-panel {
-  display: none;
   position: fixed;
   inset: 0;
   z-index: 9999;
+  display: none;
+  flex-direction: row;
   width: 100%;
   height: 100vh;
   height: 100dvh;
-  max-width: none;
-  max-height: none;
-  margin: 0;
-  padding: 0;
-  background: #071426;
-  border: none;
-  border-radius: 0;
-  box-shadow: none;
   overflow: hidden;
+  background: var(--bg);
 }
 
-/* CHAT HEADER */
 
-.chat-header {
-  position: relative;
+/* 8. LEFT SIDEBAR */
+
+.chat-sidebar {
+  width: 270px;
+  min-width: 270px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  padding: 20px 14px;
+  overflow: hidden;
+  background: var(--panel);
+  border-right: 1px solid var(--border);
+}
+
+.sidebar-brand {
+  padding: 8px 10px 25px;
+  color: var(--silver);
+  font-size: 21px;
+  letter-spacing: 1px;
+}
+
+.sidebar-brand strong {
+  background: linear-gradient(
+    90deg,
+    #4d9fff,
+    var(--silver)
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+
+/* 9. NEW CHAT BUTTON */
+
+#zeydal-new-chat {
   width: 100%;
-  height: 68px;
-  min-height: 68px;
-  padding: 0 28px;
+  padding: 13px;
+  border: 1px solid rgba(100, 160, 255, 0.3);
+  border-radius: 10px;
+  background: rgba(45, 110, 200, 0.13);
+  color: var(--text);
+  text-align: left;
+  font-size: 14px;
+  transition: 0.2s ease;
+}
+
+#zeydal-new-chat:hover {
+  background: rgba(45, 130, 230, 0.25);
+  border-color: var(--blue);
+}
+
+#zeydal-new-chat span {
+  margin-right: 7px;
+  font-size: 18px;
+}
+
+
+/* 10. CONVERSATION HISTORY */
+
+.conversation-heading {
+  margin: 27px 10px 12px;
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.conversation-list {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  overflow-y: auto;
+}
+
+.conversation-item {
+  width: 100%;
+  padding: 12px 10px;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  background: transparent;
+  color: #b9c6d8;
+  text-align: left;
+  font-size: 13px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  transition: 0.2s ease;
+}
+
+.conversation-item:hover {
+  background: rgba(255, 255, 255, 0.06);
+  color: white;
+}
+
+.conversation-item.active {
+  background: rgba(50, 125, 220, 0.18);
+  border-color: rgba(75, 145, 235, 0.25);
+  color: white;
+}
+
+
+/* 11. SIDEBAR FOOTER */
+
+.sidebar-footer {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  padding: 18px 10px 5px;
+  border-top: 1px solid var(--border);
+  color: #aebed3;
+  font-size: 13px;
+}
+
+.sidebar-footer small {
+  color: #71839b;
+  font-size: 11px;
+}
+
+
+/* =========================================
+   12. MAIN CHAT AREA
+   ========================================= */
+
+.chat-main {
+  flex: 1;
+  min-width: 0;
+  height: 100%;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  background: var(--bg);
+}
+
+
+/* 13. CHAT HEADER */
+
+#zeydal-chat-panel .chat-header {
+  flex-shrink: 0;
+  min-height: 70px;
+  padding: 12px 22px;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 12px;
-  background: #091a30;
+  background: #0b1220;
   border-bottom: 1px solid var(--border);
 }
 
-.chat-header strong {
-  color: white;
-  font-size: 19px;
-  letter-spacing: 1px;
+.chat-header-title {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.chat-header-title strong {
+  color: var(--text);
+  font-size: 17px;
+}
+
+.chat-header-title span {
+  color: var(--muted);
+  font-size: 11px;
 }
 
 .chat-header-actions {
   display: flex;
   align-items: center;
   gap: 8px;
-  flex-wrap: wrap;
 }
 
-.chat-header button,
-#zeydal-voice-toggle {
+.chat-header-actions button {
+  padding: 9px 13px;
   border: 1px solid var(--border);
-  background: #0a1c31;
-  color: var(--silver);
-  border-radius: 7px;
-  padding: 7px 10px;
-  font-size: 12px;
+  border-radius: 8px;
+  background: #172338;
+  color: var(--text);
+  transition: 0.2s ease;
 }
 
-.chat-header button:hover,
-#zeydal-voice-toggle:hover {
-  border-color: var(--blue);
-  color: white;
+.chat-header-actions button:hover {
+  background: #233957;
 }
 
-/* CHAT MESSAGES */
+
+/* 14. MESSAGE AREA */
 
 #zeydal-chat-messages {
+  flex: 1;
+  min-height: 0;
+  height: auto;
+  padding: 30px max(20px, calc((100% - 850px) / 2));
   display: flex;
   flex-direction: column;
-  gap: 22px;
-  height: calc(100% - 146px);
-  padding: 30px 20px;
+  gap: 18px;
   overflow-y: auto;
-  background: #071426;
-  box-sizing: border-box;
+  scroll-behavior: smooth;
 }
 
-#zeydal-chat-messages > div {
-  width: fit-content;
-  max-width: min(780px, 90%);
-  padding: 14px 18px;
-  border-radius: 15px;
-  line-height: 1.7;
-  font-size: 15px;
+
+/* 15. USER MESSAGES */
+
+#zeydal-chat-panel .user-message {
+  align-self: flex-end;
+  max-width: 75%;
+  padding: 13px 17px;
+  border-radius: 17px 17px 4px 17px;
+  background: #174d89;
+  color: white;
   overflow-wrap: anywhere;
 }
 
-/* USER MESSAGE */
 
-#zeydal-chat-messages .user-message,
-#zeydal-chat-messages .zeydal-user {
-  align-self: flex-end;
-  background: #123c65;
-  color: white;
-  border: 1px solid rgba(85,181,255,.2);
-}
+/* 16. ASSISTANT MESSAGES */
 
-/* ASSISTANT MESSAGE */
-
-#zeydal-chat-messages .assistant-message,
-#zeydal-chat-messages .zeydal-assistant {
+#zeydal-chat-panel .assistant-message {
   align-self: flex-start;
-  background: #10233b;
-  color: #edf5ff;
-  border: 1px solid rgba(112,174,235,.15);
+  max-width: 85%;
+  padding: 13px 17px;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 17px 17px 17px 4px;
+  background: var(--panel-light);
+  color: #e0e9f5;
+  overflow-wrap: anywhere;
 }
 
-/* MESSAGE FORM */
+#zeydal-chat-panel .user-message p,
+#zeydal-chat-panel .assistant-message p {
+  margin: 0;
+  line-height: 1.7;
+  white-space: pre-wrap;
+}
 
-#zeydal-chat-form {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  width: 100%;
-  min-height: 78px;
-  padding: 14px 20px;
+
+/* 17. MESSAGE INPUT */
+
+#zeydal-chat-panel #zeydal-chat-form {
+  position: relative;
+  inset: auto;
+  flex-shrink: 0;
+  width: min(850px, calc(100% - 40px));
+  margin: 15px auto 25px;
+  padding: 9px;
   display: flex;
-  align-items: center;
-  gap: 12px;
-  background: #071426;
-  border-top: 1px solid var(--border);
+  gap: 10px;
+  border: 1px solid rgba(100, 150, 220, 0.25);
+  border-radius: 14px;
+  background: #111b2b;
 }
 
-#zeydal-chat-input {
+#zeydal-chat-panel #zeydal-chat-input {
   flex: 1;
   min-width: 0;
-  width: auto;
-  padding: 14px;
-  border-radius: 12px;
-  background: #10233b;
-  color: #edf5ff;
-  border: 1px solid rgba(112,174,235,.3);
-  outline: none;
-}
-
-#zeydal-chat-input:focus {
-  border-color: var(--blue);
-  box-shadow: 0 0 0 2px rgba(22,139,255,.12);
-}
-
-#zeydal-chat-send {
-  flex-shrink: 0;
+  padding: 13px;
   border: none;
-  border-radius: 10px;
-  padding: 12px 24px;
+  outline: none;
+  background: transparent;
   color: white;
-  background: #087fe5;
-  font-weight: bold;
+  font-size: 14px;
 }
 
-#zeydal-chat-send:disabled {
-  opacity: .5;
-  cursor: wait;
+#zeydal-chat-panel #zeydal-chat-input::placeholder {
+  color: #788ba5;
 }
 
-/* SCROLLBAR */
+#zeydal-chat-panel #zeydal-chat-send {
+  padding: 12px 20px;
+  border: none;
+  border-radius: 9px;
+  background: var(--blue);
+  color: white;
+  font-weight: 600;
+  transition: 0.2s ease;
+}
 
+#zeydal-chat-panel #zeydal-chat-send:hover {
+  background: var(--blue-light);
+}
+
+#zeydal-chat-panel #zeydal-chat-send:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+
+/* 18. SCROLLBARS */
+
+.conversation-list::-webkit-scrollbar,
 #zeydal-chat-messages::-webkit-scrollbar {
-  width: 7px;
+  width: 6px;
 }
 
+.conversation-list::-webkit-scrollbar-thumb,
 #zeydal-chat-messages::-webkit-scrollbar-thumb {
-  background: #294563;
   border-radius: 10px;
+  background: #34445c;
 }
 
-/* MOBILE */
+
+/* =========================================
+   19. RESPONSIVE DESIGN
+   ========================================= */
 
 @media (max-width: 700px) {
-  .navbar {
-    padding: 15px 0;
+
+  body > header nav {
     flex-direction: column;
+    padding: 15px 0;
   }
 
-  nav {
+  .nav-links {
+    flex-wrap: wrap;
     justify-content: center;
-    gap: 13px;
+    gap: 12px;
+  }
+
+  .nav-links a {
+    font-size: 12px;
   }
 
   .hero {
-    min-height: 480px;
+    min-height: 400px;
+    padding: 70px 15px;
   }
 
-  .section {
-    padding: 60px 0;
+  .chat-sidebar {
+    width: 165px;
+    min-width: 165px;
+    padding: 14px 8px;
   }
 
-  .chat-header {
-    height: 60px;
-    min-height: 60px;
-    padding: 0 12px;
-    gap: 5px;
+  .sidebar-brand {
+    padding: 8px 5px 20px;
+    font-size: 17px;
   }
 
-  .chat-header strong {
-    font-size: 15px;
+  #zeydal-new-chat {
+    padding: 11px 7px;
+    font-size: 12px;
+  }
+
+  .conversation-heading {
+    margin-left: 5px;
+    font-size: 10px;
+  }
+
+  .conversation-item {
+    padding: 10px 7px;
+    font-size: 11px;
+  }
+
+  .sidebar-footer {
+    padding-left: 5px;
+  }
+
+  #zeydal-chat-panel .chat-header {
+    padding: 10px;
+  }
+
+  .chat-header-title strong {
+    font-size: 14px;
+  }
+
+  .chat-header-title span {
+    font-size: 10px;
   }
 
   .chat-header-actions {
     gap: 4px;
   }
 
-  .chat-header button {
+  .chat-header-actions button {
+    padding: 8px;
+    font-size: 11px;
+  }
+
+  #zeydal-chat-messages {
+    padding: 18px 10px;
+  }
+
+  #zeydal-chat-panel .user-message,
+  #zeydal-chat-panel .assistant-message {
+    max-width: 92%;
+    padding: 11px;
+    font-size: 13px;
+  }
+
+  #zeydal-chat-panel #zeydal-chat-form {
+    width: calc(100% - 16px);
+    margin: 8px auto 12px;
+    gap: 5px;
+  }
+
+  #zeydal-chat-panel #zeydal-chat-input {
+    padding: 10px 5px;
+    font-size: 12px;
+  }
+
+  #zeydal-chat-panel #zeydal-chat-send {
+    padding: 10px;
+    font-size: 12px;
+  }
+
+}
+
+@media (max-width: 380px) {
+
+  .chat-sidebar {
+    width: 125px;
+    min-width: 125px;
+    padding: 10px 6px;
+  }
+
+  .sidebar-brand {
+    font-size: 15px;
+  }
+
+  .chat-header-actions button {
     padding: 6px;
     font-size: 10px;
   }
 
-  #zeydal-chat-messages {
-    height: calc(100% - 138px);
-    padding: 18px 12px;
-    gap: 16px;
-  }
-
-  #zeydal-chat-messages > div {
-    max-width: 95%;
-    padding: 12px;
-    font-size: 14px;
-  }
-
-  #zeydal-chat-form {
-    min-height: 78px;
-    padding: 12px;
-    gap: 8px;
-  }
-
-  #zeydal-chat-input {
-    padding: 12px;
-    font-size: 14px;
-  }
-
-  #zeydal-chat-send {
-    padding: 10px 14px;
-  }
-
-  #zeydal-chat-button {
-    right: 15px;
-    bottom: 15px;
-  }
 }
