@@ -32,14 +32,20 @@
   const conversationHistory = [];
 
   // ------------------------------------------
-  // SESLENDİRME METNİNİ DÜZENLE
+  // SESLENDİRME METNİNİ TEMİZLE
   // ------------------------------------------
 
   function prepareSpeechText(text) {
-    let speechText = String(text);
+    let speechText = String(text || "");
 
     // HTML etiketlerini temizle
     speechText = speechText.replace(/<[^>]*>/g, " ");
+
+    // Markdown bağlantılarında yalnızca görünen metni bırak
+    speechText = speechText.replace(
+      /!?\[([^\]]*)\]\([^)]+\)/g,
+      "$1"
+    );
 
     // Markdown biçimlendirmelerini temizle
     speechText = speechText
@@ -49,14 +55,32 @@
       .replace(/_(.*?)_/gs, "$1")
       .replace(/`([^`]*)`/g, "$1");
 
-    // ZEYDAL harflerinin arasındaki boşluk ve
-    // noktalama işaretlerini kaldırarak tek hedefe dönüştür
+    // Kod bloklarını temizle
+    speechText = speechText.replace(/```[\s\S]*?```/g, " ");
+
+    // Emoji ve sembolleri temizle
+    speechText = speechText.replace(
+      /[#*0-9]\uFE0F?\u20E3/gu,
+      " "
+    );
+
+    speechText = speechText.replace(
+      /[\p{Extended_Pictographic}\p{Regional_Indicator}\p{Emoji_Modifier}\uFE0E\uFE0F\u200D]/gu,
+      " "
+    );
+
+    // Yazıyla kullanılan yüz ifadelerini temizle
+    speechText = speechText.replace(
+      /(?:[:;=8][-^']?[)(/DPp]|<3)/g,
+      " "
+    );
+
+    // ZEYDAL adının doğru telaffuzu
     speechText = speechText.replace(
       /Z[\s.,;:_-]*E[\s.,;:_-]*Y[\s.,;:_-]*D[\s.,;:_-]*A[\s.,;:_-]*L/gi,
       "zey-dal"
     );
 
-    // Bitişik yazılmış marka adını da dönüştür
     speechText = speechText.replace(
       /\bZEYDAL\b/gi,
       "zey-dal"
@@ -65,7 +89,7 @@
     // Kalan Markdown işaretlerini temizle
     speechText = speechText.replace(/[*_#~`]/g, " ");
 
-    // Fazla boşlukları temizle
+    // Gereksiz boşlukları temizle
     speechText = speechText
       .replace(/\s+/g, " ")
       .trim();
@@ -131,6 +155,7 @@
     active = true;
     busy = false;
     speaking = false;
+    listening = false;
 
     conversationHistory.length = 0;
 
@@ -165,7 +190,9 @@
         const transcript =
           event.results[i][0].transcript.trim();
 
-        if (!transcript || !active || busy) continue;
+        if (!transcript || !active || busy || speaking) {
+          continue;
+        }
 
         notify("user-transcription", {
           text: transcript
@@ -277,7 +304,7 @@
   }
 
   // ------------------------------------------
-  // GEMINI API'YE MESAJ GÖNDER
+  // ZEYDAL AI API'YE MESAJ GÖNDER
   // ------------------------------------------
 
   async function sendToZeydal(message) {
@@ -314,7 +341,7 @@
           result.error?.message ||
           result.error ||
           result.message ||
-          "Gemini API bağlantı hatası."
+          "ZEYDAL AI API bağlantı hatası."
         );
       }
 
@@ -384,14 +411,25 @@
         return;
       }
 
+      // Önce dinlemeyi kapat.
+      // Böylece ZEYDAL AI kendi sesini algılamaz.
       speaking = true;
+      busy = true;
 
-      if (recognition && listening) {
+      if (recognition) {
         try {
           recognition.stop();
-        } catch (_) {}
+        } catch (error) {
+          console.warn(
+            SYSTEM_NAME + ": Mikrofon durdurulamadı.",
+            error
+          );
+        }
       }
 
+      listening = false;
+
+      // Önceki seslendirmeyi iptal et
       window.speechSynthesis.cancel();
 
       const speechText = prepareSpeechText(text);
@@ -400,6 +438,21 @@
         SYSTEM_NAME + " seslendirme metni:",
         speechText
       );
+
+      if (!speechText) {
+        speaking = false;
+        busy = false;
+        resolve();
+
+        if (active) {
+          setButton("🎙️ Seni dinliyorum...");
+          setStatus("listening");
+
+          setTimeout(restartRecognition, 300);
+        }
+
+        return;
+      }
 
       const utterance =
         new SpeechSynthesisUtterance(speechText);
@@ -413,6 +466,7 @@
         window.speechSynthesis.getVoices();
 
       const turkishVoice = voices.find(voice =>
+        voice.lang &&
         voice.lang.toLowerCase().startsWith("tr")
       );
 
@@ -439,7 +493,7 @@
 
           setTimeout(() => {
             restartRecognition();
-          }, 300);
+          }, 500);
         }
       };
 
@@ -455,7 +509,10 @@
         resolve();
 
         if (active) {
-          restartRecognition();
+          setButton("🎙️ Seni dinliyorum...");
+          setStatus("listening");
+
+          setTimeout(restartRecognition, 500);
         }
       };
 
@@ -492,12 +549,12 @@
     notify("disconnected");
 
     console.log(
-      SYSTEM_NAME + ": Ücretsiz sesli görüşme kapatıldı."
+      SYSTEM_NAME + ": Sesli görüşme kapatıldı."
     );
   }
 
   console.log(
-    SYSTEM_NAME + ": Ücretsiz tarayıcı ses sistemi hazır."
+    SYSTEM_NAME + ": Sesli görüşme sistemi hazır."
   );
 
 })();
