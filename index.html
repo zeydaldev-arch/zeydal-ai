@@ -8,2164 +8,1398 @@
   <meta name="description" content="ZEYDAL AI - Geleceğin yapay zekâ asistanı.">
   <title>ZEYDAL AI</title>
   <link rel="stylesheet" href="style.css">
-
-  <!-- KİTAPLIK EK CSS -->
-  <style>
-    [hidden] {
-      display: none !important;
-    }
-
-    .library-container {
-      width: 100%;
-    }
-
-    .library-toolbar {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 12px;
-      margin-bottom: 20px;
-      flex-wrap: wrap;
-    }
-
-    .library-count {
-      color: #aebed0;
-      font-size: 13px;
-    }
-
-    .library-list {
-      display: grid;
-      grid-template-columns: repeat(
-        auto-fit,
-        minmax(min(100%, 280px), 1fr)
-      );
-      gap: 16px;
-    }
-
-    .library-card {
-      min-width: 0;
-      padding: 20px;
-      border: 1px solid rgba(80, 145, 210, 0.25);
-      border-radius: 14px;
-      background: rgba(30, 52, 78, 0.65);
-      color: #e7edf5;
-    }
-
-    .library-card h3 {
-      margin: 0 0 8px;
-      font-size: 16px;
-      overflow-wrap: anywhere;
-    }
-
-    .library-card small {
-      display: block;
-      margin-bottom: 14px;
-      color: #9aadc2;
-      font-size: 11px;
-    }
-
-    .library-card p {
-      margin: 0 0 18px;
-      color: #c5d1df;
-      font-size: 13px;
-      line-height: 1.7;
-      white-space: pre-wrap;
-      overflow-wrap: anywhere;
-    }
-
-    .library-card-actions {
-      display: flex;
-      gap: 8px;
-      flex-wrap: wrap;
-    }
-
-    .library-card-actions button,
-    .save-to-library {
-      padding: 8px 12px;
-      border: 1px solid rgba(75, 145, 220, 0.4);
-      border-radius: 8px;
-      background: rgba(40, 127, 224, 0.13);
-      color: #c8e2ff;
-      cursor: pointer;
-      font-size: 12px;
-      transition: 0.2s ease;
-    }
-
-    .library-card-actions button:hover,
-    .save-to-library:hover {
-      background: rgba(40, 127, 224, 0.3);
-      color: #fff;
-    }
-
-    .library-card-actions .library-delete {
-      border-color: rgba(224, 82, 82, 0.35);
-      background: rgba(224, 82, 82, 0.1);
-      color: #ffaaaa;
-    }
-
-    .library-card-actions .library-delete:hover {
-      background: rgba(224, 82, 82, 0.25);
-      color: white;
-    }
-
-    .library-empty {
-      min-height: 180px;
-      padding: 30px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      border: 1px dashed rgba(80, 145, 210, 0.4);
-      border-radius: 14px;
-      background: rgba(42, 68, 98, 0.25);
-      color: #aebed0;
-      text-align: center;
-      line-height: 1.7;
-    }
-
-    .save-to-library {
-      display: block;
-      margin-top: 12px;
-    }
-
-    .save-to-library.saved {
-      border-color: rgba(75, 190, 135, 0.4);
-      color: #8ce0b5;
-    }
-
-    .library-search {
-      width: 100%;
-      max-width: 400px;
-      padding: 11px 14px;
-      border: 1px solid rgba(80, 145, 210, 0.3);
-      border-radius: 10px;
-      outline: none;
-      background: rgba(15, 30, 48, 0.7);
-      color: #fff;
-    }
-
-    .library-search:focus {
-      border-color: #438edb;
-    }
-
-    @media (max-width: 700px) {
-      .library-card {
-        padding: 15px;
-      }
-
-      .library-toolbar {
-        align-items: stretch;
-      }
-
-      .library-search {
-        max-width: 100%;
-      }
-    }
-  </style>
 </head>
-
 <body>
 
-  <!-- ANA SAYFA -->
-  <header>
-    <nav>
-      <div class="logo">ZEYDAL AI</div>
+<header>
+  <nav>
+    <div class="logo">ZEYDAL AI</div>
+    <div class="nav-links">
+      <a href="#home">Ana Sayfa</a>
+      <a href="#assistant">Asistan</a>
+      <a href="#tools">Teknolojiler</a>
+      <a href="#projects">Projeler</a>
+      <a href="#about">Hakkımızda</a>
+    </div>
+  </nav>
+</header>
 
-      <div class="nav-links">
-        <a href="#home">Ana Sayfa</a>
-        <a href="#assistant">Asistan</a>
-        <a href="#tools">Teknolojiler</a>
-        <a href="#projects">Projeler</a>
-        <a href="#about">Hakkımızda</a>
-      </div>
-    </nav>
-  </header>
+<main>
+  <section id="home" class="hero">
+    <h1>Geleceğin Yapay Zekâsı</h1>
+    <p>ZEYDAL AI ile geleceği keşfet.</p>
+    <button class="zeydal-open-assistant" type="button">Asistanı Başlat</button>
+  </section>
 
-  <main>
+  <section id="assistant" class="section">
+    <h2>ZEYDAL AI Asistan</h2>
+    <p>Akıllı asistanınla sohbet etmeye başla.</p>
+    <button class="zeydal-open-assistant" type="button">Sohbete Başla</button>
+  </section>
 
-    <section id="home" class="hero">
-      <h1>Geleceğin Yapay Zekâsı</h1>
-      <p>ZEYDAL AI ile geleceği keşfet.</p>
+  <section id="tools" class="section">
+    <h2>Teknolojilerimiz</h2>
+    <p>Yapay zekâ ve yeni nesil teknolojiler.</p>
+  </section>
 
-      <button class="zeydal-open-assistant" type="button">
-        Asistanı Başlat
+  <section id="projects" class="section">
+    <h2>Projelerimiz</h2>
+    <p>Geleceği şekillendiren projeler geliştiriyoruz.</p>
+  </section>
+
+  <section id="about" class="section">
+    <h2>Hakkımızda</h2>
+    <p>ZEYDAL AI, yenilikçi yapay zekâ teknolojileri geliştirme amacıyla oluşturulmuştur.</p>
+  </section>
+</main>
+
+<footer>
+  <p>© 2026 ZEYDAL AI. Tüm hakları saklıdır.</p>
+</footer>
+
+<!-- GİRİŞ VE KAYIT -->
+<div id="zeydal-auth-panel" class="auth-panel" style="display:none;">
+  <div class="auth-box">
+    <h2>ZEYDAL AI</h2>
+
+    <form id="zeydal-login-form">
+      <h3>Giriş Yap</h3>
+      <input type="email" id="zeydal-login-email" placeholder="E-posta adresi" autocomplete="email" required>
+      <input type="password" id="zeydal-login-password" placeholder="Şifre" autocomplete="current-password" required>
+      <button type="submit">Giriş Yap</button>
+    </form>
+
+    <form id="zeydal-register-form">
+      <h3>Hesap Oluştur</h3>
+      <input type="email" id="zeydal-register-email" placeholder="E-posta adresi" autocomplete="email" required>
+      <input type="password" id="zeydal-register-password" placeholder="Şifre" autocomplete="new-password" required>
+      <button type="submit">Kayıt Ol</button>
+    </form>
+
+    <p id="zeydal-auth-message" role="status" aria-live="polite"></p>
+  </div>
+</div>
+
+<button id="zeydal-chat-button" type="button" aria-label="ZEYDAL AI sohbetini aç">
+  ZEYDAL AI
+</button>
+
+<!-- UYGULAMA -->
+<div id="zeydal-chat-panel" style="display:none;" data-theme="dark" data-font-size="medium" data-chat-view="wide">
+
+  <aside class="chat-sidebar">
+    <div class="sidebar-brand"><strong>ZEYDAL AI</strong></div>
+
+    <button id="zeydal-new-chat" type="button">
+      <span>＋</span> Yeni Sohbet
+    </button>
+
+    <div class="sidebar-tools">
+      <button class="sidebar-tool active" type="button" data-page="chat">
+        <span>✉</span> Sohbet
       </button>
-    </section>
-
-    <section id="assistant" class="section">
-      <h2>ZEYDAL AI Asistan</h2>
-      <p>Akıllı asistanınla sohbet etmeye başla.</p>
-
-      <button class="zeydal-open-assistant" type="button">
-        Sohbete Başla
+      <button class="sidebar-tool" type="button" data-page="visualization">
+        <span>✧</span> Görselleştirme
       </button>
-    </section>
-
-    <section id="tools" class="section">
-      <h2>Teknolojilerimiz</h2>
-      <p>Yapay zekâ ve yeni nesil teknolojiler.</p>
-    </section>
-
-    <section id="projects" class="section">
-      <h2>Projelerimiz</h2>
-      <p>Geleceği şekillendiren projeler geliştiriyoruz.</p>
-    </section>
-
-    <section id="about" class="section">
-      <h2>Hakkımızda</h2>
-      <p>
-        ZEYDAL AI, yenilikçi yapay zekâ teknolojileri geliştirme
-        amacıyla oluşturulmuştur.
-      </p>
-    </section>
-
-  </main>
-
-  <footer>
-    <p>© 2026 ZEYDAL AI. Tüm hakları saklıdır.</p>
-  </footer>
-
-
-  <!-- GİRİŞ VE KAYIT PANELİ -->
-  <div id="zeydal-auth-panel" class="auth-panel" style="display:none;">
-
-    <div class="auth-box">
-      <h2>ZEYDAL AI</h2>
-
-      <form id="zeydal-login-form">
-        <h3>Giriş Yap</h3>
-
-        <input
-          type="email"
-          id="zeydal-login-email"
-          placeholder="E-posta adresi"
-          autocomplete="email"
-          required
-        >
-
-        <input
-          type="password"
-          id="zeydal-login-password"
-          placeholder="Şifre"
-          autocomplete="current-password"
-          required
-        >
-
-        <button type="submit">Giriş Yap</button>
-      </form>
-
-      <form id="zeydal-register-form">
-        <h3>Hesap Oluştur</h3>
-
-        <input
-          type="email"
-          id="zeydal-register-email"
-          placeholder="E-posta adresi"
-          autocomplete="email"
-          required
-        >
-
-        <input
-          type="password"
-          id="zeydal-register-password"
-          placeholder="Şifre"
-          autocomplete="new-password"
-          required
-        >
-
-        <button type="submit">Kayıt Ol</button>
-      </form>
-
-      <p id="zeydal-auth-message" role="status" aria-live="polite"></p>
+      <button class="sidebar-tool" type="button" data-page="library">
+        <span>▤</span> Kitaplık
+      </button>
+      <button class="sidebar-tool" type="button" data-page="customize">
+        <span>⚙</span> Özelleştir
+      </button>
+      <button class="sidebar-tool" type="button" data-page="remote">
+        <span>⌘</span> Remote
+      </button>
+      <button class="sidebar-tool" type="button" data-page="discover">
+        <span>◇</span> Keşfet
+      </button>
     </div>
 
-  </div>
+    <div class="conversation-heading">Sohbet Geçmişi</div>
+    <input
+      type="search"
+      id="zeydal-chat-search"
+      class="conversation-search"
+      placeholder="Sohbetlerde ara..."
+      autocomplete="off"
+      aria-label="Sohbet geçmişinde ara"
+    >
 
+    <div id="zeydal-conversation-list" class="conversation-list" aria-label="Önceki sohbetler"></div>
 
-  <!-- SOHBETİ AÇMA BUTONU -->
-  <button
-    id="zeydal-chat-button"
-    type="button"
-    aria-label="ZEYDAL AI sohbetini aç"
-  >
-    ZEYDAL AI
-  </button>
+    <div class="sidebar-footer">
+      <span>ZEYDAL AI</span>
+      <small>Build the Future.</small>
+    </div>
+  </aside>
 
-
-  <!-- TAM EKRAN UYGULAMA PANELİ -->
-  <div id="zeydal-chat-panel" style="display:none;">
-
-    <!-- SOL MENÜ -->
-    <aside class="chat-sidebar">
-
-      <div class="sidebar-brand">
+  <section class="chat-main">
+    <div class="chat-header">
+      <div class="chat-header-title">
         <strong>ZEYDAL AI</strong>
+        <span>Yapay Zekâ Asistanı</span>
       </div>
 
-      <button id="zeydal-new-chat" type="button">
-        <span>＋</span>
-        Yeni Sohbet
-      </button>
-
-      <!-- UYGULAMA MENÜLERİ -->
-      <div class="sidebar-tools">
-
-        <button
-          class="sidebar-tool active"
-          type="button"
-          data-page="chat"
-        >
-          <span>✉</span>
-          Sohbet
-        </button>
-
-        <button
-          class="sidebar-tool"
-          type="button"
-          data-page="visualization"
-        >
-          <span>✧</span>
-          Görselleştirme
-        </button>
-
-        <button
-          class="sidebar-tool"
-          type="button"
-          data-page="library"
-        >
-          <span>▤</span>
-          Kitaplık
-        </button>
-
-        <button
-          class="sidebar-tool"
-          type="button"
-          data-page="customize"
-        >
-          <span>⚙</span>
-          Özelleştir
-        </button>
-
-        <button
-          class="sidebar-tool"
-          type="button"
-          data-page="remote"
-        >
-          <span>⌘</span>
-          Remote
-        </button>
-
-        <button
-          class="sidebar-tool"
-          type="button"
-          data-page="discover"
-        >
-          <span>◇</span>
-          Keşfet
-        </button>
-
+      <div class="chat-header-actions">
+        <button id="zeydal-voice-toggle" type="button" aria-label="Sesli asistan">Ses</button>
+        <button id="zeydal-logout" type="button">Çıkış</button>
+        <button id="zeydal-chat-close" type="button" aria-label="Sohbeti kapat">✕</button>
       </div>
+    </div>
 
+    <div id="zeydal-chat-messages" aria-live="polite" aria-label="Sohbet mesajları"></div>
 
-      <!-- SOHBET GEÇMİŞİ -->
-      <div class="conversation-heading">
-        Sohbet Geçmişi
+    <div id="zeydal-feature-view" class="feature-view" hidden>
+      <div class="feature-content">
+        <div class="feature-heading">
+          <span class="feature-label">ZEYDAL AI WORKSPACE</span>
+          <h1 id="zeydal-feature-title">Görselleştirme</h1>
+          <p id="zeydal-feature-description">ZEYDAL AI çalışma alanı.</p>
+        </div>
+        <div id="zeydal-feature-placeholder" class="feature-placeholder"></div>
       </div>
+    </div>
 
+    <form id="zeydal-chat-form">
       <input
-        type="search"
-        id="zeydal-chat-search"
-        class="conversation-search"
-        placeholder="Sohbetlerde ara..."
+        type="text"
+        id="zeydal-chat-input"
+        placeholder="ZEYDAL AI'ye mesajını yaz..."
         autocomplete="off"
-        aria-label="Sohbet geçmişinde ara"
+        required
       >
+      <button type="submit" id="zeydal-chat-send">Gönder</button>
+    </form>
+  </section>
+</div>
 
-      <div
-        id="zeydal-conversation-list"
-        class="conversation-list"
-        aria-label="Önceki sohbetler"
-      ></div>
+<script>
+async function initializeZeydal() {
+  "use strict";
 
-      <div class="sidebar-footer">
-        <span>ZEYDAL AI</span>
-        <small>Build the Future.</small>
-      </div>
+  const API_URL = "https://zeydal-ai-api.zeydal-dev.workers.dev/";
+  const CHAT_API_URL = "https://zeydal-api.zeydal-dev.workers.dev/api/chat";
 
-    </aside>
+  const TOKEN_KEY = "zeydalSessionToken";
+  const OLD_TOKEN_KEY = "zeydal_ai_session";
+  const HISTORY_KEY = "zeydalChatHistory";
+  const LIBRARY_KEY = "zeydalSavedLibrary";
+  const PREFERENCES_KEY = "zeydalPreferences";
 
+  const $ = id => document.getElementById(id);
 
-    <!-- ANA ÇALIŞMA ALANI -->
-    <section class="chat-main">
+  const authPanel = $("zeydal-auth-panel");
+  const chatPanel = $("zeydal-chat-panel");
+  const chatButton = $("zeydal-chat-button");
+  const chatMessages = $("zeydal-chat-messages");
+  const chatForm = $("zeydal-chat-form");
+  const chatInput = $("zeydal-chat-input");
+  const authMessage = $("zeydal-auth-message");
+  const conversationList = $("zeydal-conversation-list");
+  const searchInput = $("zeydal-chat-search");
+  const sendButton = $("zeydal-chat-send");
+  const featureView = $("zeydal-feature-view");
+  const featureTitle = $("zeydal-feature-title");
+  const featureDescription = $("zeydal-feature-description");
+  const featurePlaceholder = $("zeydal-feature-placeholder");
 
-      <!-- ÜST BAŞLIK -->
-      <div class="chat-header">
+  const requiredElements = [
+    authPanel, chatPanel, chatButton, chatMessages, chatForm,
+    chatInput, authMessage, conversationList, searchInput,
+    sendButton, featureView, featureTitle, featureDescription,
+    featurePlaceholder, $("zeydal-login-form"),
+    $("zeydal-register-form"), $("zeydal-new-chat"),
+    $("zeydal-voice-toggle"), $("zeydal-logout"),
+    $("zeydal-chat-close")
+  ];
 
-        <div class="chat-header-title">
-          <strong>ZEYDAL AI</strong>
-          <span>Yapay Zekâ Asistanı</span>
-        </div>
+  if (requiredElements.some(element => !element)) {
+    console.error("ZEYDAL AI: Gerekli HTML elemanları bulunamadı.");
+    return;
+  }
 
-        <div class="chat-header-actions">
+  let sessionToken = localStorage.getItem(TOKEN_KEY);
 
-          <button
-            id="zeydal-voice-toggle"
-            type="button"
-            aria-label="Sesli asistan"
-          >
-            Ses
-          </button>
+  if (!sessionToken) {
+    const oldToken = localStorage.getItem(OLD_TOKEN_KEY);
+    if (oldToken) {
+      sessionToken = oldToken;
+      localStorage.setItem(TOKEN_KEY, oldToken);
+      localStorage.removeItem(OLD_TOKEN_KEY);
+    }
+  }
 
-          <button id="zeydal-logout" type="button">
-            Çıkış
-          </button>
+  let sessionVerified = false;
+  let chats = [];
+  let activeChatId = null;
+  let history = [];
+  let isSending = false;
+  let savedLibrary = [];
 
-          <button
-            id="zeydal-chat-close"
-            type="button"
-            aria-label="Sohbeti kapat"
-          >
-            ✕
-          </button>
+  const featurePages = {
+    visualization: {
+      title: "Görselleştirme",
+      description: "Fikirlerini ayrıntılı görsel üretim açıklamalarına dönüştür."
+    },
+    library: {
+      title: "Kitaplık",
+      description: "Kaydettiğin yanıtları ve içerikleri burada yönet."
+    },
+    customize: {
+      title: "Özelleştir",
+      description: "ZEYDAL AI deneyimini kişiselleştir."
+    },
+    remote: {
+      title: "Remote",
+      description: "ZEYDAL AI uzaktan erişim çalışma alanı."
+    },
+    discover: {
+      title: "Keşfet",
+      description: "ZEYDAL AI araçlarını ve yeni özelliklerini keşfet."
+    }
+  };
 
-        </div>
+  // --------------------------------------------------
+  // GENEL YARDIMCILAR
+  // --------------------------------------------------
 
-      </div>
+  function createElement(tag, className, text) {
+    const element = document.createElement(tag);
+    if (className) element.className = className;
+    if (text !== undefined) element.textContent = text;
+    return element;
+  }
 
+  function safeParse(value, fallback) {
+    try {
+      return value ? JSON.parse(value) : fallback;
+    } catch (error) {
+      console.error("Veri okunamadı:", error);
+      return fallback;
+    }
+  }
 
-      <!-- SOHBET MESAJLARI -->
-      <div
-        id="zeydal-chat-messages"
-        aria-live="polite"
-        aria-label="Sohbet mesajları"
-      ></div>
+  // --------------------------------------------------
+  // ÖZELLEŞTİRME AYARLARI
+  // --------------------------------------------------
 
+  const defaultPreferences = {
+    theme: "dark",
+    fontSize: "medium",
+    chatView: "wide"
+  };
 
-      <!-- ÖZELLİK SAYFALARI -->
-      <div id="zeydal-feature-view" class="feature-view" hidden>
+  let preferences = { ...defaultPreferences };
 
-        <div class="feature-content">
+  function loadPreferences() {
+    const stored = safeParse(
+      localStorage.getItem(PREFERENCES_KEY),
+      {}
+    );
 
-          <div class="feature-heading">
-            <span class="feature-label">ZEYDAL AI WORKSPACE</span>
+    preferences = {
+      theme: ["dark", "light"].includes(stored.theme)
+        ? stored.theme : defaultPreferences.theme,
 
-            <h1 id="zeydal-feature-title">Görselleştirme</h1>
+      fontSize: ["small", "medium", "large"].includes(stored.fontSize)
+        ? stored.fontSize : defaultPreferences.fontSize,
 
-            <p id="zeydal-feature-description">
-              ZEYDAL AI çalışma alanı.
-            </p>
-          </div>
+      chatView: ["compact", "wide"].includes(stored.chatView)
+        ? stored.chatView : defaultPreferences.chatView
+    };
 
-          <div
-            id="zeydal-feature-placeholder"
-            class="feature-placeholder"
-          >
-            Bu özellik üzerinde çalışmalar devam ediyor.
-          </div>
+    applyPreferences();
+  }
 
-        </div>
+  function savePreferences() {
+    try {
+      localStorage.setItem(
+        PREFERENCES_KEY,
+        JSON.stringify(preferences)
+      );
+    } catch (error) {
+      console.error("Tercihler kaydedilemedi:", error);
+      window.alert("Ayarlar kaydedilemedi. Tarayıcı depolama alanını kontrol et.");
+    }
+  }
 
-      </div>
+  function applyPreferences() {
+    chatPanel.dataset.theme = preferences.theme;
+    chatPanel.dataset.fontSize = preferences.fontSize;
+    chatPanel.dataset.chatView = preferences.chatView;
 
+    const themeMeta = document.querySelector('meta[name="theme-color"]');
+    if (themeMeta) {
+      themeMeta.content = preferences.theme === "light"
+        ? "#eef3f9"
+        : "#172b45";
+    }
+  }
 
-      <!-- MESAJ YAZMA ALANI -->
-      <form id="zeydal-chat-form">
+  function updatePreference(key, value) {
+    const allowed = {
+      theme: ["dark", "light"],
+      fontSize: ["small", "medium", "large"],
+      chatView: ["compact", "wide"]
+    };
 
-        <input
-          type="text"
-          id="zeydal-chat-input"
-          placeholder="ZEYDAL AI'ye mesajını yaz..."
-          autocomplete="off"
-          required
-        >
+    if (!allowed[key] || !allowed[key].includes(value)) return;
 
-        <button type="submit" id="zeydal-chat-send">
-          Gönder
-        </button>
+    preferences[key] = value;
+    applyPreferences();
+    savePreferences();
 
-      </form>
+    if (!featureView.hidden && featureTitle.textContent === "Özelleştir") {
+      renderCustomizePage();
+    }
+  }
 
-    </section>
+  function createSettingGroup(title, description, options, selected, onChange) {
+    const group = createElement("section", "setting-group");
+    const heading = createElement("h3", "", title);
+    const detail = createElement("p", "setting-description", description);
+    const choices = createElement("div", "setting-choices");
 
-  </div>
+    options.forEach(option => {
+      const button = createElement(
+        "button",
+        "setting-choice" + (option.value === selected ? " selected" : ""),
+        option.label
+      );
 
+      button.type = "button";
+      button.setAttribute("aria-pressed", String(option.value === selected));
+      button.addEventListener("click", () => onChange(option.value));
+      choices.appendChild(button);
+    });
 
-  <!-- UYGULAMA JAVASCRIPT -->
-  <script>
-  async function initializeZeydal() {
+    group.append(heading, detail, choices);
+    return group;
+  }
 
-    const API_URL =
-      "https://zeydal-ai-api.zeydal-dev.workers.dev/";
+  function renderCustomizePage() {
+    featurePlaceholder.replaceChildren();
+    featurePlaceholder.className = "feature-placeholder customize-container";
 
-    const CHAT_API_URL =
-      "https://zeydal-api.zeydal-dev.workers.dev/api/chat";
+    const intro = createElement(
+      "p",
+      "customize-intro",
+      "Görünüm tercihlerini değiştir. Seçimlerin otomatik olarak kaydedilir."
+    );
 
-    const TOKEN_KEY = "zeydalSessionToken";
-    const OLD_TOKEN_KEY = "zeydal_ai_session";
-    const HISTORY_KEY = "zeydalChatHistory";
-    const LIBRARY_KEY = "zeydalSavedLibrary";
+    const themeGroup = createSettingGroup(
+      "Renk teması",
+      "Uygulamanın koyu veya açık görünümünü seç.",
+      [
+        { label: "Koyu tema", value: "dark" },
+        { label: "Açık tema", value: "light" }
+      ],
+      preferences.theme,
+      value => updatePreference("theme", value)
+    );
 
+    const fontGroup = createSettingGroup(
+      "Yazı boyutu",
+      "Sohbet mesajlarında kullanılacak yazı boyutunu belirle.",
+      [
+        { label: "Küçük", value: "small" },
+        { label: "Orta", value: "medium" },
+        { label: "Büyük", value: "large" }
+      ],
+      preferences.fontSize,
+      value => updatePreference("fontSize", value)
+    );
 
-    // HTML ELEMANLARI
+    const viewGroup = createSettingGroup(
+      "Sohbet görünümü",
+      "Mesajlar arasındaki boşluğu ve görünüm genişliğini ayarla.",
+      [
+        { label: "Kompakt", value: "compact" },
+        { label: "Geniş", value: "wide" }
+      ],
+      preferences.chatView,
+      value => updatePreference("chatView", value)
+    );
 
-    const authPanel =
-      document.getElementById("zeydal-auth-panel");
+    const resetButton = createElement(
+      "button",
+      "settings-reset",
+      "Varsayılan ayarlara dön"
+    );
 
-    const chatPanel =
-      document.getElementById("zeydal-chat-panel");
+    resetButton.type = "button";
+    resetButton.addEventListener("click", () => {
+      preferences = { ...defaultPreferences };
+      applyPreferences();
+      savePreferences();
+      renderCustomizePage();
+    });
 
-    const chatButton =
-      document.getElementById("zeydal-chat-button");
+    featurePlaceholder.append(
+      intro,
+      themeGroup,
+      fontGroup,
+      viewGroup,
+      resetButton
+    );
+  }
 
-    const chatMessages =
-      document.getElementById("zeydal-chat-messages");
+  // --------------------------------------------------
+  // GÖRSELLEŞTİRME ÇALIŞMA ALANI
+  // --------------------------------------------------
 
-    const chatForm =
-      document.getElementById("zeydal-chat-form");
+  function renderVisualizationPage() {
+    featurePlaceholder.replaceChildren();
+    featurePlaceholder.className = "feature-placeholder visualization-container";
 
-    const chatInput =
-      document.getElementById("zeydal-chat-input");
+    const intro = createElement(
+      "p",
+      "visualization-intro",
+      "Oluşturmak istediğin görseli tarif et. ZEYDAL AI bu açıklamayı daha ayrıntılı bir görsel üretim metnine dönüştürür."
+    );
 
-    const authMessage =
-      document.getElementById("zeydal-auth-message");
+    const label = createElement("label", "visualization-label", "Görsel açıklaması");
+    label.htmlFor = "zeydal-visual-prompt";
 
-    const conversationList =
-      document.getElementById("zeydal-conversation-list");
+    const promptInput = document.createElement("textarea");
+    promptInput.id = "zeydal-visual-prompt";
+    promptInput.className = "visualization-input";
+    promptInput.placeholder = "Örnek: Geleceğin teknolojisini temsil eden, lacivert ve gümüş renklerde fütüristik bir yapay zekâ merkezi...";
+    promptInput.rows = 6;
 
-    const searchInput =
-      document.getElementById("zeydal-chat-search");
+    const options = createElement("div", "visualization-options");
 
-    const sendButton =
-      document.getElementById("zeydal-chat-send");
+    const styleLabel = createElement("label", "", "Görsel tarzı");
+    const styleSelect = document.createElement("select");
+    styleSelect.className = "visualization-select";
+    styleSelect.setAttribute("aria-label", "Görsel tarzı seç");
 
-    const featureView =
-      document.getElementById("zeydal-feature-view");
+    [
+      ["realistic", "Gerçekçi"],
+      ["cinematic", "Sinematik"],
+      ["3d", "3D tasarım"],
+      ["illustration", "İllüstrasyon"],
+      ["minimal", "Minimalist"],
+      ["futuristic", "Fütüristik"]
+    ].forEach(([value, text]) => {
+      const option = document.createElement("option");
+      option.value = value;
+      option.textContent = text;
+      styleSelect.appendChild(option);
+    });
 
-    const featureTitle =
-      document.getElementById("zeydal-feature-title");
+    const ratioLabel = createElement("label", "", "Görsel oranı");
+    const ratioSelect = document.createElement("select");
+    ratioSelect.className = "visualization-select";
+    ratioSelect.setAttribute("aria-label", "Görsel oranı seç");
 
-    const featureDescription =
-      document.getElementById("zeydal-feature-description");
+    [
+      ["1:1", "Kare (1:1)"],
+      ["16:9", "Yatay (16:9)"],
+      ["9:16", "Dikey (9:16)"],
+      ["4:3", "Klasik (4:3)"]
+    ].forEach(([value, text]) => {
+      const option = document.createElement("option");
+      option.value = value;
+      option.textContent = text;
+      ratioSelect.appendChild(option);
+    });
 
-    const featurePlaceholder =
-      document.getElementById("zeydal-feature-placeholder");
+    const styleField = createElement("div", "visualization-field");
+    styleField.append(styleLabel, styleSelect);
 
+    const ratioField = createElement("div", "visualization-field");
+    ratioField.append(ratioLabel, ratioSelect);
 
-    const requiredElements = [
-      authPanel,
-      chatPanel,
-      chatButton,
-      chatMessages,
-      chatForm,
-      chatInput,
-      authMessage,
-      conversationList,
-      searchInput,
-      sendButton,
-      featureView,
-      featureTitle,
-      featureDescription,
-      featurePlaceholder,
-      document.getElementById("zeydal-login-form"),
-      document.getElementById("zeydal-register-form"),
-      document.getElementById("zeydal-new-chat"),
-      document.getElementById("zeydal-voice-toggle"),
-      document.getElementById("zeydal-logout"),
-      document.getElementById("zeydal-chat-close")
-    ];
+    options.append(styleField, ratioField);
 
-    if (requiredElements.some(element => !element)) {
-      console.error("ZEYDAL AI: Gerekli HTML elemanları bulunamadı.");
+    const actions = createElement("div", "visualization-actions");
+
+    const createButton = createElement(
+      "button",
+      "visualization-primary",
+      "Açıklamayı hazırla"
+    );
+    createButton.type = "button";
+
+    const clearButton = createElement(
+      "button",
+      "visualization-secondary",
+      "Temizle"
+    );
+    clearButton.type = "button";
+
+    actions.append(createButton, clearButton);
+
+    const resultLabel = createElement("h3", "visualization-result-title", "Hazırlanan görsel açıklaması");
+    const result = createElement("div", "visualization-result", "Hazırladığın açıklama burada görünecek.");
+    result.setAttribute("aria-live", "polite");
+
+    const copyButton = createElement(
+      "button",
+      "visualization-secondary",
+      "Açıklamayı kopyala"
+    );
+    copyButton.type = "button";
+    copyButton.disabled = true;
+
+    createButton.addEventListener("click", () => {
+      const prompt = promptInput.value.trim();
+
+      if (!prompt) {
+        promptInput.focus();
+        result.textContent = "Lütfen önce oluşturmak istediğin görseli tarif et.";
+        copyButton.disabled = true;
+        return;
+      }
+
+      const styleNames = {
+        realistic: "gerçekçi",
+        cinematic: "sinematik",
+        "3d": "yüksek kaliteli 3D tasarım",
+        illustration: "profesyonel illüstrasyon",
+        minimal: "minimalist",
+        futuristic: "fütüristik"
+      };
+
+      const preparedPrompt =
+        prompt +
+        "\n\nGörsel tarzı: " + styleNames[styleSelect.value] +
+        "\nGörsel oranı: " + ratioSelect.value +
+        "\nKalite: Yüksek detay, dengeli kompozisyon, temiz görüntü." +
+        "\nNot: Görselde istenmeyen yazı, filigran veya bozuk şekiller bulunmasın.";
+
+      result.textContent = preparedPrompt;
+      copyButton.disabled = false;
+    });
+
+    clearButton.addEventListener("click", () => {
+      promptInput.value = "";
+      result.textContent = "Hazırladığın açıklama burada görünecek.";
+      copyButton.disabled = true;
+      promptInput.focus();
+    });
+
+    copyButton.addEventListener("click", async () => {
+      try {
+        await navigator.clipboard.writeText(result.textContent);
+        copyButton.textContent = "Kopyalandı ✓";
+        setTimeout(() => {
+          copyButton.textContent = "Açıklamayı kopyala";
+        }, 1500);
+      } catch (error) {
+        window.alert("Kopyalama başarısız oldu. Tarayıcı izinlerini kontrol et.");
+      }
+    });
+
+    const note = createElement(
+      "p",
+      "visualization-note",
+      "Bilgi: Bu alan şu anda görsel üretim açıklaması hazırlar. Doğrudan görsel oluşturma özelliği için görsel üretim API bağlantısı ayrıca kurulmalıdır."
+    );
+
+    featurePlaceholder.append(
+      intro,
+      label,
+      promptInput,
+      options,
+      actions,
+      resultLabel,
+      result,
+      copyButton,
+      note
+    );
+  }
+
+  // --------------------------------------------------
+  // KİTAPLIK
+  // --------------------------------------------------
+
+  function loadSavedLibrary() {
+    const parsed = safeParse(localStorage.getItem(LIBRARY_KEY), []);
+    savedLibrary = Array.isArray(parsed)
+      ? parsed.filter(item =>
+          item &&
+          typeof item.id === "string" &&
+          typeof item.content === "string"
+        )
+      : [];
+  }
+
+  function persistSavedLibrary() {
+    try {
+      localStorage.setItem(LIBRARY_KEY, JSON.stringify(savedLibrary));
+      return true;
+    } catch (error) {
+      console.error("Kitaplık kaydedilemedi:", error);
+      window.alert("Kitaplık kaydedilemedi. Tarayıcı depolama alanını kontrol et.");
+      return false;
+    }
+  }
+
+  function saveToLibrary(content, button = null) {
+    if (typeof content !== "string") return;
+
+    const cleanContent = content.trim();
+    if (!cleanContent) return;
+
+    const alreadySaved = savedLibrary.some(item => item.content === cleanContent);
+
+    if (alreadySaved) {
+      if (button) {
+        button.textContent = "✓ Zaten kayıtlı";
+        button.classList.add("saved");
+      }
       return;
     }
 
-
-    // OTURUM BİLGİLERİ
-
-    let sessionToken =
-      localStorage.getItem(TOKEN_KEY);
-
-    if (!sessionToken) {
-
-      const oldToken =
-        localStorage.getItem(OLD_TOKEN_KEY);
-
-      if (oldToken) {
-        sessionToken = oldToken;
-        localStorage.setItem(TOKEN_KEY, oldToken);
-        localStorage.removeItem(OLD_TOKEN_KEY);
-      }
-
-    }
-
-    let sessionVerified = false;
-
-
-    // SOHBET VERİLERİ
-
-    let chats = [];
-    let activeChatId = null;
-    let history = [];
-    let isSending = false;
-
-
-    // KİTAPLIK VERİLERİ
-
-    let savedLibrary = [];
-
-
-    // ÖZELLİK SAYFALARI
-
-    const featurePages = {
-
-      visualization: {
-        title: "Görselleştirme",
-        description: "ZEYDAL AI görsel oluşturma ve görsel çalışma alanı.",
-        placeholder: "Görselleştirme özelliği geliştirme aşamasında."
-      },
-
-      library: {
-        title: "Kitaplık",
-        description: "Kaydettiğin yanıtları ve içerikleri burada yönet.",
-        placeholder: ""
-      },
-
-      customize: {
-        title: "Özelleştir",
-        description: "ZEYDAL AI deneyimini kişiselleştir.",
-        placeholder: "Özelleştirme ayarları geliştirme aşamasında."
-      },
-
-      remote: {
-        title: "Remote",
-        description: "ZEYDAL AI uzaktan erişim çalışma alanı.",
-        placeholder: "Remote sistemi geliştirme aşamasında."
-      },
-
-      discover: {
-        title: "Keşfet",
-        description: "ZEYDAL AI araçlarını ve yeni özelliklerini keşfet.",
-        placeholder: "Keşfet bölümü geliştirme aşamasında."
-      }
-
+    const newItem = {
+      id: window.crypto?.randomUUID
+        ? window.crypto.randomUUID()
+        : "saved-" + Date.now() + "-" + Math.random().toString(36).slice(2),
+      title: cleanContent.split("\n")[0].slice(0, 60),
+      content: cleanContent,
+      savedAt: Date.now()
     };
 
+    savedLibrary.unshift(newItem);
 
-    // KİTAPLIĞI YÜKLE
-
-    function loadSavedLibrary() {
-
-      try {
-
-        const saved =
-          localStorage.getItem(LIBRARY_KEY);
-
-        const parsed = saved
-          ? JSON.parse(saved)
-          : [];
-
-        savedLibrary = Array.isArray(parsed)
-          ? parsed.filter(item =>
-              item &&
-              typeof item.id === "string" &&
-              typeof item.content === "string"
-            )
-          : [];
-
-      } catch (error) {
-
-        console.error("Kitaplık yüklenemedi:", error);
-
-        savedLibrary = [];
-
-      }
-
+    if (!persistSavedLibrary()) {
+      savedLibrary = savedLibrary.filter(item => item.id !== newItem.id);
+      return;
     }
 
-
-    // KİTAPLIĞI KALICI KAYDET
-
-    function persistSavedLibrary() {
-
-      try {
-
-        localStorage.setItem(
-          LIBRARY_KEY,
-          JSON.stringify(savedLibrary)
-        );
-
-        return true;
-
-      } catch (error) {
-
-        console.error("Kitaplık kaydedilemedi:", error);
-
-        window.alert(
-          "Kitaplık kaydedilemedi. Tarayıcı depolama alanını kontrol et."
-        );
-
-        return false;
-
-      }
-
+    if (button) {
+      button.textContent = "✓ Kaydedildi";
+      button.classList.add("saved");
     }
 
-
-    // İÇERİĞİ KİTAPLIĞA EKLE
-
-    function saveToLibrary(content, button = null) {
-
-      if (typeof content !== "string") return;
-
-      const cleanContent = content.trim();
-
-      if (!cleanContent) return;
-
-      const alreadySaved = savedLibrary.some(
-        item => item.content === cleanContent
-      );
-
-      if (alreadySaved) {
-
-        if (button) {
-          button.textContent = "✓ Zaten kayıtlı";
-          button.classList.add("saved");
-        }
-
-        return;
-
-      }
-
-      const newItem = {
-
-        id: window.crypto?.randomUUID
-          ? window.crypto.randomUUID()
-          : "saved-" + Date.now() + "-" +
-            Math.random().toString(36).slice(2),
-
-        title: cleanContent.split("\n")[0].slice(0, 60),
-
-        content: cleanContent,
-
-        savedAt: Date.now()
-
-      };
-
-      savedLibrary.unshift(newItem);
-
-      if (!persistSavedLibrary()) {
-
-        savedLibrary = savedLibrary.filter(
-          item => item.id !== newItem.id
-        );
-
-        return;
-
-      }
-
-      if (button) {
-        button.textContent = "✓ Kaydedildi";
-        button.classList.add("saved");
-      }
-
-      if (
-        !featureView.hidden &&
-        featureTitle.textContent === "Kitaplık"
-      ) {
-        renderLibraryPage();
-      }
-
-    }
-
-
-    // KİTAPLIKTAKİ İÇERİĞİ SİL
-
-    function deleteLibraryItem(itemId) {
-
-      const confirmed = window.confirm(
-        "Bu içeriği kitaplıktan silmek istiyor musun?"
-      );
-
-      if (!confirmed) return;
-
-      const previousLibrary = [...savedLibrary];
-
-      savedLibrary = savedLibrary.filter(
-        item => item.id !== itemId
-      );
-
-      if (!persistSavedLibrary()) {
-        savedLibrary = previousLibrary;
-        return;
-      }
-
+    if (!featureView.hidden && featureTitle.textContent === "Kitaplık") {
       renderLibraryPage();
-
     }
-
-
-    // KİTAPLIK SAYFASINI GÖSTER
-
-    function renderLibraryPage() {
-
-      featurePlaceholder.replaceChildren();
-
-      featurePlaceholder.className =
-        "feature-placeholder library-container";
-
-      const toolbar = document.createElement("div");
-      toolbar.className = "library-toolbar";
-
-      const count = document.createElement("span");
-      count.className = "library-count";
-
-      count.textContent =
-        savedLibrary.length + " kayıtlı içerik";
-
-      const search = document.createElement("input");
-
-      search.type = "search";
-      search.className = "library-search";
-      search.placeholder = "Kitaplıkta ara...";
-      search.setAttribute(
-        "aria-label",
-        "Kitaplıkta kayıtlı içeriklerde ara"
-      );
-
-      toolbar.append(count, search);
-
-      const list = document.createElement("div");
-      list.className = "library-list";
-
-      featurePlaceholder.append(toolbar, list);
-
-
-      function renderItems(searchTerm = "") {
-
-        list.replaceChildren();
-
-        const normalizedTerm =
-          searchTerm.toLocaleLowerCase("tr-TR");
-
-        const filteredItems = savedLibrary.filter(item => {
-
-          const title = (item.title || "")
-            .toLocaleLowerCase("tr-TR");
-
-          const content = (item.content || "")
-            .toLocaleLowerCase("tr-TR");
-
-          return (
-            title.includes(normalizedTerm) ||
-            content.includes(normalizedTerm)
-          );
-
-        });
-
-
-        count.textContent =
-          savedLibrary.length + " kayıtlı içerik";
-
-
-        if (filteredItems.length === 0) {
-
-          const empty = document.createElement("div");
-
-          empty.className = "library-empty";
-
-          empty.textContent = savedLibrary.length === 0
-            ? "Kitaplığın henüz boş. Sohbetlerdeki asistan yanıtlarını kaydederek burada saklayabilirsin."
-            : "Aramana uygun kayıtlı içerik bulunamadı.";
-
-          list.appendChild(empty);
-
-          return;
-
-        }
-
-
-        filteredItems.forEach(item => {
-
-          const card = document.createElement("article");
-          card.className = "library-card";
-
-          const heading = document.createElement("h3");
-
-          heading.textContent =
-            item.title || "Kaydedilen yanıt";
-
-          const date = document.createElement("small");
-
-          date.textContent =
-            "Kaydedilme tarihi: " +
-            new Date(item.savedAt).toLocaleString("tr-TR");
-
-          const content = document.createElement("p");
-
-          content.textContent = item.content;
-
-          const actions = document.createElement("div");
-          actions.className = "library-card-actions";
-
-          const copyButton = document.createElement("button");
-
-          copyButton.type = "button";
-          copyButton.textContent = "Kopyala";
-
-          copyButton.addEventListener("click", async () => {
-
-            try {
-
-              await navigator.clipboard.writeText(item.content);
-
-              copyButton.textContent = "Kopyalandı";
-
-              setTimeout(() => {
-                copyButton.textContent = "Kopyala";
-              }, 1500);
-
-            } catch (error) {
-
-              window.alert(
-                "Kopyalama başarısız oldu. Tarayıcı izinlerini kontrol et."
-              );
-
-            }
-
-          });
-
-
-          const deleteButton = document.createElement("button");
-
-          deleteButton.type = "button";
-          deleteButton.className = "library-delete";
-          deleteButton.textContent = "Kitaplıktan sil";
-
-          deleteButton.addEventListener("click", () => {
-            deleteLibraryItem(item.id);
-          });
-
-
-          actions.append(copyButton, deleteButton);
-
-          card.append(
-            heading,
-            date,
-            content,
-            actions
-          );
-
-          list.appendChild(card);
-
-        });
-
-      }
-
-
-      search.addEventListener("input", () => {
-        renderItems(search.value);
-      });
-
-      renderItems();
-
-    }
-
-
-    // SOHBET EKRANINI GÖSTER
-
-    function showChatPage() {
-
-      featureView.hidden = true;
-
-      chatMessages.style.display = "flex";
-      chatForm.style.display = "flex";
-
-      document.querySelectorAll(".sidebar-tool").forEach(button => {
-
-        button.classList.toggle(
-          "active",
-          button.dataset.page === "chat"
-        );
-
-      });
-
-    }
-
-
-    // ÖZELLİK SAYFASINI GÖSTER
-
-    function showFeaturePage(page) {
-
-      const selectedPage = featurePages[page];
-
-      if (!selectedPage) return;
-
-      chatMessages.style.display = "none";
-      chatForm.style.display = "none";
-
-      featureView.hidden = false;
-
-      featureTitle.textContent = selectedPage.title;
-      featureDescription.textContent = selectedPage.description;
-
-      document.querySelectorAll(".sidebar-tool").forEach(button => {
-
-        button.classList.toggle(
-          "active",
-          button.dataset.page === page
-        );
-
-      });
-
-      if (page === "library") {
-
-        renderLibraryPage();
-
-      } else {
-
-        featurePlaceholder.className =
-          "feature-placeholder";
-
-        featurePlaceholder.textContent =
-          selectedPage.placeholder;
-
-      }
-
-    }
-
-
-    // YENİ SOHBET KAYDI OLUŞTUR
-
-    function createChatRecord() {
-
-      return {
-
-        id: window.crypto?.randomUUID
-          ? window.crypto.randomUUID()
-          : "chat-" + Date.now() + "-" +
-            Math.random().toString(36).slice(2),
-
-        title: "Yeni sohbet",
-        messages: [],
-        isPinned: false,
-        updatedAt: Date.now()
-
-      };
-
-    }
-
-
-    // SOHBETLERİ KALICI KAYDET
-
-    function persistChats() {
-
-      try {
-
-        localStorage.setItem(
-          HISTORY_KEY,
-          JSON.stringify({
-            chats,
-            activeChatId
-          })
-        );
-
-      } catch (error) {
-
-        console.error("Sohbetler kaydedilemedi:", error);
-
-        window.alert(
-          "Sohbet geçmişi kaydedilemedi. Tarayıcı depolama alanını kontrol et."
-        );
-
-      }
-
-    }
-
-
-    // AKTİF SOHBETİ KAYDET
-
-    function saveHistory() {
-
-      const activeChat =
-        chats.find(chat => chat.id === activeChatId);
-
-      if (activeChat) {
-
-        activeChat.messages = [...history];
-        activeChat.updatedAt = Date.now();
-
-      }
-
-      persistChats();
-
-    }
-
-
-    // SOHBETLERİ YÜKLE
-
-    function loadHistory() {
-
-      try {
-
-        const saved =
-          localStorage.getItem(HISTORY_KEY);
-
-        if (saved) {
-
-          const parsed = JSON.parse(saved);
-
-          // ESKİ MESAJ DİZİSİ FORMATINI DÖNÜŞTÜR
-
-          if (Array.isArray(parsed)) {
-
-            const oldChat = createChatRecord();
-
-            oldChat.messages = parsed.filter(message =>
-              message &&
-              (message.role === "user" || message.role === "assistant") &&
-              typeof message.content === "string"
-            );
-
-            const firstUserMessage =
-              oldChat.messages.find(message =>
-                message.role === "user"
-              );
-
-            if (firstUserMessage) {
-
-              oldChat.title =
-                firstUserMessage.content.slice(0, 32);
-
-            }
-
-            chats = [oldChat];
-            activeChatId = oldChat.id;
-
-          } else if (
-            parsed &&
-            Array.isArray(parsed.chats)
-          ) {
-
-            chats = parsed.chats
-              .filter(chat =>
-                chat &&
-                typeof chat.id === "string" &&
-                Array.isArray(chat.messages)
-              )
-              .map(chat => ({
-
-                id: chat.id,
-
-                title: typeof chat.title === "string"
-                  ? chat.title
-                  : "Yeni sohbet",
-
-                messages: chat.messages.filter(message =>
-                  message &&
-                  (message.role === "user" || message.role === "assistant") &&
-                  typeof message.content === "string"
-                ),
-
-                isPinned: chat.isPinned === true,
-
-                updatedAt: Number(chat.updatedAt) || Date.now()
-
-              }));
-
-            activeChatId = parsed.activeChatId;
-
-          }
-
-        }
-
-      } catch (error) {
-
-        console.error("Sohbet geçmişi yüklenemedi:", error);
-
-        chats = [];
-        activeChatId = null;
-
-      }
-
-
-      if (chats.length === 0) {
-
-        const newChat = createChatRecord();
-
-        chats = [newChat];
-        activeChatId = newChat.id;
-
-      }
-
-
-      if (!chats.some(chat => chat.id === activeChatId)) {
-
-        const latestChat = [...chats].sort(
-          (a, b) => b.updatedAt - a.updatedAt
-        )[0];
-
-        activeChatId = latestChat.id;
-
-      }
-
-
-      const activeChat =
-        chats.find(chat => chat.id === activeChatId);
-
-      history = [...activeChat.messages];
-
-      persistChats();
-
-    }
-
-
-    // SOHBET LİSTESİNİ GÖSTER
-
-    function renderConversationList() {
-
-      conversationList.replaceChildren();
-
-      const searchTerm =
-        searchInput.value.trim().toLocaleLowerCase("tr-TR");
-
-      const filteredChats = chats.filter(chat =>
-        (chat.title || "Yeni sohbet")
-          .toLocaleLowerCase("tr-TR")
-          .includes(searchTerm)
-      );
-
-      const sortedChats = [...filteredChats].sort((a, b) => {
-
-        if (Boolean(a.isPinned) !== Boolean(b.isPinned)) {
-          return a.isPinned ? -1 : 1;
-        }
-
-        return (b.updatedAt || 0) - (a.updatedAt || 0);
-
-      });
-
-
-      if (sortedChats.length === 0) {
-
-        const empty = document.createElement("div");
-
-        empty.className = "conversation-empty";
-
-        empty.textContent = searchTerm
-          ? "Aramana uygun sohbet bulunamadı."
-          : "Henüz sohbet bulunmuyor.";
-
-        conversationList.appendChild(empty);
-
-        return;
-
-      }
-
-
-      let pinnedLabelAdded = false;
-      let normalLabelAdded = false;
-
-
-      sortedChats.forEach(chat => {
-
-        if (chat.isPinned && !pinnedLabelAdded) {
-
-          const label = document.createElement("div");
-
-          label.className = "conversation-section-label";
-          label.textContent = "Sabitlenenler";
-
-          conversationList.appendChild(label);
-
-          pinnedLabelAdded = true;
-
-        }
-
-
-        if (!chat.isPinned && !normalLabelAdded) {
-
-          const label = document.createElement("div");
-
-          label.className = "conversation-section-label";
-          label.textContent = "Son sohbetler";
-
-          conversationList.appendChild(label);
-
-          normalLabelAdded = true;
-
-        }
-
-
-        const row = document.createElement("div");
-
-        row.className = "conversation-row";
-
-        if (chat.isPinned) {
-          row.classList.add("pinned");
-        }
-
-
-        // SOHBETİ AÇ
-
-        const openButton = document.createElement("button");
-
-        openButton.type = "button";
-        openButton.className = "conversation-item";
-        openButton.textContent = chat.title || "Yeni sohbet";
-
-        if (chat.id === activeChatId) {
-
-          openButton.classList.add("active");
-          openButton.setAttribute("aria-current", "true");
-
-        }
-
-        openButton.addEventListener("click", () => {
-          switchChat(chat.id);
-        });
-
-
-        const actions = document.createElement("div");
-
-        actions.className = "conversation-actions";
-
-
-        // SABİTLEME BUTONU
-
-        const pinButton = document.createElement("button");
-
-        pinButton.type = "button";
-        pinButton.className = "conversation-action";
-        pinButton.textContent = chat.isPinned ? "📌" : "📍";
-
-        pinButton.title = chat.isPinned
-          ? "Sabitlemeyi kaldır"
-          : "Sohbeti sabitle";
-
-        pinButton.setAttribute("aria-label", pinButton.title);
-
-        pinButton.addEventListener("click", event => {
-
-          event.stopPropagation();
-          togglePinChat(chat.id);
-
-        });
-
-
-        // YENİDEN ADLANDIRMA BUTONU
-
-        const renameButton = document.createElement("button");
-
-        renameButton.type = "button";
-        renameButton.className = "conversation-action";
-        renameButton.textContent = "✏️";
-        renameButton.title = "Sohbeti yeniden adlandır";
-
-        renameButton.setAttribute(
-          "aria-label",
-          renameButton.title
-        );
-
-        renameButton.addEventListener("click", event => {
-
-          event.stopPropagation();
-          renameChat(chat.id);
-
-        });
-
-
-        // SİLME BUTONU
-
-        const deleteButton = document.createElement("button");
-
-        deleteButton.type = "button";
-        deleteButton.className = "conversation-action delete";
-        deleteButton.textContent = "🗑";
-        deleteButton.title = "Sohbeti sil";
-
-        deleteButton.setAttribute(
-          "aria-label",
-          deleteButton.title
-        );
-
-        deleteButton.addEventListener("click", event => {
-
-          event.stopPropagation();
-          deleteChat(chat.id);
-
-        });
-
-
-        actions.appendChild(pinButton);
-        actions.appendChild(renameButton);
-        actions.appendChild(deleteButton);
-
-        row.appendChild(openButton);
-        row.appendChild(actions);
-
-        conversationList.appendChild(row);
-
-      });
-
-    }
-
-
-    // SOHBETİ SABİTLE / SABİTLEMEYİ KALDIR
-
-    function togglePinChat(chatId) {
-
-      const chat =
-        chats.find(item => item.id === chatId);
-
-      if (!chat) return;
-
-      chat.isPinned = !chat.isPinned;
-
-      persistChats();
-      renderConversationList();
-
-    }
-
-
-    // SOHBETİ YENİDEN ADLANDIR
-
-    function renameChat(chatId) {
-
-      const chat =
-        chats.find(item => item.id === chatId);
-
-      if (!chat) return;
-
-      const newTitle = window.prompt(
-        "Yeni sohbet başlığını yaz:",
-        chat.title || "Yeni sohbet"
-      );
-
-      if (newTitle === null) return;
-
-      const trimmedTitle = newTitle.trim();
-
-      if (!trimmedTitle) {
-
-        window.alert("Sohbet başlığı boş bırakılamaz.");
-        return;
-
-      }
-
-      chat.title = trimmedTitle.slice(0, 60);
-
-      persistChats();
-      renderConversationList();
-
-    }
-
-
-    // SOHBET SİL
-
-    function deleteChat(chatId) {
-
-      if (isSending) {
-
-        window.alert("Yanıt hazırlanırken sohbet silinemez.");
-        return;
-
-      }
-
-      const selectedChat =
-        chats.find(chat => chat.id === chatId);
-
-      if (!selectedChat) return;
-
-      const confirmed = window.confirm(
-        '"' + (selectedChat.title || "Yeni sohbet") +
-        '" konuşmasını silmek istediğine emin misin? Bu işlem geri alınamaz.'
-      );
-
-      if (!confirmed) return;
-
-      chats = chats.filter(chat => chat.id !== chatId);
-
-
-      if (activeChatId === chatId) {
-
-        if (chats.length > 0) {
-
-          const latestChat = [...chats].sort(
-            (a, b) => b.updatedAt - a.updatedAt
-          )[0];
-
-          activeChatId = latestChat.id;
-          history = [...latestChat.messages];
-
-        } else {
-
-          const newChat = createChatRecord();
-
-          chats = [newChat];
-          activeChatId = newChat.id;
-          history = [];
-
-        }
-
-      }
-
-      saveHistory();
-      renderHistory();
-      renderConversationList();
-      showChatPage();
-
-      chatInput.focus();
-
-    }
-
-
-    // SOHBET DEĞİŞTİR
-
-    function switchChat(chatId) {
-
-      if (isSending) {
-
-        window.alert("Yanıt hazırlanırken sohbet değiştirilemez.");
-        return;
-
-      }
-
-      const selectedChat =
-        chats.find(chat => chat.id === chatId);
-
-      if (!selectedChat) return;
-
-      activeChatId = chatId;
-      history = [...selectedChat.messages];
-
-      saveHistory();
-      renderHistory();
-      renderConversationList();
-      showChatPage();
-
-      chatInput.focus();
-
-    }
-
-
-    // YENİ SOHBET OLUŞTUR
-
-    function createNewChat() {
-
-      if (isSending) {
-
-        window.alert("Yanıt hazırlanırken yeni sohbet açılamaz.");
-        return;
-
-      }
-
-      const newChat = createChatRecord();
-
-      chats.push(newChat);
-
-      activeChatId = newChat.id;
-      history = [];
-
-      saveHistory();
-      renderHistory();
-      renderConversationList();
-      showChatPage();
-
-      chatInput.focus();
-
-    }
-
-
-    // İLK MESAJDAN SOHBET BAŞLIĞI OLUŞTUR
-
-    function updateChatTitle() {
-
-      const activeChat =
-        chats.find(chat => chat.id === activeChatId);
-
-      if (!activeChat) return;
-
-      const firstUserMessage =
-        history.find(item => item.role === "user");
-
-      if (
-        firstUserMessage &&
-        activeChat.title === "Yeni sohbet"
-      ) {
-
-        activeChat.title =
-          firstUserMessage.content.length > 32
-            ? firstUserMessage.content.slice(0, 32) + "..."
-            : firstUserMessage.content;
-
-      }
-
-      activeChat.updatedAt = Date.now();
-
-    }
-
-
-    // MESAJ EKLE
-
-    function addMessage(role, content) {
-
-      const message = document.createElement("div");
-
-      message.className =
-        role === "user"
-          ? "user-message"
-          : "assistant-message";
-
-      const paragraph = document.createElement("p");
-
-      paragraph.textContent = content;
-
-      message.appendChild(paragraph);
-
-
-      // ASİSTAN YANITINI KİTAPLIĞA KAYDET
-
-      if (role === "assistant") {
-
-        const saveButton = document.createElement("button");
-
-        saveButton.type = "button";
-        saveButton.className = "save-to-library";
-        saveButton.textContent = "☆ Kitaplığa kaydet";
-
-        const isAlreadySaved = savedLibrary.some(
-          item => item.content === content.trim()
-        );
-
-        if (isAlreadySaved) {
-
-          saveButton.textContent = "✓ Zaten kayıtlı";
-          saveButton.classList.add("saved");
-
-        }
-
-        saveButton.addEventListener("click", () => {
-
-          saveToLibrary(content, saveButton);
-
-        });
-
-        message.appendChild(saveButton);
-
-      }
-
-
-      chatMessages.appendChild(message);
-
-      chatMessages.scrollTop =
-        chatMessages.scrollHeight;
-
-    }
-
-
-    // AKTİF SOHBETİ GÖSTER
-
-    function renderHistory() {
-
-      chatMessages.replaceChildren();
-
-      if (history.length === 0) {
-
-        addMessage(
-          "assistant",
-          "Merhaba! Ben ZEYDAL AI. Sana nasıl yardımcı olabilirim?"
-        );
-
-        return;
-
-      }
-
-      history.forEach(message => {
-
-        addMessage(message.role, message.content);
-
-      });
-
-    }
-
-
-    // API İSTEĞİ
-
-    async function apiRequest(
-      action,
-      data = {},
-      authenticated = false
-    ) {
-
-      const headers = {
-        "Content-Type": "application/json"
-      };
-
-      if (authenticated && sessionToken) {
-
-        headers.Authorization =
-          "Bearer " + sessionToken;
-
-      }
-
-      const response = await fetch(API_URL, {
-
-        method: "POST",
-        headers,
-
-        body: JSON.stringify({
-          action,
-          ...data
-        })
-
-      });
-
-      const result = await response.json();
-
-      if (!response.ok || result.success === false) {
-
-        throw new Error(
-          result.message || "İşlem başarısız oldu."
-        );
-
-      }
-
-      return result;
-
-    }
-
-
-    // SESLİ ASİSTAN TOKEN
-
-    window.zeydalRequestVoiceToken = async function() {
-
-      const result = await apiRequest(
-        "voice-token",
-        {},
-        true
-      );
-
-      return result.token ||
-        result.data?.token ||
-        null;
-
-    };
-
-
-    // MESAJ GÖNDER
-
-    async function sendChatMessage() {
-
-      const response = await fetch(CHAT_API_URL, {
-
-        method: "POST",
-
-        headers: {
-
-          "Content-Type": "application/json",
-
-          Authorization: "Bearer " + sessionToken
-
-        },
-
-        body: JSON.stringify({
-
-          messages: history.slice(-12)
-
-        })
-
-      });
-
-      const result = await response.json();
-
-      if (!response.ok || result.success !== true) {
-
-        throw new Error(
-          result.message || "Asistan yanıt veremedi."
-        );
-
-      }
-
-      if (typeof result.response !== "string") {
-
-        throw new Error("Geçersiz API yanıtı.");
-
-      }
-
-      return result.response;
-
-    }
-
-
-    // SOHBET FORMU
-
-    chatForm.addEventListener("submit", async event => {
-
-      event.preventDefault();
-
-      if (isSending) return;
-
-      const message = chatInput.value.trim();
-
-      if (!message) return;
-
-      if (!sessionToken || !sessionVerified) {
-
-        authPanel.style.display = "flex";
-        chatPanel.style.display = "none";
-
-        return;
-
-      }
-
-      showChatPage();
-
-      isSending = true;
-      sendButton.disabled = true;
-
-      chatInput.value = "";
-
-      history.push({
-
-        role: "user",
-        content: message
-
-      });
-
-      updateChatTitle();
-      saveHistory();
-
-      addMessage("user", message);
-      renderConversationList();
-
-      try {
-
-        const reply = await sendChatMessage();
-
-        history.push({
-
-          role: "assistant",
-          content: reply
-
-        });
-
-        saveHistory();
-
-        addMessage("assistant", reply);
-        renderConversationList();
-
-      } catch (error) {
-
-        history.pop();
-
-        saveHistory();
-        renderHistory();
-
-        addMessage(
-          "assistant",
-          "Bir hata oluştu: " + error.message
-        );
-
-      } finally {
-
-        isSending = false;
-        sendButton.disabled = false;
-        chatInput.focus();
-
-      }
-
-    });
-
-
-    // SOHBETİ AÇ
-
-    function openChat() {
-
-      if (!sessionVerified || !sessionToken) {
-
-        authPanel.style.display = "flex";
-        return;
-
-      }
-
-      authPanel.style.display = "none";
-      chatPanel.style.display = "flex";
-      chatButton.style.display = "none";
-
-      showChatPage();
-      renderHistory();
-      renderConversationList();
-
-      chatInput.focus();
-
-    }
-
-
-    // SOHBETİ KAPAT
-
-    function closeChat() {
-
-      chatPanel.style.display = "none";
-
-      if (sessionVerified) {
-
-        chatButton.style.display = "block";
-
-      }
-
-    }
-
-
-    // SOHBET ARAMA
-
-    searchInput.addEventListener("input", () => {
-
-      renderConversationList();
-
-    });
-
-
-    // SOL MENÜ GEÇİŞLERİ
-
-    document.querySelectorAll(".sidebar-tool").forEach(button => {
-
-      button.addEventListener("click", () => {
-
-        const page = button.dataset.page;
-
-        if (page === "chat") {
-
-          showChatPage();
-
-        } else {
-
-          showFeaturePage(page);
-
-        }
-
-      });
-
-    });
-
-
-    // BUTONLAR
-
-    chatButton.addEventListener("click", openChat);
-
-    document
-      .querySelectorAll(".zeydal-open-assistant")
-      .forEach(button => {
-
-        button.addEventListener("click", openChat);
-
-      });
-
-    document
-      .getElementById("zeydal-chat-close")
-      .addEventListener("click", closeChat);
-
-    document
-      .getElementById("zeydal-new-chat")
-      .addEventListener("click", createNewChat);
-
-
-    // GİRİŞ YAP
-
-    document
-      .getElementById("zeydal-login-form")
-      .addEventListener("submit", async event => {
-
-        event.preventDefault();
-
-        const email =
-          document.getElementById("zeydal-login-email").value;
-
-        const password =
-          document.getElementById("zeydal-login-password").value;
-
-        authMessage.textContent = "Giriş yapılıyor...";
-
-        try {
-
-          const result = await apiRequest(
-            "login",
-            { email, password }
-          );
-
-          sessionToken =
-            result.token || result.data?.token;
-
-          if (!sessionToken) {
-
-            throw new Error("Oturum anahtarı alınamadı.");
-
-          }
-
-          localStorage.setItem(TOKEN_KEY, sessionToken);
-
-          sessionVerified = true;
-
-          authMessage.textContent = "Giriş başarılı.";
-
-          authPanel.style.display = "none";
-
-          openChat();
-
-        } catch (error) {
-
-          authMessage.textContent = error.message;
-
-        }
-
-      });
-
-
-    // KAYIT OL
-
-    document
-      .getElementById("zeydal-register-form")
-      .addEventListener("submit", async event => {
-
-        event.preventDefault();
-
-        const email =
-          document.getElementById("zeydal-register-email").value;
-
-        const password =
-          document.getElementById("zeydal-register-password").value;
-
-        authMessage.textContent = "Hesap oluşturuluyor...";
-
-        try {
-
-          const result = await apiRequest(
-            "register",
-            { email, password }
-          );
-
-          authMessage.textContent =
-            result.message || "Kayıt işlemi başarılı.";
-
-        } catch (error) {
-
-          authMessage.textContent = error.message;
-
-        }
-
-      });
-
-
-    // OTURUM KONTROLÜ
-
-    async function checkSession() {
-
-      if (!sessionToken) {
-
-        sessionVerified = false;
-        chatButton.style.display = "block";
-
-        return;
-
-      }
-
-      try {
-
-        const result = await apiRequest(
-          "check-session",
-          {},
-          true
-        );
-
-        const valid =
-          result.valid === true ||
-          result.authenticated === true;
-
-        if (valid) {
-
-          sessionVerified = true;
-
-          authPanel.style.display = "none";
-          chatButton.style.display = "block";
-
-        } else {
-
-          sessionVerified = false;
-          sessionToken = null;
-
-          localStorage.removeItem(TOKEN_KEY);
-
-          authPanel.style.display = "flex";
-
-        }
-
-      } catch (error) {
-
-        console.error("Oturum kontrolü:", error);
-
-        // AĞ HATASINDA KAYITLI TOKEN SİLİNMEZ
-
-        sessionVerified = false;
-        authPanel.style.display = "flex";
-
-      }
-
-    }
-
-
-    // ÇIKIŞ YAP
-
-    document
-      .getElementById("zeydal-logout")
-      .addEventListener("click", async () => {
-
-        try {
-
-          await apiRequest(
-            "logout",
-            {},
-            true
-          );
-
-        } catch (error) {
-
-          console.error("Çıkış API hatası:", error);
-
-        }
-
-        sessionToken = null;
-        sessionVerified = false;
-
-        localStorage.removeItem(TOKEN_KEY);
-
-        chatPanel.style.display = "none";
-        chatButton.style.display = "block";
-        authPanel.style.display = "flex";
-
-        authMessage.textContent = "Oturum kapatıldı.";
-
-      });
-
-
-    // BAŞLANGIÇ
-
-    loadSavedLibrary();
-
-    loadHistory();
-
-    renderConversationList();
-
-    await checkSession();
-
   }
 
+  function deleteLibraryItem(itemId) {
+    if (!window.confirm("Bu içeriği kitaplıktan silmek istiyor musun?")) return;
 
-  document.addEventListener(
-    "DOMContentLoaded",
-    initializeZeydal
-  );
-  </script>
+    const previousLibrary = [...savedLibrary];
+    savedLibrary = savedLibrary.filter(item => item.id !== itemId);
 
-  <!-- SESLİ ASİSTAN -->
-  <script src="voice.js"></script>
+    if (!persistSavedLibrary()) {
+      savedLibrary = previousLibrary;
+      return;
+    }
 
+    renderLibraryPage();
+  }
+
+  function renderLibraryPage() {
+    featurePlaceholder.replaceChildren();
+    featurePlaceholder.className = "feature-placeholder library-container";
+
+    const toolbar = createElement("div", "library-toolbar");
+    const count = createElement("span", "library-count");
+    const search = document.createElement("input");
+
+    search.type = "search";
+    search.className = "library-search";
+    search.placeholder = "Kitaplıkta ara...";
+    search.setAttribute("aria-label", "Kitaplıkta kayıtlı içeriklerde ara");
+
+    const list = createElement("div", "library-list");
+    toolbar.append(count, search);
+    featurePlaceholder.append(toolbar, list);
+
+    function renderItems(term = "") {
+      list.replaceChildren();
+
+      const normalized = term.toLocaleLowerCase("tr-TR");
+      const filtered = savedLibrary.filter(item =>
+        (item.title || "").toLocaleLowerCase("tr-TR").includes(normalized) ||
+        (item.content || "").toLocaleLowerCase("tr-TR").includes(normalized)
+      );
+
+      count.textContent = savedLibrary.length + " kayıtlı içerik";
+
+      if (!filtered.length) {
+        list.appendChild(createElement(
+          "div",
+          "library-empty",
+          savedLibrary.length === 0
+            ? "Kitaplığın henüz boş. Sohbetlerdeki asistan yanıtlarını kaydederek burada saklayabilirsin."
+            : "Aramana uygun kayıtlı içerik bulunamadı."
+        ));
+        return;
+      }
+
+      filtered.forEach(item => {
+        const card = createElement("article", "library-card");
+        const heading = createElement("h3", "", item.title || "Kaydedilen yanıt");
+        const date = createElement(
+          "small",
+          "",
+          "Kaydedilme tarihi: " + new Date(item.savedAt).toLocaleString("tr-TR")
+        );
+        const content = createElement("p", "", item.content);
+        const actions = createElement("div", "library-card-actions");
+
+        const copyButton = createElement("button", "", "Kopyala");
+        copyButton.type = "button";
+        copyButton.addEventListener("click", async () => {
+          try {
+            await navigator.clipboard.writeText(item.content);
+            copyButton.textContent = "Kopyalandı";
+            setTimeout(() => copyButton.textContent = "Kopyala", 1500);
+          } catch (error) {
+            window.alert("Kopyalama başarısız oldu. Tarayıcı izinlerini kontrol et.");
+          }
+        });
+
+        const deleteButton = createElement("button", "library-delete", "Kitaplıktan sil");
+        deleteButton.type = "button";
+        deleteButton.addEventListener("click", () => deleteLibraryItem(item.id));
+
+        actions.append(copyButton, deleteButton);
+        card.append(heading, date, content, actions);
+        list.appendChild(card);
+      });
+    }
+
+    search.addEventListener("input", () => renderItems(search.value));
+    renderItems();
+  }
+
+  // --------------------------------------------------
+  // SAYFA GEÇİŞLERİ
+  // --------------------------------------------------
+
+  function setActiveMenu(page) {
+    document.querySelectorAll(".sidebar-tool").forEach(button => {
+      button.classList.toggle("active", button.dataset.page === page);
+    });
+  }
+
+  function showChatPage() {
+    featureView.hidden = true;
+    chatMessages.style.display = "flex";
+    chatForm.style.display = "flex";
+    setActiveMenu("chat");
+  }
+
+  function showFeaturePage(page) {
+    const selected = featurePages[page];
+    if (!selected) return;
+
+    chatMessages.style.display = "none";
+    chatForm.style.display = "none";
+    featureView.hidden = false;
+
+    featureTitle.textContent = selected.title;
+    featureDescription.textContent = selected.description;
+    setActiveMenu(page);
+
+    if (page === "library") {
+      renderLibraryPage();
+    } else if (page === "customize") {
+      renderCustomizePage();
+    } else if (page === "visualization") {
+      renderVisualizationPage();
+    } else {
+      featurePlaceholder.className = "feature-placeholder";
+      featurePlaceholder.textContent = page === "remote"
+        ? "Remote çalışma alanı için bağlantı ve uzaktan erişim altyapısı henüz tanımlanmadı."
+        : "ZEYDAL AI araçlarını ve yeni özelliklerini burada keşfedebileceksin.";
+    }
+  }
+
+  // --------------------------------------------------
+  // SOHBET GEÇMİŞİ
+  // --------------------------------------------------
+
+  function createChatRecord() {
+    return {
+      id: window.crypto?.randomUUID
+        ? window.crypto.randomUUID()
+        : "chat-" + Date.now() + "-" + Math.random().toString(36).slice(2),
+      title: "Yeni sohbet",
+      messages: [],
+      isPinned: false,
+      updatedAt: Date.now()
+    };
+  }
+
+  function persistChats() {
+    try {
+      localStorage.setItem(
+        HISTORY_KEY,
+        JSON.stringify({ chats, activeChatId })
+      );
+    } catch (error) {
+      console.error("Sohbetler kaydedilemedi:", error);
+      window.alert("Sohbet geçmişi kaydedilemedi. Tarayıcı depolama alanını kontrol et.");
+    }
+  }
+
+  function saveHistory() {
+    const activeChat = chats.find(chat => chat.id === activeChatId);
+    if (activeChat) {
+      activeChat.messages = [...history];
+      activeChat.updatedAt = Date.now();
+    }
+    persistChats();
+  }
+
+  function loadHistory() {
+    const parsed = safeParse(localStorage.getItem(HISTORY_KEY), null);
+
+    if (Array.isArray(parsed)) {
+      const oldChat = createChatRecord();
+      oldChat.messages = parsed.filter(message =>
+        message &&
+        ["user", "assistant"].includes(message.role) &&
+        typeof message.content === "string"
+      );
+
+      const firstUser = oldChat.messages.find(message => message.role === "user");
+      if (firstUser) oldChat.title = firstUser.content.slice(0, 32);
+
+      chats = [oldChat];
+      activeChatId = oldChat.id;
+    } else if (parsed && Array.isArray(parsed.chats)) {
+      chats = parsed.chats
+        .filter(chat =>
+          chat &&
+          typeof chat.id === "string" &&
+          Array.isArray(chat.messages)
+        )
+        .map(chat => ({
+          id: chat.id,
+          title: typeof chat.title === "string" ? chat.title : "Yeni sohbet",
+          messages: chat.messages.filter(message =>
+            message &&
+            ["user", "assistant"].includes(message.role) &&
+            typeof message.content === "string"
+          ),
+          isPinned: chat.isPinned === true,
+          updatedAt: Number(chat.updatedAt) || Date.now()
+        }));
+
+      activeChatId = parsed.activeChatId;
+    } else {
+      chats = [];
+      activeChatId = null;
+    }
+
+    if (!chats.length) {
+      const newChat = createChatRecord();
+      chats = [newChat];
+      activeChatId = newChat.id;
+    }
+
+    if (!chats.some(chat => chat.id === activeChatId)) {
+      const latest = [...chats].sort((a, b) => b.updatedAt - a.updatedAt)[0];
+      activeChatId = latest.id;
+    }
+
+    const active = chats.find(chat => chat.id === activeChatId);
+    history = [...active.messages];
+    persistChats();
+  }
+
+  function renderConversationList() {
+    conversationList.replaceChildren();
+
+    const term = searchInput.value.trim().toLocaleLowerCase("tr-TR");
+    const filtered = chats.filter(chat =>
+      (chat.title || "Yeni sohbet").toLocaleLowerCase("tr-TR").includes(term)
+    );
+
+    const sorted = [...filtered].sort((a, b) => {
+      if (Boolean(a.isPinned) !== Boolean(b.isPinned)) return a.isPinned ? -1 : 1;
+      return (b.updatedAt || 0) - (a.updatedAt || 0);
+    });
+
+    if (!sorted.length) {
+      conversationList.appendChild(createElement(
+        "div",
+        "conversation-empty",
+        term ? "Aramana uygun sohbet bulunamadı." : "Henüz sohbet bulunmuyor."
+      ));
+      return;
+    }
+
+    let pinnedLabelAdded = false;
+    let normalLabelAdded = false;
+
+    sorted.forEach(chat => {
+      if (chat.isPinned && !pinnedLabelAdded) {
+        conversationList.appendChild(createElement("div", "conversation-section-label", "Sabitlenenler"));
+        pinnedLabelAdded = true;
+      }
+
+      if (!chat.isPinned && !normalLabelAdded) {
+        conversationList.appendChild(createElement("div", "conversation-section-label", "Son sohbetler"));
+        normalLabelAdded = true;
+      }
+
+      const row = createElement("div", "conversation-row" + (chat.isPinned ? " pinned" : ""));
+      const openButton = createElement("button", "conversation-item", chat.title || "Yeni sohbet");
+      openButton.type = "button";
+
+      if (chat.id === activeChatId) {
+        openButton.classList.add("active");
+        openButton.setAttribute("aria-current", "true");
+      }
+
+      openButton.addEventListener("click", () => switchChat(chat.id));
+
+      const actions = createElement("div", "conversation-actions");
+
+      const pinButton = createElement("button", "conversation-action", chat.isPinned ? "📌" : "📍");
+      pinButton.type = "button";
+      pinButton.title = chat.isPinned ? "Sabitlemeyi kaldır" : "Sohbeti sabitle";
+      pinButton.setAttribute("aria-label", pinButton.title);
+      pinButton.addEventListener("click", event => {
+        event.stopPropagation();
+        togglePinChat(chat.id);
+      });
+
+      const renameButton = createElement("button", "conversation-action", "✏️");
+      renameButton.type = "button";
+      renameButton.title = "Sohbeti yeniden adlandır";
+      renameButton.setAttribute("aria-label", renameButton.title);
+      renameButton.addEventListener("click", event => {
+        event.stopPropagation();
+        renameChat(chat.id);
+      });
+
+      const deleteButton = createElement("button", "conversation-action delete", "🗑");
+      deleteButton.type = "button";
+      deleteButton.title = "Sohbeti sil";
+      deleteButton.setAttribute("aria-label", deleteButton.title);
+      deleteButton.addEventListener("click", event => {
+        event.stopPropagation();
+        deleteChat(chat.id);
+      });
+
+      actions.append(pinButton, renameButton, deleteButton);
+      row.append(openButton, actions);
+      conversationList.appendChild(row);
+    });
+  }
+
+  function togglePinChat(chatId) {
+    const chat = chats.find(item => item.id === chatId);
+    if (!chat) return;
+    chat.isPinned = !chat.isPinned;
+    persistChats();
+    renderConversationList();
+  }
+
+  function renameChat(chatId) {
+    const chat = chats.find(item => item.id === chatId);
+    if (!chat) return;
+
+    const title = window.prompt("Yeni sohbet başlığını yaz:", chat.title || "Yeni sohbet");
+    if (title === null) return;
+
+    const clean = title.trim();
+    if (!clean) {
+      window.alert("Sohbet başlığı boş bırakılamaz.");
+      return;
+    }
+
+    chat.title = clean.slice(0, 60);
+    persistChats();
+    renderConversationList();
+  }
+
+  function deleteChat(chatId) {
+    if (isSending) {
+      window.alert("Yanıt hazırlanırken sohbet silinemez.");
+      return;
+    }
+
+    const selected = chats.find(chat => chat.id === chatId);
+    if (!selected) return;
+
+    if (!window.confirm(
+      '"' + (selected.title || "Yeni sohbet") +
+      '" konuşmasını silmek istediğine emin misin? Bu işlem geri alınamaz.'
+    )) return;
+
+    chats = chats.filter(chat => chat.id !== chatId);
+
+    if (activeChatId === chatId) {
+      if (chats.length) {
+        const latest = [...chats].sort((a, b) => b.updatedAt - a.updatedAt)[0];
+        activeChatId = latest.id;
+        history = [...latest.messages];
+      } else {
+        const newChat = createChatRecord();
+        chats = [newChat];
+        activeChatId = newChat.id;
+        history = [];
+      }
+    }
+
+    saveHistory();
+    renderHistory();
+    renderConversationList();
+    showChatPage();
+    chatInput.focus();
+  }
+
+  function switchChat(chatId) {
+    if (isSending) {
+      window.alert("Yanıt hazırlanırken sohbet değiştirilemez.");
+      return;
+    }
+
+    const selected = chats.find(chat => chat.id === chatId);
+    if (!selected) return;
+
+    activeChatId = chatId;
+    history = [...selected.messages];
+
+    saveHistory();
+    renderHistory();
+    renderConversationList();
+    showChatPage();
+    chatInput.focus();
+  }
+
+  function createNewChat() {
+    if (isSending) {
+      window.alert("Yanıt hazırlanırken yeni sohbet açılamaz.");
+      return;
+    }
+
+    const newChat = createChatRecord();
+    chats.push(newChat);
+    activeChatId = newChat.id;
+    history = [];
+
+    saveHistory();
+    renderHistory();
+    renderConversationList();
+    showChatPage();
+    chatInput.focus();
+  }
+
+  function updateChatTitle() {
+    const active = chats.find(chat => chat.id === activeChatId);
+    if (!active) return;
+
+    const firstUser = history.find(item => item.role === "user");
+
+    if (firstUser && active.title === "Yeni sohbet") {
+      active.title = firstUser.content.length > 32
+        ? firstUser.content.slice(0, 32) + "..."
+        : firstUser.content;
+    }
+
+    active.updatedAt = Date.now();
+  }
+
+  function addMessage(role, content) {
+    const message = createElement(
+      "div",
+      role === "user" ? "user-message" : "assistant-message"
+    );
+
+    const paragraph = createElement("p", "", content);
+    message.appendChild(paragraph);
+
+    if (role === "assistant") {
+      const saveButton = createElement("button", "save-to-library", "☆ Kitaplığa kaydet");
+      saveButton.type = "button";
+
+      if (savedLibrary.some(item => item.content === content.trim())) {
+        saveButton.textContent = "✓ Zaten kayıtlı";
+        saveButton.classList.add("saved");
+      }
+
+      saveButton.addEventListener("click", () => saveToLibrary(content, saveButton));
+      message.appendChild(saveButton);
+    }
+
+    chatMessages.appendChild(message);
+    chatMessages.scrollTop = chatMessages.scrollHeight;
+  }
+
+  function renderHistory() {
+    chatMessages.replaceChildren();
+
+    if (!history.length) {
+      addMessage("assistant", "Merhaba! Ben ZEYDAL AI. Sana nasıl yardımcı olabilirim?");
+      return;
+    }
+
+    history.forEach(message => addMessage(message.role, message.content));
+  }
+
+  // --------------------------------------------------
+  // API VE SES
+  // --------------------------------------------------
+
+  async function apiRequest(action, data = {}, authenticated = false) {
+    const headers = { "Content-Type": "application/json" };
+
+    if (authenticated && sessionToken) {
+      headers.Authorization = "Bearer " + sessionToken;
+    }
+
+    const response = await fetch(API_URL, {
+      method: "POST",
+      headers,
+      body: JSON.stringify({ action, ...data })
+    });
+
+    const result = await response.json();
+
+    if (!response.ok || result.success === false) {
+      throw new Error(result.message || "İşlem başarısız oldu.");
+    }
+
+    return result;
+  }
+
+  window.zeydalRequestVoiceToken = async function() {
+    const result = await apiRequest("voice-token", {}, true);
+    return result.token || result.data?.token || null;
+  };
+
+  async function sendChatMessage() {
+    const response = await fetch(CHAT_API_URL, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + sessionToken
+      },
+      body: JSON.stringify({ messages: history.slice(-12) })
+    });
+
+    const result = await response.json();
+
+    if (!response.ok || result.success !== true) {
+      throw new Error(result.message || "Asistan yanıt veremedi.");
+    }
+
+    if (typeof result.response !== "string") {
+      throw new Error("Geçersiz API yanıtı.");
+    }
+
+    return result.response;
+  }
+
+  // --------------------------------------------------
+  // MESAJ GÖNDERME
+  // --------------------------------------------------
+
+  chatForm.addEventListener("submit", async event => {
+    event.preventDefault();
+    if (isSending) return;
+
+    const message = chatInput.value.trim();
+    if (!message) return;
+
+    if (!sessionToken || !sessionVerified) {
+      authPanel.style.display = "flex";
+      chatPanel.style.display = "none";
+      return;
+    }
+
+    showChatPage();
+
+    isSending = true;
+    sendButton.disabled = true;
+    chatInput.value = "";
+
+    history.push({ role: "user", content: message });
+    updateChatTitle();
+    saveHistory();
+    addMessage("user", message);
+    renderConversationList();
+
+    try {
+      const reply = await sendChatMessage();
+
+      history.push({ role: "assistant", content: reply });
+      saveHistory();
+      addMessage("assistant", reply);
+      renderConversationList();
+    } catch (error) {
+      history.pop();
+      saveHistory();
+      renderHistory();
+      addMessage("assistant", "Bir hata oluştu: " + error.message);
+    } finally {
+      isSending = false;
+      sendButton.disabled = false;
+      chatInput.focus();
+    }
+  });
+
+  // --------------------------------------------------
+  // PANEL AÇMA / KAPATMA
+  // --------------------------------------------------
+
+  function openChat() {
+    if (!sessionVerified || !sessionToken) {
+      authPanel.style.display = "flex";
+      return;
+    }
+
+    authPanel.style.display = "none";
+    chatPanel.style.display = "flex";
+    chatButton.style.display = "none";
+
+    showChatPage();
+    renderHistory();
+    renderConversationList();
+    chatInput.focus();
+  }
+
+  function closeChat() {
+    chatPanel.style.display = "none";
+    if (sessionVerified) chatButton.style.display = "block";
+  }
+
+  searchInput.addEventListener("input", renderConversationList);
+
+  document.querySelectorAll(".sidebar-tool").forEach(button => {
+    button.addEventListener("click", () => {
+      const page = button.dataset.page;
+      if (page === "chat") showChatPage();
+      else showFeaturePage(page);
+    });
+  });
+
+  chatButton.addEventListener("click", openChat);
+
+  document.querySelectorAll(".zeydal-open-assistant").forEach(button => {
+    button.addEventListener("click", openChat);
+  });
+
+  $("zeydal-chat-close").addEventListener("click", closeChat);
+  $("zeydal-new-chat").addEventListener("click", createNewChat);
+
+  // --------------------------------------------------
+  // GİRİŞ
+  // --------------------------------------------------
+
+  $("zeydal-login-form").addEventListener("submit", async event => {
+    event.preventDefault();
+
+    const email = $("zeydal-login-email").value.trim();
+    const password = $("zeydal-login-password").value;
+
+    authMessage.textContent = "Giriş yapılıyor...";
+
+    try {
+      const result = await apiRequest("login", { email, password });
+
+      sessionToken = result.token || result.data?.token;
+      if (!sessionToken) throw new Error("Oturum anahtarı alınamadı.");
+
+      localStorage.setItem(TOKEN_KEY, sessionToken);
+      sessionVerified = true;
+      authMessage.textContent = "Giriş başarılı.";
+      authPanel.style.display = "none";
+      openChat();
+    } catch (error) {
+      authMessage.textContent = error.message;
+    }
+  });
+
+  // --------------------------------------------------
+  // KAYIT
+  // --------------------------------------------------
+
+  $("zeydal-register-form").addEventListener("submit", async event => {
+    event.preventDefault();
+
+    const email = $("zeydal-register-email").value.trim();
+    const password = $("zeydal-register-password").value;
+
+    authMessage.textContent = "Hesap oluşturuluyor...";
+
+    try {
+      const result = await apiRequest("register", { email, password });
+      authMessage.textContent = result.message || "Kayıt işlemi başarılı.";
+    } catch (error) {
+      authMessage.textContent = error.message;
+    }
+  });
+
+  // --------------------------------------------------
+  // OTURUM KONTROLÜ
+  // --------------------------------------------------
+
+  async function checkSession() {
+    if (!sessionToken) {
+      sessionVerified = false;
+      chatButton.style.display = "block";
+      return;
+    }
+
+    try {
+      const result = await apiRequest("check-session", {}, true);
+      const valid = result.valid === true || result.authenticated === true;
+
+      if (valid) {
+        sessionVerified = true;
+        authPanel.style.display = "none";
+        chatButton.style.display = "block";
+      } else {
+        sessionVerified = false;
+        sessionToken = null;
+        localStorage.removeItem(TOKEN_KEY);
+        authPanel.style.display = "flex";
+      }
+    } catch (error) {
+      console.error("Oturum kontrolü:", error);
+      sessionVerified = false;
+      authPanel.style.display = "flex";
+    }
+  }
+
+  // --------------------------------------------------
+  // ÇIKIŞ
+  // --------------------------------------------------
+
+  $("zeydal-logout").addEventListener("click", async () => {
+    try {
+      await apiRequest("logout", {}, true);
+    } catch (error) {
+      console.error("Çıkış API hatası:", error);
+    }
+
+    sessionToken = null;
+    sessionVerified = false;
+    localStorage.removeItem(TOKEN_KEY);
+
+    chatPanel.style.display = "none";
+    chatButton.style.display = "block";
+    authPanel.style.display = "flex";
+    authMessage.textContent = "Oturum kapatıldı.";
+  });
+
+  // --------------------------------------------------
+  // BAŞLANGIÇ
+  // --------------------------------------------------
+
+  loadPreferences();
+  loadSavedLibrary();
+  loadHistory();
+  renderConversationList();
+  await checkSession();
+}
+
+document.addEventListener("DOMContentLoaded", initializeZeydal);
+</script>
+
+<script src="voice.js"></script>
 </body>
 </html>
