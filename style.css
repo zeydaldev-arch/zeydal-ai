@@ -2,33 +2,34 @@
 /* =========================================
    ZEYDAL AI
    FUTURISTIC NAVY / BLUE / SILVER THEME
+   LIGHTER BACKGROUND EDITION
    ========================================= */
 
 /* 1. GLOBAL VARIABLES */
 
 :root {
-  --bg: #080e1c;
-  --panel: #101a2e;
-  --panel-light: #17243a;
-  --panel-hover: #20324d;
+  --bg: #172b45;
+  --panel: #203a59;
+  --panel-light: #294968;
+  --panel-hover: #345779;
 
-  --blue: #1769d2;
-  --blue-light: #348cff;
-  --blue-glow: rgba(23, 105, 210, 0.22);
+  --blue: #287fe0;
+  --blue-light: #58a5ff;
+  --blue-glow: rgba(40, 127, 224, 0.28);
 
-  --silver: #c5d0df;
-  --silver-light: #e2e9f2;
+  --silver: #d5e1ef;
+  --silver-light: #f0f5fc;
 
-  --text: #e8eef7;
-  --muted: #899bb4;
+  --text: #f0f5fc;
+  --muted: #b0c1d6;
 
-  --border: rgba(174, 194, 220, 0.13);
-  --border-blue: rgba(52, 140, 255, 0.35);
+  --border: rgba(190, 213, 240, 0.20);
+  --border-blue: rgba(88, 165, 255, 0.45);
 
   --danger: #e05252;
   --success: #38b879;
 
-  --shadow: 0 15px 45px rgba(0, 0, 0, 0.35);
+  --shadow: 0 15px 45px rgba(0, 0, 0, 0.25);
 }
 
 * {
@@ -77,7 +78,7 @@ body > header {
   position: sticky;
   top: 0;
   z-index: 100;
-  background: rgba(8, 14, 28, 0.94);
+  background: rgba(25, 47, 73, 0.96);
   border-bottom: 1px solid var(--border);
   backdrop-filter: blur(16px);
 }
@@ -130,8 +131,13 @@ body > header nav {
   background:
     radial-gradient(
       ellipse at center,
-      rgba(23, 105, 210, 0.20),
-      transparent 65%
+      rgba(65, 145, 235, 0.28),
+      transparent 68%
+    ),
+    linear-gradient(
+      135deg,
+      #1b3553,
+      #254665
     );
 }
 
@@ -156,7 +162,7 @@ body > header nav {
   background: linear-gradient(
     135deg,
     var(--blue),
-    #1554a7
+    #1761b5
   );
   color: #fff;
   transition: all 0.2s ease;
@@ -194,6 +200,7 @@ body > header nav {
 body > footer {
   padding: 25px;
   border-top: 1px solid var(--border);
+  background: #142840;
   color: var(--muted);
   text-align: center;
   font-size: 13px;
@@ -211,7 +218,7 @@ body > footer {
   justify-content: center;
   padding: 20px;
 
-  background: rgba(3, 8, 18, 0.88);
+  background: rgba(10, 24, 42, 0.82);
   backdrop-filter: blur(12px);
 }
 
@@ -225,8 +232,8 @@ body > footer {
   background:
     linear-gradient(
       145deg,
-      #142139,
-      #0c1527
+      #294968,
+      #1b3552
     );
 
   box-shadow: var(--shadow);
@@ -259,7 +266,7 @@ body > footer {
   border-radius: 8px;
   outline: none;
 
-  background: #091326;
+  background: #1b3552;
   color: #fff;
 
   transition: border 0.2s ease;
@@ -309,12 +316,12 @@ body > footer {
   background: linear-gradient(
     135deg,
     var(--blue),
-    #1554a7
+    #1761b5
   );
 
   color: white;
 
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.25);
 
   transition: 0.2s ease;
 }
@@ -394,7 +401,7 @@ body > footer {
   border: 1px solid var(--border-blue);
   border-radius: 10px;
 
-  background: rgba(23, 105, 210, 0.13);
+  background: rgba(40, 127, 224, 0.20);
   color: var(--text);
 
   text-align: left;
@@ -404,7 +411,7 @@ body > footer {
 }
 
 #zeydal-new-chat:hover {
-  background: rgba(23, 105, 210, 0.25);
+  background: rgba(40, 127, 224, 0.34);
   border-color: var(--blue-light);
   box-shadow: 0 0 16px var(--blue-glow);
 }
@@ -459,12 +466,12 @@ body > footer {
 }
 
 .conversation-item:hover {
-  background: rgba(174, 194, 220, 0.08);
+  background: rgba(190, 213, 240, 0.12);
   color: white;
 }
 
 .conversation-item.active {
-  background: rgba(23, 105, 210, 0.20);
+  background: rgba(40, 127, 224, 0.28);
   border-color: var(--border-blue);
   color: white;
 }
@@ -510,10 +517,14 @@ body > footer {
   background:
     radial-gradient(
       ellipse at 50% 0%,
-      rgba(23, 105, 210, 0.07),
-      transparent 55%
+      rgba(75, 153, 235, 0.16),
+      transparent 60%
     ),
-    var(--bg);
+    linear-gradient(
+      145deg,
+      #1b3552,
+      #203d5c
+    );
 }
 
 
@@ -529,7 +540,7 @@ body > footer {
   align-items: center;
   justify-content: space-between;
 
-  background: rgba(16, 26, 46, 0.96);
+  background: rgba(35, 62, 91, 0.97);
   border-bottom: 1px solid var(--border);
 }
 
@@ -561,7 +572,7 @@ body > footer {
   border: 1px solid var(--border);
   border-radius: 8px;
 
-  background: var(--panel-light);
+  background: #345779;
   color: var(--text);
 
   transition: 0.2s ease;
@@ -588,6 +599,13 @@ body > footer {
 
   overflow-y: auto;
   scroll-behavior: smooth;
+
+  background:
+    radial-gradient(
+      ellipse at center,
+      rgba(75, 145, 220, 0.08),
+      transparent 75%
+    );
 }
 
 
@@ -599,13 +617,13 @@ body > footer {
 
   padding: 13px 17px;
 
-  border: 1px solid rgba(91, 164, 255, 0.25);
+  border: 1px solid rgba(115, 181, 255, 0.35);
   border-radius: 17px 17px 4px 17px;
 
   background: linear-gradient(
     135deg,
-    #1c62ad,
-    #17477e
+    #348de8,
+    #2168b8
   );
 
   color: white;
@@ -629,8 +647,8 @@ body > footer {
 
   background: linear-gradient(
     145deg,
-    #18263d,
-    #131f32
+    #2c4969,
+    #263f5c
   );
 
   color: var(--silver-light);
@@ -664,7 +682,7 @@ body > footer {
   border: 1px solid var(--border-blue);
   border-radius: 14px;
 
-  background: #111e33;
+  background: #294766;
 
   box-shadow: 0 8px 30px rgba(0, 0, 0, 0.18);
 
@@ -692,7 +710,7 @@ body > footer {
 }
 
 #zeydal-chat-panel #zeydal-chat-input::placeholder {
-  color: var(--muted);
+  color: #c1d1e4;
 }
 
 #zeydal-chat-panel #zeydal-chat-send {
@@ -704,7 +722,7 @@ body > footer {
   background: linear-gradient(
     135deg,
     var(--blue),
-    #1554a7
+    #1761b5
   );
 
   color: white;
@@ -734,7 +752,7 @@ body > footer {
 .conversation-list::-webkit-scrollbar-thumb,
 #zeydal-chat-messages::-webkit-scrollbar-thumb {
   border-radius: 10px;
-  background: #344967;
+  background: #547493;
 }
 
 .conversation-list::-webkit-scrollbar-thumb:hover,
