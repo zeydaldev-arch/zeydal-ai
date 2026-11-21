@@ -291,8 +291,7 @@ footer {
   font-size: 16px;
 }
 
-.auth-form input,
-#zeydal-chat-input {
+.auth-form input {
   width: 100%;
   padding: 13px;
   border: 1px solid var(--border);
@@ -302,8 +301,7 @@ footer {
   color: white;
 }
 
-.auth-form input:focus,
-#zeydal-chat-input:focus {
+.auth-form input:focus {
   border-color: var(--blue);
 }
 
@@ -347,42 +345,55 @@ footer {
   box-shadow: 0 5px 25px rgba(0,130,255,.35);
 }
 
-/* CHAT PANEL */
+/* ==========================================
+   CHAT INTERFACE - FULL SCREEN
+   ========================================== */
 
 #zeydal-chat-panel {
   display: none;
   position: fixed;
-  right: 25px;
-  bottom: 25px;
-  z-index: 600;
-  width: min(390px, calc(100vw - 30px));
-  height: min(570px, calc(100vh - 50px));
-  background: #08192d;
-  border: 1px solid var(--border);
-  border-radius: 14px;
+  inset: 0;
+  z-index: 9999;
+  width: 100%;
+  height: 100vh;
+  height: 100dvh;
+  max-width: none;
+  max-height: none;
+  margin: 0;
+  padding: 0;
+  background: #071426;
+  border: none;
+  border-radius: 0;
+  box-shadow: none;
   overflow: hidden;
-  box-shadow: 0 15px 55px rgba(0,0,0,.5);
 }
 
+/* CHAT HEADER */
+
 .chat-header {
-  min-height: 60px;
-  padding: 12px;
-  background: #102b49;
+  position: relative;
+  width: 100%;
+  height: 68px;
+  min-height: 68px;
+  padding: 0 28px;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 8px;
+  gap: 12px;
+  background: #091a30;
   border-bottom: 1px solid var(--border);
 }
 
 .chat-header strong {
   color: white;
-  font-size: 15px;
+  font-size: 19px;
+  letter-spacing: 1px;
 }
 
 .chat-header-actions {
   display: flex;
-  gap: 6px;
+  align-items: center;
+  gap: 8px;
   flex-wrap: wrap;
 }
 
@@ -391,8 +402,8 @@ footer {
   border: 1px solid var(--border);
   background: #0a1c31;
   color: var(--silver);
-  border-radius: 5px;
-  padding: 6px 8px;
+  border-radius: 7px;
+  padding: 7px 10px;
   font-size: 12px;
 }
 
@@ -405,67 +416,104 @@ footer {
 /* CHAT MESSAGES */
 
 #zeydal-chat-messages {
-  height: calc(100% - 125px);
-  padding: 15px;
-  overflow-y: auto;
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 22px;
+  height: calc(100% - 146px);
+  padding: 30px 20px;
+  overflow-y: auto;
+  background: #071426;
+  box-sizing: border-box;
 }
 
-.zeydal-message {
-  max-width: 88%;
-  padding: 11px 13px;
-  border-radius: 10px;
-  font-size: 14px;
-  white-space: pre-wrap;
+#zeydal-chat-messages > div {
+  width: fit-content;
+  max-width: min(780px, 90%);
+  padding: 14px 18px;
+  border-radius: 15px;
+  line-height: 1.7;
+  font-size: 15px;
   overflow-wrap: anywhere;
 }
 
-.zeydal-user {
+/* USER MESSAGE */
+
+#zeydal-chat-messages .user-message,
+#zeydal-chat-messages .zeydal-user {
   align-self: flex-end;
-  background: #075ca8;
+  background: #123c65;
   color: white;
+  border: 1px solid rgba(85,181,255,.2);
 }
 
-.zeydal-assistant {
+/* ASSISTANT MESSAGE */
+
+#zeydal-chat-messages .assistant-message,
+#zeydal-chat-messages .zeydal-assistant {
   align-self: flex-start;
-  background: #142d49;
-  color: var(--silver);
+  background: #10233b;
+  color: #edf5ff;
+  border: 1px solid rgba(112,174,235,.15);
 }
 
-/* CHAT FORM */
+/* MESSAGE FORM */
 
 #zeydal-chat-form {
   position: absolute;
   bottom: 0;
   left: 0;
   right: 0;
-  min-height: 65px;
-  padding: 10px;
+  width: 100%;
+  min-height: 78px;
+  padding: 14px 20px;
   display: flex;
-  gap: 8px;
-  background: #10233b;
+  align-items: center;
+  gap: 12px;
+  background: #071426;
   border-top: 1px solid var(--border);
 }
 
 #zeydal-chat-input {
   flex: 1;
   min-width: 0;
-  padding: 10px;
+  width: auto;
+  padding: 14px;
+  border-radius: 12px;
+  background: #10233b;
+  color: #edf5ff;
+  border: 1px solid rgba(112,174,235,.3);
+  outline: none;
+}
+
+#zeydal-chat-input:focus {
+  border-color: var(--blue);
+  box-shadow: 0 0 0 2px rgba(22,139,255,.12);
 }
 
 #zeydal-chat-send {
+  flex-shrink: 0;
   border: none;
-  border-radius: 7px;
-  padding: 0 15px;
+  border-radius: 10px;
+  padding: 12px 24px;
   color: white;
   background: #087fe5;
+  font-weight: bold;
 }
 
 #zeydal-chat-send:disabled {
   opacity: .5;
   cursor: wait;
+}
+
+/* SCROLLBAR */
+
+#zeydal-chat-messages::-webkit-scrollbar {
+  width: 7px;
+}
+
+#zeydal-chat-messages::-webkit-scrollbar-thumb {
+  background: #294563;
+  border-radius: 10px;
 }
 
 /* MOBILE */
@@ -489,11 +537,51 @@ footer {
     padding: 60px 0;
   }
 
-  #zeydal-chat-panel {
-    right: 10px;
-    bottom: 10px;
-    width: calc(100vw - 20px);
-    height: min(570px, calc(100vh - 20px));
+  .chat-header {
+    height: 60px;
+    min-height: 60px;
+    padding: 0 12px;
+    gap: 5px;
+  }
+
+  .chat-header strong {
+    font-size: 15px;
+  }
+
+  .chat-header-actions {
+    gap: 4px;
+  }
+
+  .chat-header button {
+    padding: 6px;
+    font-size: 10px;
+  }
+
+  #zeydal-chat-messages {
+    height: calc(100% - 138px);
+    padding: 18px 12px;
+    gap: 16px;
+  }
+
+  #zeydal-chat-messages > div {
+    max-width: 95%;
+    padding: 12px;
+    font-size: 14px;
+  }
+
+  #zeydal-chat-form {
+    min-height: 78px;
+    padding: 12px;
+    gap: 8px;
+  }
+
+  #zeydal-chat-input {
+    padding: 12px;
+    font-size: 14px;
+  }
+
+  #zeydal-chat-send {
+    padding: 10px 14px;
   }
 
   #zeydal-chat-button {
