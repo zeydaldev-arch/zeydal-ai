@@ -1,23 +1,34 @@
 
 /* =========================================
    ZEYDAL AI
-   Main Interface Stylesheet
+   FUTURISTIC NAVY / BLUE / SILVER THEME
    ========================================= */
 
 /* 1. GLOBAL VARIABLES */
 
 :root {
-  --bg: #080d18;
-  --panel: #0d1423;
-  --panel-light: #151f30;
-  --blue: #2678d5;
-  --blue-light: #398de9;
-  --silver: #c3d7ef;
-  --text: #e5edf9;
-  --muted: #8495ad;
-  --border: rgba(255, 255, 255, 0.08);
+  --bg: #080e1c;
+  --panel: #101a2e;
+  --panel-light: #17243a;
+  --panel-hover: #20324d;
+
+  --blue: #1769d2;
+  --blue-light: #348cff;
+  --blue-glow: rgba(23, 105, 210, 0.22);
+
+  --silver: #c5d0df;
+  --silver-light: #e2e9f2;
+
+  --text: #e8eef7;
+  --muted: #899bb4;
+
+  --border: rgba(174, 194, 220, 0.13);
+  --border-blue: rgba(52, 140, 255, 0.35);
+
   --danger: #e05252;
   --success: #38b879;
+
+  --shadow: 0 15px 45px rgba(0, 0, 0, 0.35);
 }
 
 * {
@@ -52,6 +63,13 @@ a {
   text-decoration: none;
 }
 
+button:focus-visible,
+input:focus-visible,
+a:focus-visible {
+  outline: 2px solid var(--blue-light);
+  outline-offset: 3px;
+}
+
 
 /* 2. MAIN WEBSITE HEADER */
 
@@ -59,9 +77,9 @@ body > header {
   position: sticky;
   top: 0;
   z-index: 100;
-  background: rgba(8, 13, 24, 0.95);
+  background: rgba(8, 14, 28, 0.94);
   border-bottom: 1px solid var(--border);
-  backdrop-filter: blur(12px);
+  backdrop-filter: blur(16px);
 }
 
 body > header nav {
@@ -75,10 +93,10 @@ body > header nav {
 }
 
 .logo {
-  color: var(--silver);
+  color: var(--silver-light);
   font-size: 23px;
   font-weight: 800;
-  letter-spacing: 1px;
+  letter-spacing: 1.5px;
 }
 
 .nav-links {
@@ -108,18 +126,20 @@ body > header nav {
   align-items: center;
   justify-content: center;
   text-align: center;
+
   background:
     radial-gradient(
-      circle at center,
-      rgba(38, 120, 213, 0.17),
+      ellipse at center,
+      rgba(23, 105, 210, 0.20),
       transparent 65%
     );
 }
 
 .hero h1 {
   margin-bottom: 20px;
-  color: var(--silver);
+  color: var(--silver-light);
   font-size: clamp(32px, 6vw, 58px);
+  letter-spacing: 1px;
 }
 
 .hero p {
@@ -131,16 +151,22 @@ body > header nav {
 .hero button,
 .section button {
   padding: 13px 25px;
-  border: none;
+  border: 1px solid var(--border-blue);
   border-radius: 9px;
-  background: var(--blue);
+  background: linear-gradient(
+    135deg,
+    var(--blue),
+    #1554a7
+  );
   color: #fff;
-  transition: background 0.2s ease;
+  transition: all 0.2s ease;
 }
 
 .hero button:hover,
 .section button:hover {
   background: var(--blue-light);
+  box-shadow: 0 0 22px var(--blue-glow);
+  transform: translateY(-1px);
 }
 
 .section {
@@ -184,22 +210,31 @@ body > footer {
   align-items: center;
   justify-content: center;
   padding: 20px;
-  background: rgba(0, 0, 0, 0.82);
-  backdrop-filter: blur(8px);
+
+  background: rgba(3, 8, 18, 0.88);
+  backdrop-filter: blur(12px);
 }
 
 .auth-box {
   width: min(420px, 100%);
   padding: 30px;
-  border: 1px solid var(--border);
+
+  border: 1px solid var(--border-blue);
   border-radius: 16px;
-  background: var(--panel);
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.35);
+
+  background:
+    linear-gradient(
+      145deg,
+      #142139,
+      #0c1527
+    );
+
+  box-shadow: var(--shadow);
 }
 
 .auth-box h2 {
   margin-bottom: 25px;
-  color: var(--silver);
+  color: var(--silver-light);
   text-align: center;
 }
 
@@ -219,27 +254,36 @@ body > footer {
 .auth-box input {
   width: 100%;
   padding: 13px;
+
   border: 1px solid var(--border);
   border-radius: 8px;
   outline: none;
-  background: var(--bg);
+
+  background: #091326;
   color: #fff;
+
+  transition: border 0.2s ease;
 }
 
 .auth-box input:focus {
-  border-color: var(--blue);
+  border-color: var(--blue-light);
+  box-shadow: 0 0 0 3px var(--blue-glow);
 }
 
 .auth-box button {
   padding: 12px;
-  border: none;
+  border: 1px solid var(--border-blue);
   border-radius: 8px;
+
   background: var(--blue);
   color: white;
+
+  transition: 0.2s ease;
 }
 
 .auth-box button:hover {
   background: var(--blue-light);
+  box-shadow: 0 0 18px var(--blue-glow);
 }
 
 #zeydal-auth-message {
@@ -256,16 +300,29 @@ body > footer {
   right: 25px;
   bottom: 25px;
   z-index: 9998;
+
   padding: 15px 22px;
-  border: 1px solid rgba(255, 255, 255, 0.15);
+
+  border: 1px solid var(--border-blue);
   border-radius: 30px;
-  background: var(--blue);
+
+  background: linear-gradient(
+    135deg,
+    var(--blue),
+    #1554a7
+  );
+
   color: white;
+
   box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+
+  transition: 0.2s ease;
 }
 
 #zeydal-chat-button:hover {
   background: var(--blue-light);
+  box-shadow: 0 0 24px var(--blue-glow);
+  transform: translateY(-2px);
 }
 
 
@@ -277,11 +334,14 @@ body > footer {
   position: fixed;
   inset: 0;
   z-index: 9999;
+
   display: none;
   flex-direction: row;
+
   width: 100%;
   height: 100vh;
   height: 100dvh;
+
   overflow: hidden;
   background: var(--bg);
 }
@@ -293,16 +353,20 @@ body > footer {
   width: 270px;
   min-width: 270px;
   height: 100%;
+
   display: flex;
   flex-direction: column;
+
   padding: 20px 14px;
   overflow: hidden;
+
   background: var(--panel);
   border-right: 1px solid var(--border);
 }
 
 .sidebar-brand {
   padding: 8px 10px 25px;
+
   color: var(--silver);
   font-size: 21px;
   letter-spacing: 1px;
@@ -311,9 +375,10 @@ body > footer {
 .sidebar-brand strong {
   background: linear-gradient(
     90deg,
-    #4d9fff,
-    var(--silver)
+    var(--blue-light),
+    var(--silver-light)
   );
+
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
@@ -325,18 +390,23 @@ body > footer {
 #zeydal-new-chat {
   width: 100%;
   padding: 13px;
-  border: 1px solid rgba(100, 160, 255, 0.3);
+
+  border: 1px solid var(--border-blue);
   border-radius: 10px;
-  background: rgba(45, 110, 200, 0.13);
+
+  background: rgba(23, 105, 210, 0.13);
   color: var(--text);
+
   text-align: left;
   font-size: 14px;
+
   transition: 0.2s ease;
 }
 
 #zeydal-new-chat:hover {
-  background: rgba(45, 130, 230, 0.25);
-  border-color: var(--blue);
+  background: rgba(23, 105, 210, 0.25);
+  border-color: var(--blue-light);
+  box-shadow: 0 0 16px var(--blue-glow);
 }
 
 #zeydal-new-chat span {
@@ -349,6 +419,7 @@ body > footer {
 
 .conversation-heading {
   margin: 27px 10px 12px;
+
   color: var(--muted);
   font-size: 12px;
   font-weight: 600;
@@ -359,35 +430,42 @@ body > footer {
 .conversation-list {
   flex: 1;
   min-height: 0;
+
   display: flex;
   flex-direction: column;
   gap: 5px;
+
   overflow-y: auto;
 }
 
 .conversation-item {
   width: 100%;
   padding: 12px 10px;
+
   border: 1px solid transparent;
   border-radius: 8px;
+
   background: transparent;
-  color: #b9c6d8;
+  color: var(--silver);
+
   text-align: left;
   font-size: 13px;
+
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+
   transition: 0.2s ease;
 }
 
 .conversation-item:hover {
-  background: rgba(255, 255, 255, 0.06);
+  background: rgba(174, 194, 220, 0.08);
   color: white;
 }
 
 .conversation-item.active {
-  background: rgba(50, 125, 220, 0.18);
-  border-color: rgba(75, 145, 235, 0.25);
+  background: rgba(23, 105, 210, 0.20);
+  border-color: var(--border-blue);
   color: white;
 }
 
@@ -398,14 +476,17 @@ body > footer {
   display: flex;
   flex-direction: column;
   gap: 5px;
+
   padding: 18px 10px 5px;
+
   border-top: 1px solid var(--border);
-  color: #aebed3;
+  color: var(--silver);
+
   font-size: 13px;
 }
 
 .sidebar-footer small {
-  color: #71839b;
+  color: var(--muted);
   font-size: 11px;
 }
 
@@ -418,11 +499,21 @@ body > footer {
   flex: 1;
   min-width: 0;
   height: 100%;
+
   position: relative;
+
   display: flex;
   flex-direction: column;
+
   overflow: hidden;
-  background: var(--bg);
+
+  background:
+    radial-gradient(
+      ellipse at 50% 0%,
+      rgba(23, 105, 210, 0.07),
+      transparent 55%
+    ),
+    var(--bg);
 }
 
 
@@ -431,11 +522,14 @@ body > footer {
 #zeydal-chat-panel .chat-header {
   flex-shrink: 0;
   min-height: 70px;
+
   padding: 12px 22px;
+
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background: #0b1220;
+
+  background: rgba(16, 26, 46, 0.96);
   border-bottom: 1px solid var(--border);
 }
 
@@ -446,7 +540,7 @@ body > footer {
 }
 
 .chat-header-title strong {
-  color: var(--text);
+  color: var(--silver-light);
   font-size: 17px;
 }
 
@@ -463,15 +557,19 @@ body > footer {
 
 .chat-header-actions button {
   padding: 9px 13px;
+
   border: 1px solid var(--border);
   border-radius: 8px;
-  background: #172338;
+
+  background: var(--panel-light);
   color: var(--text);
+
   transition: 0.2s ease;
 }
 
 .chat-header-actions button:hover {
-  background: #233957;
+  background: var(--panel-hover);
+  border-color: var(--border-blue);
 }
 
 
@@ -481,10 +579,13 @@ body > footer {
   flex: 1;
   min-height: 0;
   height: auto;
+
   padding: 30px max(20px, calc((100% - 850px) / 2));
+
   display: flex;
   flex-direction: column;
   gap: 18px;
+
   overflow-y: auto;
   scroll-behavior: smooth;
 }
@@ -495,11 +596,23 @@ body > footer {
 #zeydal-chat-panel .user-message {
   align-self: flex-end;
   max-width: 75%;
+
   padding: 13px 17px;
+
+  border: 1px solid rgba(91, 164, 255, 0.25);
   border-radius: 17px 17px 4px 17px;
-  background: #174d89;
+
+  background: linear-gradient(
+    135deg,
+    #1c62ad,
+    #17477e
+  );
+
   color: white;
+
   overflow-wrap: anywhere;
+
+  box-shadow: 0 5px 18px rgba(0, 0, 0, 0.12);
 }
 
 
@@ -508,11 +621,20 @@ body > footer {
 #zeydal-chat-panel .assistant-message {
   align-self: flex-start;
   max-width: 85%;
+
   padding: 13px 17px;
-  border: 1px solid rgba(255, 255, 255, 0.06);
+
+  border: 1px solid var(--border);
   border-radius: 17px 17px 17px 4px;
-  background: var(--panel-light);
-  color: #e0e9f5;
+
+  background: linear-gradient(
+    145deg,
+    #18263d,
+    #131f32
+  );
+
+  color: var(--silver-light);
+
   overflow-wrap: anywhere;
 }
 
@@ -529,44 +651,71 @@ body > footer {
 #zeydal-chat-panel #zeydal-chat-form {
   position: relative;
   inset: auto;
+
   flex-shrink: 0;
   width: min(850px, calc(100% - 40px));
+
   margin: 15px auto 25px;
   padding: 9px;
+
   display: flex;
   gap: 10px;
-  border: 1px solid rgba(100, 150, 220, 0.25);
+
+  border: 1px solid var(--border-blue);
   border-radius: 14px;
-  background: #111b2b;
+
+  background: #111e33;
+
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.18);
+
+  transition: border 0.2s ease, box-shadow 0.2s ease;
+}
+
+#zeydal-chat-panel #zeydal-chat-form:focus-within {
+  border-color: var(--blue-light);
+  box-shadow: 0 0 20px var(--blue-glow);
 }
 
 #zeydal-chat-panel #zeydal-chat-input {
   flex: 1;
   min-width: 0;
+
   padding: 13px;
+
   border: none;
   outline: none;
+
   background: transparent;
   color: white;
+
   font-size: 14px;
 }
 
 #zeydal-chat-panel #zeydal-chat-input::placeholder {
-  color: #788ba5;
+  color: var(--muted);
 }
 
 #zeydal-chat-panel #zeydal-chat-send {
   padding: 12px 20px;
-  border: none;
+
+  border: 1px solid var(--border-blue);
   border-radius: 9px;
-  background: var(--blue);
+
+  background: linear-gradient(
+    135deg,
+    var(--blue),
+    #1554a7
+  );
+
   color: white;
   font-weight: 600;
+
   transition: 0.2s ease;
 }
 
 #zeydal-chat-panel #zeydal-chat-send:hover {
   background: var(--blue-light);
+  box-shadow: 0 0 18px var(--blue-glow);
 }
 
 #zeydal-chat-panel #zeydal-chat-send:disabled {
@@ -585,7 +734,12 @@ body > footer {
 .conversation-list::-webkit-scrollbar-thumb,
 #zeydal-chat-messages::-webkit-scrollbar-thumb {
   border-radius: 10px;
-  background: #34445c;
+  background: #344967;
+}
+
+.conversation-list::-webkit-scrollbar-thumb:hover,
+#zeydal-chat-messages::-webkit-scrollbar-thumb:hover {
+  background: var(--blue);
 }
 
 
