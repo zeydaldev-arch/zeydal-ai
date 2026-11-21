@@ -8,6 +8,159 @@
   <meta name="description" content="ZEYDAL AI - Geleceğin yapay zekâ asistanı.">
   <title>ZEYDAL AI</title>
   <link rel="stylesheet" href="style.css">
+
+  <!-- KİTAPLIK EK CSS -->
+  <style>
+    [hidden] {
+      display: none !important;
+    }
+
+    .library-container {
+      width: 100%;
+    }
+
+    .library-toolbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+    }
+
+    .library-count {
+      color: #aebed0;
+      font-size: 13px;
+    }
+
+    .library-list {
+      display: grid;
+      grid-template-columns: repeat(
+        auto-fit,
+        minmax(min(100%, 280px), 1fr)
+      );
+      gap: 16px;
+    }
+
+    .library-card {
+      min-width: 0;
+      padding: 20px;
+      border: 1px solid rgba(80, 145, 210, 0.25);
+      border-radius: 14px;
+      background: rgba(30, 52, 78, 0.65);
+      color: #e7edf5;
+    }
+
+    .library-card h3 {
+      margin: 0 0 8px;
+      font-size: 16px;
+      overflow-wrap: anywhere;
+    }
+
+    .library-card small {
+      display: block;
+      margin-bottom: 14px;
+      color: #9aadc2;
+      font-size: 11px;
+    }
+
+    .library-card p {
+      margin: 0 0 18px;
+      color: #c5d1df;
+      font-size: 13px;
+      line-height: 1.7;
+      white-space: pre-wrap;
+      overflow-wrap: anywhere;
+    }
+
+    .library-card-actions {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .library-card-actions button,
+    .save-to-library {
+      padding: 8px 12px;
+      border: 1px solid rgba(75, 145, 220, 0.4);
+      border-radius: 8px;
+      background: rgba(40, 127, 224, 0.13);
+      color: #c8e2ff;
+      cursor: pointer;
+      font-size: 12px;
+      transition: 0.2s ease;
+    }
+
+    .library-card-actions button:hover,
+    .save-to-library:hover {
+      background: rgba(40, 127, 224, 0.3);
+      color: #fff;
+    }
+
+    .library-card-actions .library-delete {
+      border-color: rgba(224, 82, 82, 0.35);
+      background: rgba(224, 82, 82, 0.1);
+      color: #ffaaaa;
+    }
+
+    .library-card-actions .library-delete:hover {
+      background: rgba(224, 82, 82, 0.25);
+      color: white;
+    }
+
+    .library-empty {
+      min-height: 180px;
+      padding: 30px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px dashed rgba(80, 145, 210, 0.4);
+      border-radius: 14px;
+      background: rgba(42, 68, 98, 0.25);
+      color: #aebed0;
+      text-align: center;
+      line-height: 1.7;
+    }
+
+    .save-to-library {
+      display: block;
+      margin-top: 12px;
+    }
+
+    .save-to-library.saved {
+      border-color: rgba(75, 190, 135, 0.4);
+      color: #8ce0b5;
+    }
+
+    .library-search {
+      width: 100%;
+      max-width: 400px;
+      padding: 11px 14px;
+      border: 1px solid rgba(80, 145, 210, 0.3);
+      border-radius: 10px;
+      outline: none;
+      background: rgba(15, 30, 48, 0.7);
+      color: #fff;
+    }
+
+    .library-search:focus {
+      border-color: #438edb;
+    }
+
+    @media (max-width: 700px) {
+      .library-card {
+        padding: 15px;
+      }
+
+      .library-toolbar {
+        align-items: stretch;
+      }
+
+      .library-search {
+        max-width: 100%;
+      }
+    }
+  </style>
 </head>
 
 <body>
@@ -212,6 +365,7 @@
 
       </div>
 
+
       <!-- SOHBET GEÇMİŞİ -->
       <div class="conversation-heading">
         Sohbet Geçmişi
@@ -293,7 +447,9 @@
 
           <div class="feature-heading">
             <span class="feature-label">ZEYDAL AI WORKSPACE</span>
+
             <h1 id="zeydal-feature-title">Görselleştirme</h1>
+
             <p id="zeydal-feature-description">
               ZEYDAL AI çalışma alanı.
             </p>
@@ -346,6 +502,7 @@
     const TOKEN_KEY = "zeydalSessionToken";
     const OLD_TOKEN_KEY = "zeydal_ai_session";
     const HISTORY_KEY = "zeydalChatHistory";
+    const LIBRARY_KEY = "zeydalSavedLibrary";
 
 
     // HTML ELEMANLARI
@@ -451,6 +608,11 @@
     let isSending = false;
 
 
+    // KİTAPLIK VERİLERİ
+
+    let savedLibrary = [];
+
+
     // ÖZELLİK SAYFALARI
 
     const featurePages = {
@@ -463,8 +625,8 @@
 
       library: {
         title: "Kitaplık",
-        description: "Kaydedilen içeriklerini ve dosyalarını yönet.",
-        placeholder: "Kitaplık sistemi geliştirme aşamasında."
+        description: "Kaydettiğin yanıtları ve içerikleri burada yönet.",
+        placeholder: ""
       },
 
       customize: {
@@ -486,6 +648,326 @@
       }
 
     };
+
+
+    // KİTAPLIĞI YÜKLE
+
+    function loadSavedLibrary() {
+
+      try {
+
+        const saved =
+          localStorage.getItem(LIBRARY_KEY);
+
+        const parsed = saved
+          ? JSON.parse(saved)
+          : [];
+
+        savedLibrary = Array.isArray(parsed)
+          ? parsed.filter(item =>
+              item &&
+              typeof item.id === "string" &&
+              typeof item.content === "string"
+            )
+          : [];
+
+      } catch (error) {
+
+        console.error("Kitaplık yüklenemedi:", error);
+
+        savedLibrary = [];
+
+      }
+
+    }
+
+
+    // KİTAPLIĞI KALICI KAYDET
+
+    function persistSavedLibrary() {
+
+      try {
+
+        localStorage.setItem(
+          LIBRARY_KEY,
+          JSON.stringify(savedLibrary)
+        );
+
+        return true;
+
+      } catch (error) {
+
+        console.error("Kitaplık kaydedilemedi:", error);
+
+        window.alert(
+          "Kitaplık kaydedilemedi. Tarayıcı depolama alanını kontrol et."
+        );
+
+        return false;
+
+      }
+
+    }
+
+
+    // İÇERİĞİ KİTAPLIĞA EKLE
+
+    function saveToLibrary(content, button = null) {
+
+      if (typeof content !== "string") return;
+
+      const cleanContent = content.trim();
+
+      if (!cleanContent) return;
+
+      const alreadySaved = savedLibrary.some(
+        item => item.content === cleanContent
+      );
+
+      if (alreadySaved) {
+
+        if (button) {
+          button.textContent = "✓ Zaten kayıtlı";
+          button.classList.add("saved");
+        }
+
+        return;
+
+      }
+
+      const newItem = {
+
+        id: window.crypto?.randomUUID
+          ? window.crypto.randomUUID()
+          : "saved-" + Date.now() + "-" +
+            Math.random().toString(36).slice(2),
+
+        title: cleanContent.split("\n")[0].slice(0, 60),
+
+        content: cleanContent,
+
+        savedAt: Date.now()
+
+      };
+
+      savedLibrary.unshift(newItem);
+
+      if (!persistSavedLibrary()) {
+
+        savedLibrary = savedLibrary.filter(
+          item => item.id !== newItem.id
+        );
+
+        return;
+
+      }
+
+      if (button) {
+        button.textContent = "✓ Kaydedildi";
+        button.classList.add("saved");
+      }
+
+      if (
+        !featureView.hidden &&
+        featureTitle.textContent === "Kitaplık"
+      ) {
+        renderLibraryPage();
+      }
+
+    }
+
+
+    // KİTAPLIKTAKİ İÇERİĞİ SİL
+
+    function deleteLibraryItem(itemId) {
+
+      const confirmed = window.confirm(
+        "Bu içeriği kitaplıktan silmek istiyor musun?"
+      );
+
+      if (!confirmed) return;
+
+      const previousLibrary = [...savedLibrary];
+
+      savedLibrary = savedLibrary.filter(
+        item => item.id !== itemId
+      );
+
+      if (!persistSavedLibrary()) {
+        savedLibrary = previousLibrary;
+        return;
+      }
+
+      renderLibraryPage();
+
+    }
+
+
+    // KİTAPLIK SAYFASINI GÖSTER
+
+    function renderLibraryPage() {
+
+      featurePlaceholder.replaceChildren();
+
+      featurePlaceholder.className =
+        "feature-placeholder library-container";
+
+      const toolbar = document.createElement("div");
+      toolbar.className = "library-toolbar";
+
+      const count = document.createElement("span");
+      count.className = "library-count";
+
+      count.textContent =
+        savedLibrary.length + " kayıtlı içerik";
+
+      const search = document.createElement("input");
+
+      search.type = "search";
+      search.className = "library-search";
+      search.placeholder = "Kitaplıkta ara...";
+      search.setAttribute(
+        "aria-label",
+        "Kitaplıkta kayıtlı içeriklerde ara"
+      );
+
+      toolbar.append(count, search);
+
+      const list = document.createElement("div");
+      list.className = "library-list";
+
+      featurePlaceholder.append(toolbar, list);
+
+
+      function renderItems(searchTerm = "") {
+
+        list.replaceChildren();
+
+        const normalizedTerm =
+          searchTerm.toLocaleLowerCase("tr-TR");
+
+        const filteredItems = savedLibrary.filter(item => {
+
+          const title = (item.title || "")
+            .toLocaleLowerCase("tr-TR");
+
+          const content = (item.content || "")
+            .toLocaleLowerCase("tr-TR");
+
+          return (
+            title.includes(normalizedTerm) ||
+            content.includes(normalizedTerm)
+          );
+
+        });
+
+
+        count.textContent =
+          savedLibrary.length + " kayıtlı içerik";
+
+
+        if (filteredItems.length === 0) {
+
+          const empty = document.createElement("div");
+
+          empty.className = "library-empty";
+
+          empty.textContent = savedLibrary.length === 0
+            ? "Kitaplığın henüz boş. Sohbetlerdeki asistan yanıtlarını kaydederek burada saklayabilirsin."
+            : "Aramana uygun kayıtlı içerik bulunamadı.";
+
+          list.appendChild(empty);
+
+          return;
+
+        }
+
+
+        filteredItems.forEach(item => {
+
+          const card = document.createElement("article");
+          card.className = "library-card";
+
+          const heading = document.createElement("h3");
+
+          heading.textContent =
+            item.title || "Kaydedilen yanıt";
+
+          const date = document.createElement("small");
+
+          date.textContent =
+            "Kaydedilme tarihi: " +
+            new Date(item.savedAt).toLocaleString("tr-TR");
+
+          const content = document.createElement("p");
+
+          content.textContent = item.content;
+
+          const actions = document.createElement("div");
+          actions.className = "library-card-actions";
+
+          const copyButton = document.createElement("button");
+
+          copyButton.type = "button";
+          copyButton.textContent = "Kopyala";
+
+          copyButton.addEventListener("click", async () => {
+
+            try {
+
+              await navigator.clipboard.writeText(item.content);
+
+              copyButton.textContent = "Kopyalandı";
+
+              setTimeout(() => {
+                copyButton.textContent = "Kopyala";
+              }, 1500);
+
+            } catch (error) {
+
+              window.alert(
+                "Kopyalama başarısız oldu. Tarayıcı izinlerini kontrol et."
+              );
+
+            }
+
+          });
+
+
+          const deleteButton = document.createElement("button");
+
+          deleteButton.type = "button";
+          deleteButton.className = "library-delete";
+          deleteButton.textContent = "Kitaplıktan sil";
+
+          deleteButton.addEventListener("click", () => {
+            deleteLibraryItem(item.id);
+          });
+
+
+          actions.append(copyButton, deleteButton);
+
+          card.append(
+            heading,
+            date,
+            content,
+            actions
+          );
+
+          list.appendChild(card);
+
+        });
+
+      }
+
+
+      search.addEventListener("input", () => {
+        renderItems(search.value);
+      });
+
+      renderItems();
+
+    }
 
 
     // SOHBET EKRANINI GÖSTER
@@ -524,7 +1006,6 @@
 
       featureTitle.textContent = selectedPage.title;
       featureDescription.textContent = selectedPage.description;
-      featurePlaceholder.textContent = selectedPage.placeholder;
 
       document.querySelectorAll(".sidebar-tool").forEach(button => {
 
@@ -535,6 +1016,20 @@
 
       });
 
+      if (page === "library") {
+
+        renderLibraryPage();
+
+      } else {
+
+        featurePlaceholder.className =
+          "feature-placeholder";
+
+        featurePlaceholder.textContent =
+          selectedPage.placeholder;
+
+      }
+
     }
 
 
@@ -543,14 +1038,17 @@
     function createChatRecord() {
 
       return {
+
         id: window.crypto?.randomUUID
           ? window.crypto.randomUUID()
-          : "chat-" + Date.now() + "-" + Math.random().toString(36).slice(2),
+          : "chat-" + Date.now() + "-" +
+            Math.random().toString(36).slice(2),
 
         title: "Yeni sohbet",
         messages: [],
         isPinned: false,
         updatedAt: Date.now()
+
       };
 
     }
@@ -628,11 +1126,15 @@
             );
 
             const firstUserMessage =
-              oldChat.messages.find(message => message.role === "user");
+              oldChat.messages.find(message =>
+                message.role === "user"
+              );
 
             if (firstUserMessage) {
+
               oldChat.title =
                 firstUserMessage.content.slice(0, 32);
+
             }
 
             chats = [oldChat];
@@ -650,6 +1152,7 @@
                 Array.isArray(chat.messages)
               )
               .map(chat => ({
+
                 id: chat.id,
 
                 title: typeof chat.title === "string"
@@ -663,7 +1166,9 @@
                 ),
 
                 isPinned: chat.isPinned === true,
+
                 updatedAt: Number(chat.updatedAt) || Date.now()
+
               }));
 
             activeChatId = parsed.activeChatId;
@@ -808,8 +1313,10 @@
         openButton.textContent = chat.title || "Yeni sohbet";
 
         if (chat.id === activeChatId) {
+
           openButton.classList.add("active");
           openButton.setAttribute("aria-current", "true");
+
         }
 
         openButton.addEventListener("click", () => {
@@ -837,8 +1344,10 @@
         pinButton.setAttribute("aria-label", pinButton.title);
 
         pinButton.addEventListener("click", event => {
+
           event.stopPropagation();
           togglePinChat(chat.id);
+
         });
 
 
@@ -850,11 +1359,17 @@
         renameButton.className = "conversation-action";
         renameButton.textContent = "✏️";
         renameButton.title = "Sohbeti yeniden adlandır";
-        renameButton.setAttribute("aria-label", renameButton.title);
+
+        renameButton.setAttribute(
+          "aria-label",
+          renameButton.title
+        );
 
         renameButton.addEventListener("click", event => {
+
           event.stopPropagation();
           renameChat(chat.id);
+
         });
 
 
@@ -866,11 +1381,17 @@
         deleteButton.className = "conversation-action delete";
         deleteButton.textContent = "🗑";
         deleteButton.title = "Sohbeti sil";
-        deleteButton.setAttribute("aria-label", deleteButton.title);
+
+        deleteButton.setAttribute(
+          "aria-label",
+          deleteButton.title
+        );
 
         deleteButton.addEventListener("click", event => {
+
           event.stopPropagation();
           deleteChat(chat.id);
+
         });
 
 
@@ -924,8 +1445,10 @@
       const trimmedTitle = newTitle.trim();
 
       if (!trimmedTitle) {
+
         window.alert("Sohbet başlığı boş bırakılamaz.");
         return;
+
       }
 
       chat.title = trimmedTitle.slice(0, 60);
@@ -941,8 +1464,10 @@
     function deleteChat(chatId) {
 
       if (isSending) {
+
         window.alert("Yanıt hazırlanırken sohbet silinemez.");
         return;
+
       }
 
       const selectedChat =
@@ -998,8 +1523,10 @@
     function switchChat(chatId) {
 
       if (isSending) {
+
         window.alert("Yanıt hazırlanırken sohbet değiştirilemez.");
         return;
+
       }
 
       const selectedChat =
@@ -1025,8 +1552,10 @@
     function createNewChat() {
 
       if (isSending) {
+
         window.alert("Yanıt hazırlanırken yeni sohbet açılamaz.");
         return;
+
       }
 
       const newChat = createChatRecord();
@@ -1092,6 +1621,39 @@
 
       message.appendChild(paragraph);
 
+
+      // ASİSTAN YANITINI KİTAPLIĞA KAYDET
+
+      if (role === "assistant") {
+
+        const saveButton = document.createElement("button");
+
+        saveButton.type = "button";
+        saveButton.className = "save-to-library";
+        saveButton.textContent = "☆ Kitaplığa kaydet";
+
+        const isAlreadySaved = savedLibrary.some(
+          item => item.content === content.trim()
+        );
+
+        if (isAlreadySaved) {
+
+          saveButton.textContent = "✓ Zaten kayıtlı";
+          saveButton.classList.add("saved");
+
+        }
+
+        saveButton.addEventListener("click", () => {
+
+          saveToLibrary(content, saveButton);
+
+        });
+
+        message.appendChild(saveButton);
+
+      }
+
+
       chatMessages.appendChild(message);
 
       chatMessages.scrollTop =
@@ -1118,7 +1680,9 @@
       }
 
       history.forEach(message => {
+
         addMessage(message.role, message.content);
+
       });
 
     }
@@ -1137,25 +1701,32 @@
       };
 
       if (authenticated && sessionToken) {
+
         headers.Authorization =
           "Bearer " + sessionToken;
+
       }
 
       const response = await fetch(API_URL, {
+
         method: "POST",
         headers,
+
         body: JSON.stringify({
           action,
           ...data
         })
+
       });
 
       const result = await response.json();
 
       if (!response.ok || result.success === false) {
+
         throw new Error(
           result.message || "İşlem başarısız oldu."
         );
+
       }
 
       return result;
@@ -1189,12 +1760,17 @@
         method: "POST",
 
         headers: {
+
           "Content-Type": "application/json",
+
           Authorization: "Bearer " + sessionToken
+
         },
 
         body: JSON.stringify({
+
           messages: history.slice(-12)
+
         })
 
       });
@@ -1202,13 +1778,17 @@
       const result = await response.json();
 
       if (!response.ok || result.success !== true) {
+
         throw new Error(
           result.message || "Asistan yanıt veremedi."
         );
+
       }
 
       if (typeof result.response !== "string") {
+
         throw new Error("Geçersiz API yanıtı.");
+
       }
 
       return result.response;
@@ -1245,8 +1825,10 @@
       chatInput.value = "";
 
       history.push({
+
         role: "user",
         content: message
+
       });
 
       updateChatTitle();
@@ -1260,8 +1842,10 @@
         const reply = await sendChatMessage();
 
         history.push({
+
           role: "assistant",
           content: reply
+
         });
 
         saveHistory();
@@ -1323,7 +1907,9 @@
       chatPanel.style.display = "none";
 
       if (sessionVerified) {
+
         chatButton.style.display = "block";
+
       }
 
     }
@@ -1332,7 +1918,9 @@
     // SOHBET ARAMA
 
     searchInput.addEventListener("input", () => {
+
       renderConversationList();
+
     });
 
 
@@ -1345,9 +1933,13 @@
         const page = button.dataset.page;
 
         if (page === "chat") {
+
           showChatPage();
+
         } else {
+
           showFeaturePage(page);
+
         }
 
       });
@@ -1362,7 +1954,9 @@
     document
       .querySelectorAll(".zeydal-open-assistant")
       .forEach(button => {
+
         button.addEventListener("click", openChat);
+
       });
 
     document
@@ -1401,7 +1995,9 @@
             result.token || result.data?.token;
 
           if (!sessionToken) {
+
             throw new Error("Oturum anahtarı alınamadı.");
+
           }
 
           localStorage.setItem(TOKEN_KEY, sessionToken);
@@ -1550,6 +2146,8 @@
 
 
     // BAŞLANGIÇ
+
+    loadSavedLibrary();
 
     loadHistory();
 
