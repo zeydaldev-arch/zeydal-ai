@@ -7,53 +7,101 @@
   <title>ZEYDAL AI</title>
   <link rel="stylesheet" href="style.css">
 
-  <!-- SOHBET SİLME BUTONU TASARIMI -->
   <style>
+    /* SOHBET LİSTESİ */
+    .conversation-search {
+      width: 100%;
+      box-sizing: border-box;
+      margin: 12px 0;
+      padding: 10px 12px;
+      border: 1px solid rgba(176, 193, 214, 0.2);
+      border-radius: 9px;
+      background: rgba(10, 25, 43, 0.35);
+      color: #f0f5fc;
+      outline: none;
+    }
+
+    .conversation-search:focus {
+      border-color: #58a5ff;
+    }
+
+    .conversation-search::placeholder {
+      color: #b0c1d6;
+    }
+
     .conversation-row {
       display: flex;
       align-items: center;
-      gap: 5px;
+      gap: 4px;
       width: 100%;
+      margin-bottom: 5px;
     }
 
     .conversation-row .conversation-item {
       flex: 1;
       min-width: 0;
       width: auto;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
     }
 
-    .conversation-delete {
-      flex-shrink: 0;
-      width: 34px;
-      height: 34px;
+    .conversation-actions {
       display: flex;
-      align-items: center;
-      justify-content: center;
-      border: 1px solid transparent;
-      border-radius: 8px;
+      flex-shrink: 0;
+      gap: 2px;
+    }
+
+    .conversation-action {
+      width: 30px;
+      height: 32px;
+      border: 0;
+      border-radius: 7px;
       background: transparent;
       color: #b0c1d6;
-      font-size: 15px;
+      cursor: pointer;
       opacity: 0.65;
       transition: 0.2s ease;
     }
 
-    .conversation-delete:hover {
-      background: rgba(224, 82, 82, 0.16);
-      border-color: rgba(224, 82, 82, 0.4);
-      color: #ff7777;
+    .conversation-row:hover .conversation-action,
+    .conversation-action:focus {
       opacity: 1;
     }
 
-    .conversation-row:hover .conversation-delete {
-      opacity: 1;
+    .conversation-action:hover {
+      background: rgba(88, 165, 255, 0.15);
+      color: #58a5ff;
+    }
+
+    .conversation-action.delete:hover {
+      background: rgba(224, 82, 82, 0.16);
+      color: #ff7777;
+    }
+
+    .conversation-row.pinned .conversation-item::before {
+      content: "📌 ";
+    }
+
+    .conversation-section-label {
+      margin: 14px 0 7px;
+      color: #b0c1d6;
+      font-size: 12px;
+      font-weight: 600;
+    }
+
+    .conversation-empty {
+      padding: 12px 5px;
+      color: #b0c1d6;
+      font-size: 13px;
+      text-align: center;
     }
 
     @media (max-width: 700px) {
-      .conversation-delete {
+      .conversation-action {
         width: 27px;
         height: 30px;
-        font-size: 13px;
+        font-size: 12px;
       }
     }
   </style>
@@ -188,6 +236,15 @@
         Sohbet Geçmişi
       </div>
 
+      <input
+        type="search"
+        id="zeydal-chat-search"
+        class="conversation-search"
+        placeholder="Sohbetlerde ara..."
+        autocomplete="off"
+        aria-label="Sohbet geçmişinde ara"
+      >
+
       <div
         id="zeydal-conversation-list"
         class="conversation-list"
@@ -313,6 +370,12 @@
     const conversationList =
       document.getElementById("zeydal-conversation-list");
 
+    const searchInput =
+      document.getElementById("zeydal-chat-search");
+
+    const sendButton =
+      document.getElementById("zeydal-chat-send");
+
     const requiredElements = [
       authPanel,
       chatPanel,
@@ -322,6 +385,8 @@
       chatInput,
       authMessage,
       conversationList,
+      searchInput,
+      sendButton,
       document.getElementById("zeydal-login-form"),
       document.getElementById("zeydal-register-form"),
       document.getElementById("zeydal-new-chat"),
@@ -360,6 +425,10 @@
     let chats = [];
     let activeChatId = null;
     let history = [];
+    let isSending = false;
+
+
+    // YENİ SOHBET KAYDI OLUŞTUR
 
     function createChatRecord() {
       return {
@@ -368,8 +437,44 @@
           : "chat-" + Date.now() + "-" + Math.random().toString(36).slice(2),
         title: "Yeni sohbet",
         messages: [],
+        isPinned: false,
         updatedAt: Date.now()
       };
+    }
+
+
+    // SOHBETLERİ KALICI KAYDET
+
+    function persistChats() {
+      try {
+        localStorage.setItem(
+          HISTORY_KEY,
+          JSON.stringify({
+            chats,
+            activeChatId
+          })
+        );
+      } catch (error) {
+        console.error("Sohbetler kaydedilemedi:", error);
+        window.alert("Sohbet geçmişi kaydedilemedi. Tarayıcı depolama alanını kontrol et.");
+      }
+    }
+
+
+    // AKTİF SOHBETİ VE TÜM SOHBETLERİ KAYDET
+
+    function saveHistory() {
+
+      const activeChat =
+        chats.find(chat => chat.id === activeChatId);
+
+      if (activeChat) {
+        // Mesajların tamamı saklanır.
+        activeChat.messages = [...history];
+        activeChat.updatedAt = Date.now();
+      }
+
+      persistChats();
     }
 
 
@@ -386,12 +491,16 @@
 
           const parsed = JSON.parse(saved);
 
-          // Eski sürümdeki mesaj listesini koru.
+          // Eski sürümde doğrudan mesaj dizisi saklanıyordu.
           if (Array.isArray(parsed)) {
 
             const oldChat = createChatRecord();
 
-            oldChat.messages = parsed.slice(-12);
+            oldChat.messages = parsed.filter(message =>
+              message &&
+              (message.role === "user" || message.role === "assistant") &&
+              typeof message.content === "string"
+            );
 
             const firstUserMessage =
               oldChat.messages.find(message => message.role === "user");
@@ -409,11 +518,25 @@
             Array.isArray(parsed.chats)
           ) {
 
-            chats = parsed.chats.filter(chat =>
-              chat &&
-              typeof chat.id === "string" &&
-              Array.isArray(chat.messages)
-            );
+            chats = parsed.chats
+              .filter(chat =>
+                chat &&
+                typeof chat.id === "string" &&
+                Array.isArray(chat.messages)
+              )
+              .map(chat => ({
+                id: chat.id,
+                title: typeof chat.title === "string"
+                  ? chat.title
+                  : "Yeni sohbet",
+                messages: chat.messages.filter(message =>
+                  message &&
+                  (message.role === "user" || message.role === "assistant") &&
+                  typeof message.content === "string"
+                ),
+                isPinned: chat.isPinned === true,
+                updatedAt: Number(chat.updatedAt) || Date.now()
+              }));
 
             activeChatId = parsed.activeChatId;
 
@@ -426,9 +549,12 @@
         console.error("Sohbet geçmişi yüklenemedi:", error);
 
         chats = [];
+        activeChatId = null;
 
       }
 
+
+      // Hiç sohbet yoksa yeni sohbet oluştur.
       if (chats.length === 0) {
 
         const newChat = createChatRecord();
@@ -438,41 +564,26 @@
 
       }
 
+
+      // Aktif sohbet kaydı geçersizse son sohbeti aç.
       if (!chats.some(chat => chat.id === activeChatId)) {
-        activeChatId = chats[chats.length - 1].id;
+
+        const latestChat = [...chats].sort(
+          (a, b) => b.updatedAt - a.updatedAt
+        )[0];
+
+        activeChatId = latestChat.id;
+
       }
+
 
       const activeChat =
         chats.find(chat => chat.id === activeChatId);
 
-      history = activeChat.messages.slice(-12);
+      // Yerel geçmişin tamamı yüklenir.
+      history = [...activeChat.messages];
 
-      saveHistory();
-    }
-
-
-    // SOHBETLERİ KAYDET
-
-    function saveHistory() {
-
-      const activeChat =
-        chats.find(chat => chat.id === activeChatId);
-
-      if (activeChat) {
-
-        activeChat.messages = history.slice(-12);
-        activeChat.updatedAt = Date.now();
-
-      }
-
-      localStorage.setItem(
-        HISTORY_KEY,
-        JSON.stringify({
-          chats,
-          activeChatId
-        })
-      );
-
+      persistChats();
     }
 
 
@@ -482,67 +593,211 @@
 
       conversationList.replaceChildren();
 
-      const sortedChats = [...chats].sort(
-        (a, b) => b.updatedAt - a.updatedAt
+      const searchTerm =
+        searchInput.value.trim().toLocaleLowerCase("tr-TR");
+
+      const filteredChats = chats.filter(chat =>
+        (chat.title || "Yeni sohbet")
+          .toLocaleLowerCase("tr-TR")
+          .includes(searchTerm)
       );
+
+      const sortedChats = [...filteredChats].sort((a, b) => {
+
+        if (Boolean(a.isPinned) !== Boolean(b.isPinned)) {
+          return a.isPinned ? -1 : 1;
+        }
+
+        return (b.updatedAt || 0) - (a.updatedAt || 0);
+
+      });
+
+
+      if (sortedChats.length === 0) {
+
+        const empty = document.createElement("div");
+
+        empty.className = "conversation-empty";
+
+        empty.textContent = searchTerm
+          ? "Aramana uygun sohbet bulunamadı."
+          : "Henüz sohbet bulunmuyor.";
+
+        conversationList.appendChild(empty);
+
+        return;
+      }
+
+
+      let pinnedLabelAdded = false;
+      let normalLabelAdded = false;
+
 
       sortedChats.forEach(chat => {
 
-        // Her sohbet için kapsayıcı
+        // Bölüm başlıkları
+        if (chat.isPinned && !pinnedLabelAdded) {
+
+          const label = document.createElement("div");
+
+          label.className = "conversation-section-label";
+          label.textContent = "Sabitlenenler";
+
+          conversationList.appendChild(label);
+
+          pinnedLabelAdded = true;
+        }
+
+        if (!chat.isPinned && !normalLabelAdded) {
+
+          const label = document.createElement("div");
+
+          label.className = "conversation-section-label";
+          label.textContent = "Son sohbetler";
+
+          conversationList.appendChild(label);
+
+          normalLabelAdded = true;
+        }
+
+
         const row = document.createElement("div");
 
         row.className = "conversation-row";
 
-        // Sohbeti açma butonu
-        const button = document.createElement("button");
-
-        button.type = "button";
-        button.className = "conversation-item";
-        button.textContent = chat.title || "Yeni sohbet";
-
-        button.dataset.chatId = chat.id;
-
-        if (chat.id === activeChatId) {
-          button.classList.add("active");
-          button.setAttribute("aria-current", "true");
+        if (chat.isPinned) {
+          row.classList.add("pinned");
         }
 
-        button.addEventListener("click", () => {
+
+        // SOHBETİ AÇ
+        const openButton = document.createElement("button");
+
+        openButton.type = "button";
+        openButton.className = "conversation-item";
+        openButton.textContent = chat.title || "Yeni sohbet";
+
+        if (chat.id === activeChatId) {
+          openButton.classList.add("active");
+          openButton.setAttribute("aria-current", "true");
+        }
+
+        openButton.addEventListener("click", () => {
           switchChat(chat.id);
         });
 
 
-        // Sohbet silme butonu
-        const deleteButton =
-          document.createElement("button");
+        const actions = document.createElement("div");
 
-        deleteButton.type = "button";
-        deleteButton.className = "conversation-delete";
-        deleteButton.textContent = "🗑";
+        actions.className = "conversation-actions";
 
-        deleteButton.setAttribute(
-          "aria-label",
-          (chat.title || "Sohbet") + " konuşmasını sil"
-        );
 
-        deleteButton.title = "Bu sohbeti sil";
+        // SABİTLEME BUTONU
+        const pinButton = document.createElement("button");
 
-        deleteButton.addEventListener("click", event => {
+        pinButton.type = "button";
+        pinButton.className = "conversation-action";
+        pinButton.textContent = chat.isPinned ? "📌" : "📍";
 
+        pinButton.title = chat.isPinned
+          ? "Sabitlemeyi kaldır"
+          : "Sohbeti sabitle";
+
+        pinButton.setAttribute("aria-label", pinButton.title);
+
+        pinButton.addEventListener("click", event => {
           event.stopPropagation();
-
-          deleteChat(chat.id);
-
+          togglePinChat(chat.id);
         });
 
 
-        row.appendChild(button);
-        row.appendChild(deleteButton);
+        // YENİDEN ADLANDIRMA BUTONU
+        const renameButton = document.createElement("button");
+
+        renameButton.type = "button";
+        renameButton.className = "conversation-action";
+        renameButton.textContent = "✏️";
+        renameButton.title = "Sohbeti yeniden adlandır";
+        renameButton.setAttribute("aria-label", renameButton.title);
+
+        renameButton.addEventListener("click", event => {
+          event.stopPropagation();
+          renameChat(chat.id);
+        });
+
+
+        // SİLME BUTONU
+        const deleteButton = document.createElement("button");
+
+        deleteButton.type = "button";
+        deleteButton.className = "conversation-action delete";
+        deleteButton.textContent = "🗑";
+        deleteButton.title = "Sohbeti sil";
+        deleteButton.setAttribute("aria-label", deleteButton.title);
+
+        deleteButton.addEventListener("click", event => {
+          event.stopPropagation();
+          deleteChat(chat.id);
+        });
+
+
+        actions.appendChild(pinButton);
+        actions.appendChild(renameButton);
+        actions.appendChild(deleteButton);
+
+        row.appendChild(openButton);
+        row.appendChild(actions);
 
         conversationList.appendChild(row);
 
       });
 
+    }
+
+
+    // SOHBETİ SABİTLE / SABİTLEMEYİ KALDIR
+
+    function togglePinChat(chatId) {
+
+      const chat =
+        chats.find(item => item.id === chatId);
+
+      if (!chat) return;
+
+      chat.isPinned = !chat.isPinned;
+
+      persistChats();
+      renderConversationList();
+    }
+
+
+    // SOHBETİ YENİDEN ADLANDIR
+
+    function renameChat(chatId) {
+
+      const chat =
+        chats.find(item => item.id === chatId);
+
+      if (!chat) return;
+
+      const newTitle = window.prompt(
+        "Yeni sohbet başlığını yaz:",
+        chat.title || "Yeni sohbet"
+      );
+
+      if (newTitle === null) return;
+
+      const trimmedTitle = newTitle.trim();
+
+      if (!trimmedTitle) {
+        window.alert("Sohbet başlığı boş bırakılamaz.");
+        return;
+      }
+
+      chat.title = trimmedTitle.slice(0, 60);
+
+      persistChats();
+      renderConversationList();
     }
 
 
@@ -562,7 +817,6 @@
 
       if (!confirmed) return;
 
-      // Seçilen sohbeti listeden kaldır.
       chats = chats.filter(chat => chat.id !== chatId);
 
 
@@ -571,39 +825,30 @@
 
         if (chats.length > 0) {
 
-          chats.sort(
+          const latestChat = [...chats].sort(
             (a, b) => b.updatedAt - a.updatedAt
-          );
+          )[0];
 
-          activeChatId = chats[0].id;
-
-          history = chats[0].messages.slice(-12);
+          activeChatId = latestChat.id;
+          history = [...latestChat.messages];
 
         } else {
 
-          // Hiç sohbet kalmadıysa yeni sohbet oluştur.
           const newChat = createChatRecord();
 
           chats = [newChat];
-
           activeChatId = newChat.id;
-
           history = [];
 
         }
 
       }
 
-
-      // Yeni durumu kaydet ve ekranı güncelle.
       saveHistory();
-
       renderHistory();
-
       renderConversationList();
 
       chatInput.focus();
-
     }
 
 
@@ -611,21 +856,24 @@
 
     function switchChat(chatId) {
 
+      if (isSending) {
+        window.alert("Yanıt hazırlanırken sohbet değiştirilemez.");
+        return;
+      }
+
       const selectedChat =
         chats.find(chat => chat.id === chatId);
 
       if (!selectedChat) return;
 
       activeChatId = chatId;
-
-      history = selectedChat.messages.slice(-12);
+      history = [...selectedChat.messages];
 
       saveHistory();
-
       renderHistory();
-
       renderConversationList();
 
+      chatInput.focus();
     }
 
 
@@ -633,28 +881,29 @@
 
     function createNewChat() {
 
+      if (isSending) {
+        window.alert("Yanıt hazırlanırken yeni sohbet açılamaz.");
+        return;
+      }
+
       const newChat = createChatRecord();
 
       chats.push(newChat);
 
       activeChatId = newChat.id;
-
       history = [];
 
       saveHistory();
-
       renderHistory();
-
       renderConversationList();
 
       chatInput.focus();
-
     }
 
 
     // İLK MESAJDAN SOHBET BAŞLIĞI OLUŞTUR
 
-    function updateChatTitle(message) {
+    function updateChatTitle() {
 
       const activeChat =
         chats.find(chat => chat.id === activeChatId);
@@ -677,7 +926,6 @@
       }
 
       activeChat.updatedAt = Date.now();
-
     }
 
 
@@ -704,7 +952,6 @@
 
       chatMessages.scrollTop =
         chatMessages.scrollHeight;
-
     }
 
 
@@ -722,13 +969,11 @@
         );
 
         return;
-
       }
 
       history.forEach(message => {
         addMessage(message.role, message.content);
       });
-
     }
 
 
@@ -745,36 +990,28 @@
       };
 
       if (authenticated && sessionToken) {
-
         headers.Authorization =
           "Bearer " + sessionToken;
-
       }
 
       const response = await fetch(API_URL, {
-
         method: "POST",
         headers,
-
         body: JSON.stringify({
           action,
           ...data
         })
-
       });
 
       const result = await response.json();
 
       if (!response.ok || result.success === false) {
-
         throw new Error(
           result.message || "İşlem başarısız oldu."
         );
-
       }
 
       return result;
-
     }
 
 
@@ -791,15 +1028,12 @@
       return result.token ||
         result.data?.token ||
         null;
-
     };
 
 
     // MESAJ GÖNDER
 
-    let isSending = false;
-
-    async function sendChatMessage(message) {
+    async function sendChatMessage() {
 
       const response = await fetch(CHAT_API_URL, {
 
@@ -810,6 +1044,8 @@
           Authorization: "Bearer " + sessionToken
         },
 
+        // Yerel geçmişin tamamı saklanır.
+        // API'ye son 12 mesaj gönderilir.
         body: JSON.stringify({
           messages: history.slice(-12)
         })
@@ -819,11 +1055,9 @@
       const result = await response.json();
 
       if (!response.ok || result.success !== true) {
-
         throw new Error(
           result.message || "Asistan yanıt veremedi."
         );
-
       }
 
       if (typeof result.response !== "string") {
@@ -831,7 +1065,6 @@
       }
 
       return result.response;
-
     }
 
 
@@ -853,14 +1086,9 @@
         chatPanel.style.display = "none";
 
         return;
-
       }
 
       isSending = true;
-
-      const sendButton =
-        document.getElementById("zeydal-chat-send");
-
       sendButton.disabled = true;
 
       chatInput.value = "";
@@ -870,40 +1098,32 @@
         content: message
       });
 
-      history = history.slice(-12);
-
-      updateChatTitle(message);
-
+      updateChatTitle();
       saveHistory();
 
       addMessage("user", message);
-
       renderConversationList();
 
       try {
 
-        const reply =
-          await sendChatMessage(message);
+        const reply = await sendChatMessage();
 
         history.push({
           role: "assistant",
           content: reply
         });
 
-        history = history.slice(-12);
-
         saveHistory();
 
         addMessage("assistant", reply);
-
         renderConversationList();
 
       } catch (error) {
 
+        // Hatalı istekte gönderilen kullanıcı mesajını kaldır.
         history.pop();
 
         saveHistory();
-
         renderHistory();
 
         addMessage(
@@ -914,9 +1134,7 @@
       } finally {
 
         isSending = false;
-
         sendButton.disabled = false;
-
         chatInput.focus();
 
       }
@@ -931,23 +1149,17 @@
       if (!sessionVerified || !sessionToken) {
 
         authPanel.style.display = "flex";
-
         return;
-
       }
 
       authPanel.style.display = "none";
-
       chatPanel.style.display = "flex";
-
       chatButton.style.display = "none";
 
       renderHistory();
-
       renderConversationList();
 
       chatInput.focus();
-
     }
 
 
@@ -960,8 +1172,14 @@
       if (sessionVerified) {
         chatButton.style.display = "block";
       }
-
     }
+
+
+    // SOHBET ARAMA
+
+    searchInput.addEventListener("input", () => {
+      renderConversationList();
+    });
 
 
     // BUTONLAR
@@ -1074,11 +1292,9 @@
       if (!sessionToken) {
 
         sessionVerified = false;
-
         chatButton.style.display = "block";
 
         return;
-
       }
 
       try {
@@ -1098,13 +1314,11 @@
           sessionVerified = true;
 
           authPanel.style.display = "none";
-
           chatButton.style.display = "block";
 
         } else {
 
           sessionVerified = false;
-
           sessionToken = null;
 
           localStorage.removeItem(TOKEN_KEY);
@@ -1117,13 +1331,11 @@
 
         console.error("Oturum kontrolü:", error);
 
-        // Ağ hatasında kayıtlı tokenı silme.
+        // Ağ hatasında kayıtlı token silinmez.
         sessionVerified = false;
-
         authPanel.style.display = "flex";
 
       }
-
     }
 
 
@@ -1148,15 +1360,12 @@
         }
 
         sessionToken = null;
-
         sessionVerified = false;
 
         localStorage.removeItem(TOKEN_KEY);
 
         chatPanel.style.display = "none";
-
         chatButton.style.display = "block";
-
         authPanel.style.display = "flex";
 
         authMessage.textContent = "Oturum kapatıldı.";
