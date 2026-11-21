@@ -3,7 +3,8 @@
    ZEYDAL AI
    FUTURISTIC NAVY / BLUE / SILVER
    MODERN CHAT INTERFACE
-   ========================================= */
+========================================= */
+
 
 /* 1. RENKLER VE GENEL AYARLAR */
 
@@ -72,18 +73,14 @@ a:focus-visible {
 }
 
 
-/* =========================================
-   2. ANA SAYFA ÜST MENÜ
-   ========================================= */
+/* 2. ANA SAYFA ÜST MENÜ */
 
 body > header {
   position: sticky;
   top: 0;
   z-index: 100;
-
   background: rgba(25, 47, 73, 0.96);
   border-bottom: 1px solid var(--border);
-
   backdrop-filter: blur(16px);
 }
 
@@ -122,9 +119,7 @@ body > header nav {
 }
 
 
-/* =========================================
-   3. ANA SAYFA
-   ========================================= */
+/* 3. ANA SAYFA */
 
 .hero {
   min-height: 520px;
@@ -207,9 +202,7 @@ body > header nav {
 }
 
 
-/* =========================================
-   4. FOOTER
-   ========================================= */
+/* 4. FOOTER */
 
 body > footer {
   padding: 25px;
@@ -221,9 +214,7 @@ body > footer {
 }
 
 
-/* =========================================
-   5. GİRİŞ VE KAYIT PANELİ
-   ========================================= */
+/* 5. GİRİŞ VE KAYIT PANELİ */
 
 #zeydal-auth-panel {
   position: fixed;
@@ -318,9 +309,7 @@ body > footer {
 }
 
 
-/* =========================================
-   6. SOHBETİ AÇMA BUTONU
-   ========================================= */
+/* 6. SOHBETİ AÇMA BUTONU */
 
 #zeydal-chat-button {
   position: fixed;
@@ -352,9 +341,7 @@ body > footer {
 }
 
 
-/* =========================================
-   7. TAM EKRAN SOHBET PANELİ
-   ========================================= */
+/* 7. TAM EKRAN UYGULAMA PANELİ */
 
 #zeydal-chat-panel {
   position: fixed;
@@ -373,9 +360,7 @@ body > footer {
 }
 
 
-/* =========================================
-   8. SOL SOHBET PANELİ
-   ========================================= */
+/* 8. SOL MENÜ */
 
 .chat-sidebar {
   width: 275px;
@@ -413,9 +398,7 @@ body > footer {
 }
 
 
-/* =========================================
-   9. YENİ SOHBET BUTONU
-   ========================================= */
+/* 9. YENİ SOHBET BUTONU */
 
 #zeydal-new-chat {
   width: 100%;
@@ -449,9 +432,67 @@ body > footer {
 }
 
 
-/* =========================================
-   10. SOHBET ARAMA
-   ========================================= */
+/* 10. YENİ SOL MENÜ BÖLÜMLERİ */
+
+.sidebar-tools {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  margin-top: 16px;
+}
+
+.sidebar-tool {
+  width: 100%;
+  min-height: 40px;
+
+  display: flex;
+  align-items: center;
+  gap: 12px;
+
+  padding: 10px 12px;
+
+  border: 1px solid transparent;
+  border-radius: 9px;
+
+  background: transparent;
+  color: var(--silver);
+
+  text-align: left;
+  font-size: 13px;
+
+  transition:
+    background 0.2s ease,
+    border 0.2s ease,
+    color 0.2s ease;
+}
+
+.sidebar-tool span {
+  width: 20px;
+  flex-shrink: 0;
+
+  color: var(--blue-light);
+  font-size: 18px;
+  text-align: center;
+}
+
+.sidebar-tool:hover {
+  background: rgba(88, 165, 255, 0.12);
+  border-color: var(--border);
+  color: white;
+}
+
+.sidebar-tool.active {
+  background: rgba(40, 127, 224, 0.2);
+  border-color: var(--border-blue);
+  color: white;
+}
+
+.sidebar-tool.active span {
+  color: var(--blue-light);
+}
+
+
+/* 11. SOHBET ARAMA */
 
 .conversation-search {
   width: 100%;
@@ -480,9 +521,7 @@ body > footer {
 }
 
 
-/* =========================================
-   11. SOHBET GEÇMİŞİ
-   ========================================= */
+/* 12. SOHBET GEÇMİŞİ */
 
 .conversation-heading {
   margin: 22px 10px 4px;
@@ -578,9 +617,7 @@ body > footer {
 }
 
 
-/* =========================================
-   12. SOHBET İŞLEM BUTONLARI
-   ========================================= */
+/* 13. SOHBET İŞLEM BUTONLARI */
 
 .conversation-actions {
   display: flex;
@@ -636,9 +673,7 @@ body > footer {
 }
 
 
-/* =========================================
-   13. SOL PANEL ALT BÖLÜMÜ
-   ========================================= */
+/* 14. SOL PANEL ALT BÖLÜMÜ */
 
 .sidebar-footer {
   display: flex;
@@ -664,9 +699,7 @@ body > footer {
 }
 
 
-/* =========================================
-   14. ANA SOHBET ALANI
-   ========================================= */
+/* 15. ANA SOHBET ALANI */
 
 .chat-main {
   position: relative;
@@ -694,9 +727,7 @@ body > footer {
 }
 
 
-/* =========================================
-   15. SOHBET ÜST BAŞLIĞI
-   ========================================= */
+/* 16. SOHBET ÜST BAŞLIĞI */
 
 #zeydal-chat-panel .chat-header {
   flex-shrink: 0;
@@ -765,9 +796,7 @@ body > footer {
 }
 
 
-/* =========================================
-   16. MESAJ ALANI
-   ========================================= */
+/* 17. MESAJ ALANI */
 
 #zeydal-chat-messages {
   flex: 1;
@@ -796,9 +825,7 @@ body > footer {
 }
 
 
-/* =========================================
-   17. KULLANICI MESAJLARI
-   ========================================= */
+/* 18. KULLANICI MESAJLARI */
 
 #zeydal-chat-panel .user-message {
   align-self: flex-end;
@@ -822,9 +849,7 @@ body > footer {
 }
 
 
-/* =========================================
-   18. ZEYDAL AI MESAJLARI
-   ========================================= */
+/* 19. ZEYDAL AI MESAJLARI */
 
 #zeydal-chat-panel .assistant-message {
   align-self: flex-start;
@@ -850,9 +875,7 @@ body > footer {
 }
 
 
-/* =========================================
-   19. MESAJ YAZMA ALANI
-   ========================================= */
+/* 20. MESAJ YAZMA ALANI */
 
 #zeydal-chat-panel #zeydal-chat-form {
   position: relative;
@@ -934,36 +957,110 @@ body > footer {
 }
 
 
-/* =========================================
-   20. KAYDIRMA ÇUBUKLARI
-   ========================================= */
+/* 21. ÖZELLİK ÇALIŞMA ALANI */
+
+.feature-view {
+  flex: 1;
+  min-height: 0;
+  width: 100%;
+
+  overflow-y: auto;
+  padding: 45px 35px;
+}
+
+.feature-view[hidden] {
+  display: none;
+}
+
+.feature-content {
+  width: min(900px, 100%);
+  margin: 0 auto;
+}
+
+.feature-heading {
+  margin-bottom: 30px;
+}
+
+.feature-label {
+  display: inline-block;
+  margin-bottom: 12px;
+
+  color: var(--blue-light);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 2px;
+}
+
+.feature-content h1 {
+  margin-bottom: 12px;
+
+  color: var(--silver-light);
+  font-size: 30px;
+  font-weight: 700;
+}
+
+.feature-content p {
+  color: var(--muted);
+  font-size: 14px;
+}
+
+.feature-placeholder {
+  min-height: 170px;
+  padding: 30px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border: 1px solid var(--border);
+  border-radius: 15px;
+
+  background:
+    radial-gradient(
+      ellipse at top,
+      rgba(75, 153, 235, 0.12),
+      transparent 75%
+    ),
+    rgba(42, 68, 98, 0.45);
+
+  color: var(--silver);
+  text-align: center;
+  font-size: 14px;
+
+  box-shadow: var(--shadow);
+}
+
+
+/* 22. KAYDIRMA ÇUBUKLARI */
 
 .conversation-list::-webkit-scrollbar,
-#zeydal-chat-messages::-webkit-scrollbar {
+#zeydal-chat-messages::-webkit-scrollbar,
+.feature-view::-webkit-scrollbar {
   width: 6px;
 }
 
 .conversation-list::-webkit-scrollbar-thumb,
-#zeydal-chat-messages::-webkit-scrollbar-thumb {
+#zeydal-chat-messages::-webkit-scrollbar-thumb,
+.feature-view::-webkit-scrollbar-thumb {
   border-radius: 10px;
   background: #496987;
 }
 
 .conversation-list::-webkit-scrollbar-thumb:hover,
-#zeydal-chat-messages::-webkit-scrollbar-thumb:hover {
+#zeydal-chat-messages::-webkit-scrollbar-thumb:hover,
+.feature-view::-webkit-scrollbar-thumb:hover {
   background: var(--blue);
 }
 
 .conversation-list,
-#zeydal-chat-messages {
+#zeydal-chat-messages,
+.feature-view {
   scrollbar-width: thin;
   scrollbar-color: #496987 transparent;
 }
 
 
-/* =========================================
-   21. TABLET VE KÜÇÜK EKRANLAR
-   ========================================= */
+/* 23. TABLET VE KÜÇÜK EKRANLAR */
 
 @media (max-width: 900px) {
 
@@ -980,12 +1077,11 @@ body > footer {
   #zeydal-chat-panel .user-message {
     max-width: 82%;
   }
+
 }
 
 
-/* =========================================
-   22. MOBİL TASARIM
-   ========================================= */
+/* 24. MOBİL TASARIM */
 
 @media (max-width: 700px) {
 
@@ -1027,6 +1123,23 @@ body > footer {
   #zeydal-new-chat {
     padding: 10px 8px;
     font-size: 12px;
+  }
+
+  .sidebar-tools {
+    gap: 3px;
+    margin-top: 12px;
+  }
+
+  .sidebar-tool {
+    min-height: 36px;
+    gap: 7px;
+    padding: 9px 7px;
+    font-size: 11px;
+  }
+
+  .sidebar-tool span {
+    width: 17px;
+    font-size: 16px;
   }
 
   .conversation-heading {
@@ -1118,12 +1231,25 @@ body > footer {
     padding: 9px 10px;
     font-size: 11px;
   }
+
+  .feature-view {
+    padding: 25px 15px;
+  }
+
+  .feature-content h1 {
+    font-size: 23px;
+  }
+
+  .feature-placeholder {
+    min-height: 140px;
+    padding: 20px;
+    font-size: 12px;
+  }
+
 }
 
 
-/* =========================================
-   23. ÇOK KÜÇÜK EKRANLAR
-   ========================================= */
+/* 25. ÇOK KÜÇÜK EKRANLAR */
 
 @media (max-width: 430px) {
 
@@ -1135,6 +1261,17 @@ body > footer {
 
   .sidebar-brand {
     font-size: 15px;
+  }
+
+  .sidebar-tool {
+    gap: 5px;
+    padding: 8px 5px;
+    font-size: 10px;
+  }
+
+  .sidebar-tool span {
+    width: 15px;
+    font-size: 14px;
   }
 
   .conversation-item {
@@ -1158,12 +1295,11 @@ body > footer {
   #zeydal-chat-panel #zeydal-chat-send {
     padding: 9px 8px;
   }
+
 }
 
 
-/* =========================================
-   24. HAREKET AZALTMA TERCİHİ
-   ========================================= */
+/* 26. HAREKET AZALTMA TERCİHİ */
 
 @media (prefers-reduced-motion: reduce) {
 
@@ -1174,4 +1310,5 @@ body > footer {
     transition-duration: 0.01ms !important;
     animation-duration: 0.01ms !important;
   }
+
 }
