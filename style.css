@@ -2,34 +2,24 @@
 /* =========================================
    ZEYDAL AI
    FUTURISTIC NAVY / BLUE / SILVER
-   MODERN CHAT INTERFACE
 ========================================= */
-
-
-/* 1. RENKLER VE GENEL AYARLAR */
 
 :root {
   --bg: #172b45;
   --panel: #1b304a;
   --panel-light: #243e5d;
   --panel-hover: #2c496b;
-
   --blue: #287fe0;
   --blue-light: #58a5ff;
   --blue-glow: rgba(40, 127, 224, 0.25);
-
   --silver: #d5e1ef;
   --silver-light: #f0f5fc;
-
   --text: #f0f5fc;
   --muted: #aebfd3;
-
   --border: rgba(190, 213, 240, 0.14);
   --border-blue: rgba(88, 165, 255, 0.4);
-
   --danger: #e05252;
   --success: #38b879;
-
   --shadow: 0 15px 45px rgba(0, 0, 0, 0.25);
 }
 
@@ -37,6 +27,10 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+}
+
+[hidden] {
+  display: none !important;
 }
 
 html {
@@ -52,12 +46,19 @@ body {
 }
 
 button,
-input {
+input,
+textarea,
+select {
   font: inherit;
 }
 
 button {
   cursor: pointer;
+}
+
+button:disabled {
+  cursor: not-allowed;
+  opacity: 0.55;
 }
 
 a {
@@ -67,13 +68,17 @@ a {
 
 button:focus-visible,
 input:focus-visible,
+textarea:focus-visible,
+select:focus-visible,
 a:focus-visible {
   outline: 2px solid var(--blue-light);
   outline-offset: 3px;
 }
 
 
-/* 2. ANA SAYFA ÜST MENÜ */
+/* =========================================
+   ANA SAYFA
+========================================= */
 
 body > header {
   position: sticky;
@@ -88,7 +93,6 @@ body > header nav {
   width: min(1200px, 92%);
   min-height: 75px;
   margin: auto;
-
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -118,31 +122,17 @@ body > header nav {
   color: var(--blue-light);
 }
 
-
-/* 3. ANA SAYFA */
-
 .hero {
   min-height: 520px;
   padding: 100px 20px;
-
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-
   text-align: center;
-
   background:
-    radial-gradient(
-      ellipse at center,
-      rgba(65, 145, 235, 0.28),
-      transparent 68%
-    ),
-    linear-gradient(
-      135deg,
-      #1b3553,
-      #254665
-    );
+    radial-gradient(ellipse at center, rgba(65, 145, 235, 0.28), transparent 68%),
+    linear-gradient(135deg, #1b3553, #254665);
 }
 
 .hero h1 {
@@ -161,16 +151,9 @@ body > header nav {
 .hero button,
 .section button {
   padding: 13px 25px;
-
   border: 1px solid var(--border-blue);
   border-radius: 9px;
-
-  background: linear-gradient(
-    135deg,
-    var(--blue),
-    #1761b5
-  );
-
+  background: linear-gradient(135deg, var(--blue), #1761b5);
   color: #fff;
   transition: all 0.2s ease;
 }
@@ -201,9 +184,6 @@ body > header nav {
   color: var(--muted);
 }
 
-
-/* 4. FOOTER */
-
 body > footer {
   padding: 25px;
   border-top: 1px solid var(--border);
@@ -214,19 +194,18 @@ body > footer {
 }
 
 
-/* 5. GİRİŞ VE KAYIT PANELİ */
+/* =========================================
+   GİRİŞ VE KAYIT
+========================================= */
 
 #zeydal-auth-panel {
   position: fixed;
   inset: 0;
   z-index: 10001;
-
   display: flex;
   align-items: center;
   justify-content: center;
-
   padding: 20px;
-
   background: rgba(10, 24, 42, 0.82);
   backdrop-filter: blur(12px);
 }
@@ -234,16 +213,9 @@ body > footer {
 .auth-box {
   width: min(420px, 100%);
   padding: 30px;
-
   border: 1px solid var(--border-blue);
   border-radius: 16px;
-
-  background: linear-gradient(
-    145deg,
-    #294968,
-    #1b3552
-  );
-
+  background: linear-gradient(145deg, #294968, #1b3552);
   box-shadow: var(--shadow);
 }
 
@@ -269,14 +241,11 @@ body > footer {
 .auth-box input {
   width: 100%;
   padding: 13px;
-
   border: 1px solid var(--border);
   border-radius: 8px;
-
   outline: none;
   background: #1b3552;
   color: #fff;
-
   transition: border 0.2s ease;
 }
 
@@ -287,13 +256,10 @@ body > footer {
 
 .auth-box button {
   padding: 12px;
-
   border: 1px solid var(--border-blue);
   border-radius: 8px;
-
   background: var(--blue);
   color: white;
-
   transition: 0.2s ease;
 }
 
@@ -309,27 +275,20 @@ body > footer {
 }
 
 
-/* 6. SOHBETİ AÇMA BUTONU */
+/* =========================================
+   SOHBETİ AÇMA BUTONU
+========================================= */
 
 #zeydal-chat-button {
   position: fixed;
   right: 25px;
   bottom: 25px;
   z-index: 9998;
-
   padding: 15px 22px;
-
   border: 1px solid var(--border-blue);
   border-radius: 30px;
-
-  background: linear-gradient(
-    135deg,
-    var(--blue),
-    #1761b5
-  );
-
+  background: linear-gradient(135deg, var(--blue), #1761b5);
   color: white;
-
   box-shadow: 0 8px 25px rgba(0, 0, 0, 0.25);
   transition: 0.2s ease;
 }
@@ -341,82 +300,66 @@ body > footer {
 }
 
 
-/* 7. TAM EKRAN UYGULAMA PANELİ */
+/* =========================================
+   TAM EKRAN UYGULAMA
+========================================= */
 
 #zeydal-chat-panel {
   position: fixed;
   inset: 0;
   z-index: 9999;
-
   display: none;
   flex-direction: row;
-
   width: 100%;
   height: 100vh;
   height: 100dvh;
-
   overflow: hidden;
   background: var(--bg);
 }
 
 
-/* 8. SOL MENÜ */
+/* =========================================
+   SOL MENÜ
+========================================= */
 
 .chat-sidebar {
   width: 275px;
   min-width: 275px;
   height: 100%;
-
   display: flex;
   flex-direction: column;
-
   padding: 20px 14px;
   overflow: hidden;
-
   background: #172b43;
   border-right: 1px solid var(--border);
 }
 
 .sidebar-brand {
   padding: 8px 10px 25px;
-
   color: var(--silver);
   font-size: 21px;
   letter-spacing: 1px;
 }
 
 .sidebar-brand strong {
-  background: linear-gradient(
-    90deg,
-    var(--blue-light),
-    var(--silver-light)
-  );
-
+  background: linear-gradient(90deg, var(--blue-light), var(--silver-light));
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
 }
 
-
-/* 9. YENİ SOHBET BUTONU */
-
 #zeydal-new-chat {
   width: 100%;
   padding: 12px 14px;
-
   display: flex;
   align-items: center;
   gap: 9px;
-
   border: 1px solid var(--border-blue);
   border-radius: 10px;
-
   background: rgba(40, 127, 224, 0.16);
   color: var(--text);
-
   text-align: left;
   font-size: 14px;
-
   transition: 0.2s ease;
 }
 
@@ -431,9 +374,6 @@ body > footer {
   line-height: 1;
 }
 
-
-/* 10. YENİ SOL MENÜ BÖLÜMLERİ */
-
 .sidebar-tools {
   display: flex;
   flex-direction: column;
@@ -444,32 +384,22 @@ body > footer {
 .sidebar-tool {
   width: 100%;
   min-height: 40px;
-
   display: flex;
   align-items: center;
   gap: 12px;
-
   padding: 10px 12px;
-
   border: 1px solid transparent;
   border-radius: 9px;
-
   background: transparent;
   color: var(--silver);
-
   text-align: left;
   font-size: 13px;
-
-  transition:
-    background 0.2s ease,
-    border 0.2s ease,
-    color 0.2s ease;
+  transition: background 0.2s ease, border 0.2s ease, color 0.2s ease;
 }
 
 .sidebar-tool span {
   width: 20px;
   flex-shrink: 0;
-
   color: var(--blue-light);
   font-size: 18px;
   text-align: center;
@@ -492,22 +422,20 @@ body > footer {
 }
 
 
-/* 11. SOHBET ARAMA */
+/* =========================================
+   SOHBET ARAMA VE GEÇMİŞ
+========================================= */
 
 .conversation-search {
   width: 100%;
   margin: 14px 0 10px;
   padding: 10px 12px;
-
   border: 1px solid var(--border);
   border-radius: 9px;
-
   background: rgba(10, 25, 43, 0.45);
   color: var(--silver-light);
-
   outline: none;
   font-size: 13px;
-
   transition: 0.2s ease;
 }
 
@@ -520,12 +448,8 @@ body > footer {
   color: #91a8c2;
 }
 
-
-/* 12. SOHBET GEÇMİŞİ */
-
 .conversation-heading {
   margin: 22px 10px 4px;
-
   color: #91a8c2;
   font-size: 11px;
   font-weight: 700;
@@ -536,11 +460,9 @@ body > footer {
 .conversation-list {
   flex: 1;
   min-height: 0;
-
   display: flex;
   flex-direction: column;
   gap: 4px;
-
   overflow-y: auto;
   overflow-x: hidden;
   padding: 2px 2px 10px;
@@ -548,7 +470,6 @@ body > footer {
 
 .conversation-section-label {
   margin: 14px 8px 6px;
-
   color: #91a8c2;
   font-size: 11px;
   font-weight: 700;
@@ -557,18 +478,14 @@ body > footer {
 
 .conversation-row {
   position: relative;
-
   display: flex;
   align-items: center;
   gap: 3px;
-
   width: 100%;
   min-width: 0;
   padding: 2px;
-
   border: 1px solid transparent;
   border-radius: 9px;
-
   transition: background 0.2s ease, border 0.2s ease;
 }
 
@@ -586,20 +503,15 @@ body > footer {
   min-width: 0;
   width: auto;
   padding: 10px 9px;
-
   border: 0;
   border-radius: 7px;
-
   background: transparent;
   color: #c5d3e3;
-
   text-align: left;
   font-size: 13px;
-
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-
   transition: 0.2s ease;
 }
 
@@ -616,15 +528,11 @@ body > footer {
   content: "📌 ";
 }
 
-
-/* 13. SOHBET İŞLEM BUTONLARI */
-
 .conversation-actions {
   display: flex;
   align-items: center;
   gap: 1px;
   flex-shrink: 0;
-
   opacity: 0;
   transition: opacity 0.18s ease;
 }
@@ -637,20 +545,14 @@ body > footer {
 .conversation-action {
   width: 27px;
   height: 29px;
-
   display: inline-flex;
   align-items: center;
   justify-content: center;
-
   border: 0;
   border-radius: 6px;
-
   background: transparent;
   color: #aebfd3;
-
   font-size: 12px;
-  cursor: pointer;
-
   transition: 0.18s ease;
 }
 
@@ -666,25 +568,18 @@ body > footer {
 
 .conversation-empty {
   padding: 18px 8px;
-
   color: #91a8c2;
   font-size: 12px;
   text-align: center;
 }
 
-
-/* 14. SOL PANEL ALT BÖLÜMÜ */
-
 .sidebar-footer {
   display: flex;
   flex-direction: column;
   gap: 3px;
-
   padding: 16px 10px 5px;
-
   border-top: 1px solid var(--border);
   color: var(--silver);
-
   font-size: 13px;
 }
 
@@ -699,50 +594,33 @@ body > footer {
 }
 
 
-/* 15. ANA SOHBET ALANI */
+/* =========================================
+   ANA SOHBET ALANI
+========================================= */
 
 .chat-main {
   position: relative;
-
   flex: 1;
   min-width: 0;
   height: 100%;
-
   display: flex;
   flex-direction: column;
-
   overflow: hidden;
-
   background:
-    radial-gradient(
-      ellipse at 50% 0%,
-      rgba(75, 153, 235, 0.13),
-      transparent 60%
-    ),
-    linear-gradient(
-      145deg,
-      #1b3552,
-      #203d5c
-    );
+    radial-gradient(ellipse at 50% 0%, rgba(75, 153, 235, 0.13), transparent 60%),
+    linear-gradient(145deg, #1b3552, #203d5c);
 }
-
-
-/* 16. SOHBET ÜST BAŞLIĞI */
 
 #zeydal-chat-panel .chat-header {
   flex-shrink: 0;
   min-height: 68px;
-
   padding: 12px 25px;
-
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 15px;
-
   background: rgba(25, 47, 73, 0.78);
   border-bottom: 1px solid var(--border);
-
   backdrop-filter: blur(12px);
 }
 
@@ -771,13 +649,10 @@ body > footer {
 
 .chat-header-actions button {
   padding: 8px 13px;
-
   border: 1px solid var(--border);
   border-radius: 8px;
-
   background: rgba(52, 87, 121, 0.55);
   color: var(--text);
-
   font-size: 12px;
   transition: 0.2s ease;
 }
@@ -791,78 +666,50 @@ body > footer {
   width: 35px;
   height: 35px;
   padding: 0;
-
   font-size: 16px;
 }
 
 
-/* 17. MESAJ ALANI */
+/* =========================================
+   MESAJ ALANI
+========================================= */
 
 #zeydal-chat-messages {
   flex: 1;
   min-height: 0;
   height: auto;
-
   width: 100%;
   max-width: 1000px;
-
   margin: 0 auto;
   padding: 35px 55px;
-
   display: flex;
   flex-direction: column;
   gap: 22px;
-
   overflow-y: auto;
   scroll-behavior: smooth;
-
-  background:
-    radial-gradient(
-      ellipse at center,
-      rgba(75, 145, 220, 0.055),
-      transparent 75%
-    );
+  background: radial-gradient(ellipse at center, rgba(75, 145, 220, 0.055), transparent 75%);
 }
-
-
-/* 18. KULLANICI MESAJLARI */
 
 #zeydal-chat-panel .user-message {
   align-self: flex-end;
   max-width: min(75%, 680px);
-
   padding: 12px 17px;
-
   border: 1px solid rgba(115, 181, 255, 0.3);
   border-radius: 17px 17px 5px 17px;
-
-  background: linear-gradient(
-    135deg,
-    #348de8,
-    #2168b8
-  );
-
+  background: linear-gradient(135deg, #348de8, #2168b8);
   color: white;
-
   overflow-wrap: anywhere;
   box-shadow: 0 5px 18px rgba(0, 0, 0, 0.12);
 }
 
-
-/* 19. ZEYDAL AI MESAJLARI */
-
 #zeydal-chat-panel .assistant-message {
   align-self: flex-start;
   max-width: min(88%, 780px);
-
   padding: 13px 17px;
-
   border: 1px solid rgba(190, 213, 240, 0.12);
   border-radius: 5px 17px 17px 17px;
-
   background: rgba(42, 68, 98, 0.58);
   color: var(--silver-light);
-
   overflow-wrap: anywhere;
 }
 
@@ -875,29 +722,24 @@ body > footer {
 }
 
 
-/* 20. MESAJ YAZMA ALANI */
+/* =========================================
+   MESAJ YAZMA ALANI
+========================================= */
 
 #zeydal-chat-panel #zeydal-chat-form {
   position: relative;
   inset: auto;
-
   flex-shrink: 0;
-
   width: min(850px, calc(100% - 60px));
   margin: 12px auto 25px;
   padding: 9px 10px 9px 16px;
-
   display: flex;
   align-items: center;
   gap: 10px;
-
   border: 1px solid rgba(120, 174, 231, 0.35);
   border-radius: 17px;
-
   background: rgba(38, 65, 94, 0.96);
-
   box-shadow: 0 8px 30px rgba(0, 0, 0, 0.18);
-
   transition: border 0.2s ease, box-shadow 0.2s ease;
 }
 
@@ -909,15 +751,11 @@ body > footer {
 #zeydal-chat-panel #zeydal-chat-input {
   flex: 1;
   min-width: 0;
-
   padding: 12px 5px;
-
   border: none;
   outline: none;
-
   background: transparent;
   color: white;
-
   font-size: 14px;
 }
 
@@ -927,22 +765,13 @@ body > footer {
 
 #zeydal-chat-panel #zeydal-chat-send {
   flex-shrink: 0;
-
   padding: 11px 19px;
-
   border: 1px solid var(--border-blue);
   border-radius: 10px;
-
-  background: linear-gradient(
-    135deg,
-    var(--blue),
-    #1761b5
-  );
-
+  background: linear-gradient(135deg, var(--blue), #1761b5);
   color: white;
   font-size: 13px;
   font-weight: 600;
-
   transition: 0.2s ease;
 }
 
@@ -951,25 +780,17 @@ body > footer {
   box-shadow: 0 0 18px var(--blue-glow);
 }
 
-#zeydal-chat-panel #zeydal-chat-send:disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
-}
 
-
-/* 21. ÖZELLİK ÇALIŞMA ALANI */
+/* =========================================
+   ÖZELLİK SAYFALARI
+========================================= */
 
 .feature-view {
   flex: 1;
   min-height: 0;
   width: 100%;
-
   overflow-y: auto;
   padding: 45px 35px;
-}
-
-.feature-view[hidden] {
-  display: none;
 }
 
 .feature-content {
@@ -984,7 +805,6 @@ body > footer {
 .feature-label {
   display: inline-block;
   margin-bottom: 12px;
-
   color: var(--blue-light);
   font-size: 11px;
   font-weight: 700;
@@ -993,7 +813,6 @@ body > footer {
 
 .feature-content h1 {
   margin-bottom: 12px;
-
   color: var(--silver-light);
   font-size: 30px;
   font-weight: 700;
@@ -1007,31 +826,578 @@ body > footer {
 .feature-placeholder {
   min-height: 170px;
   padding: 30px;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
+  display: block;
   border: 1px solid var(--border);
   border-radius: 15px;
-
   background:
-    radial-gradient(
-      ellipse at top,
-      rgba(75, 153, 235, 0.12),
-      transparent 75%
-    ),
+    radial-gradient(ellipse at top, rgba(75, 153, 235, 0.12), transparent 75%),
     rgba(42, 68, 98, 0.45);
-
   color: var(--silver);
-  text-align: center;
-  font-size: 14px;
-
   box-shadow: var(--shadow);
 }
 
 
-/* 22. KAYDIRMA ÇUBUKLARI */
+/* =========================================
+   KİTAPLIK
+========================================= */
+
+.library-container {
+  width: 100%;
+}
+
+.library-toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+
+.library-count {
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.library-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr));
+  gap: 16px;
+}
+
+.library-card {
+  min-width: 0;
+  padding: 20px;
+  border: 1px solid rgba(80, 145, 210, 0.25);
+  border-radius: 14px;
+  background: rgba(30, 52, 78, 0.65);
+  color: #e7edf5;
+}
+
+.library-card h3 {
+  margin: 0 0 8px;
+  font-size: 16px;
+  overflow-wrap: anywhere;
+}
+
+.library-card small {
+  display: block;
+  margin-bottom: 14px;
+  color: #9aadc2;
+  font-size: 11px;
+}
+
+.library-card p {
+  margin: 0 0 18px;
+  color: #c5d1df;
+  font-size: 13px;
+  line-height: 1.7;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+.library-card-actions {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.library-card-actions button,
+.save-to-library {
+  padding: 8px 12px;
+  border: 1px solid rgba(75, 145, 220, 0.4);
+  border-radius: 8px;
+  background: rgba(40, 127, 224, 0.13);
+  color: #c8e2ff;
+  cursor: pointer;
+  font-size: 12px;
+  transition: 0.2s ease;
+}
+
+.library-card-actions button:hover,
+.save-to-library:hover {
+  background: rgba(40, 127, 224, 0.3);
+  color: #fff;
+}
+
+.library-card-actions .library-delete {
+  border-color: rgba(224, 82, 82, 0.35);
+  background: rgba(224, 82, 82, 0.1);
+  color: #ffaaaa;
+}
+
+.library-card-actions .library-delete:hover {
+  background: rgba(224, 82, 82, 0.25);
+  color: white;
+}
+
+.library-empty {
+  min-height: 180px;
+  padding: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px dashed rgba(80, 145, 210, 0.4);
+  border-radius: 14px;
+  background: rgba(42, 68, 98, 0.25);
+  color: var(--muted);
+  text-align: center;
+  line-height: 1.7;
+}
+
+.save-to-library {
+  display: block;
+  margin-top: 12px;
+}
+
+.save-to-library.saved {
+  border-color: rgba(75, 190, 135, 0.4);
+  color: #8ce0b5;
+}
+
+.library-search {
+  width: 100%;
+  max-width: 400px;
+  padding: 11px 14px;
+  border: 1px solid rgba(80, 145, 210, 0.3);
+  border-radius: 10px;
+  outline: none;
+  background: rgba(15, 30, 48, 0.7);
+  color: #fff;
+}
+
+.library-search:focus {
+  border-color: #438edb;
+}
+
+
+/* =========================================
+   ÖZELLEŞTİR
+========================================= */
+
+.customize-container {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.customize-intro {
+  margin-bottom: 5px;
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.setting-group {
+  padding: 22px;
+  border: 1px solid var(--border);
+  border-radius: 13px;
+  background: rgba(20, 43, 68, 0.55);
+}
+
+.setting-group h3 {
+  margin-bottom: 5px;
+  color: var(--silver-light);
+  font-size: 16px;
+}
+
+.setting-description {
+  margin-bottom: 16px;
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.setting-choices {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.setting-choice {
+  min-width: 105px;
+  padding: 10px 15px;
+  border: 1px solid var(--border);
+  border-radius: 9px;
+  background: rgba(42, 68, 98, 0.6);
+  color: var(--silver);
+  font-size: 13px;
+  transition: 0.2s ease;
+}
+
+.setting-choice:hover {
+  border-color: var(--blue-light);
+  background: rgba(40, 127, 224, 0.2);
+}
+
+.setting-choice.selected {
+  border-color: var(--blue-light);
+  background: rgba(40, 127, 224, 0.28);
+  color: white;
+  box-shadow: 0 0 12px var(--blue-glow);
+}
+
+.settings-reset {
+  align-self: flex-start;
+  padding: 10px 15px;
+  border: 1px solid rgba(224, 82, 82, 0.4);
+  border-radius: 9px;
+  background: rgba(224, 82, 82, 0.1);
+  color: #ffb3b3;
+  font-size: 12px;
+  transition: 0.2s ease;
+}
+
+.settings-reset:hover {
+  background: rgba(224, 82, 82, 0.22);
+}
+
+
+/* =========================================
+   GÖRSELLEŞTİRME
+========================================= */
+
+.visualization-container {
+  display: flex;
+  flex-direction: column;
+  gap: 17px;
+}
+
+.visualization-intro {
+  margin-bottom: 5px;
+  line-height: 1.7;
+}
+
+.visualization-label,
+.visualization-field label {
+  display: block;
+  margin-bottom: 7px;
+  color: var(--silver);
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.visualization-input {
+  width: 100%;
+  min-height: 145px;
+  resize: vertical;
+  padding: 15px;
+  border: 1px solid var(--border-blue);
+  border-radius: 11px;
+  outline: none;
+  background: rgba(13, 29, 48, 0.65);
+  color: var(--silver-light);
+  font-size: 14px;
+  line-height: 1.7;
+}
+
+.visualization-input::placeholder {
+  color: #829ab4;
+}
+
+.visualization-input:focus {
+  border-color: var(--blue-light);
+  box-shadow: 0 0 0 3px var(--blue-glow);
+}
+
+.visualization-options {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 15px;
+}
+
+.visualization-select {
+  width: 100%;
+  padding: 11px;
+  border: 1px solid var(--border);
+  border-radius: 9px;
+  outline: none;
+  background: #203b59;
+  color: var(--silver-light);
+}
+
+.visualization-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.visualization-primary,
+.visualization-secondary {
+  padding: 11px 16px;
+  border: 1px solid var(--border-blue);
+  border-radius: 9px;
+  font-size: 13px;
+  transition: 0.2s ease;
+}
+
+.visualization-primary {
+  background: linear-gradient(135deg, var(--blue), #1761b5);
+  color: white;
+}
+
+.visualization-primary:hover {
+  background: var(--blue-light);
+}
+
+.visualization-secondary {
+  background: rgba(42, 68, 98, 0.65);
+  color: var(--silver);
+}
+
+.visualization-secondary:hover {
+  border-color: var(--blue-light);
+  background: rgba(40, 127, 224, 0.2);
+}
+
+.visualization-result-title {
+  margin-top: 12px;
+  color: var(--silver-light);
+  font-size: 15px;
+}
+
+.visualization-result {
+  min-height: 90px;
+  padding: 15px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: rgba(12, 27, 45, 0.55);
+  color: var(--silver);
+  font-size: 13px;
+  line-height: 1.8;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+.visualization-note {
+  padding: 12px;
+  border-left: 3px solid var(--blue-light);
+  background: rgba(40, 127, 224, 0.09);
+  color: var(--muted);
+  font-size: 11px;
+  line-height: 1.7;
+}
+
+
+/* =========================================
+   KOYU / AÇIK TEMA
+========================================= */
+
+#zeydal-chat-panel[data-theme="light"] {
+  --bg: #eef3f9;
+  --panel: #ffffff;
+  --panel-light: #e2ebf5;
+  --panel-hover: #d8e5f2;
+  --silver: #29425d;
+  --silver-light: #172b45;
+  --text: #203750;
+  --muted: #60758d;
+  --border: rgba(43, 75, 110, 0.18);
+  --border-blue: rgba(40, 127, 224, 0.35);
+  --blue-glow: rgba(40, 127, 224, 0.15);
+  color: var(--text);
+  background: var(--bg);
+}
+
+#zeydal-chat-panel[data-theme="light"] .chat-sidebar {
+  background: #e5edf6;
+  border-right-color: var(--border);
+}
+
+#zeydal-chat-panel[data-theme="light"] .sidebar-brand {
+  color: #24415f;
+}
+
+#zeydal-chat-panel[data-theme="light"] .sidebar-tool {
+  color: #3e5873;
+}
+
+#zeydal-chat-panel[data-theme="light"] .sidebar-tool:hover,
+#zeydal-chat-panel[data-theme="light"] .sidebar-tool.active {
+  background: rgba(40, 127, 224, 0.12);
+  color: #174f8c;
+}
+
+#zeydal-chat-panel[data-theme="light"] .conversation-search {
+  background: #f7faff;
+  color: #203750;
+}
+
+#zeydal-chat-panel[data-theme="light"] .conversation-search::placeholder {
+  color: #71869d;
+}
+
+#zeydal-chat-panel[data-theme="light"] .conversation-item {
+  color: #405a74;
+}
+
+#zeydal-chat-panel[data-theme="light"] .conversation-item.active {
+  color: #174f8c;
+}
+
+#zeydal-chat-panel[data-theme="light"] .conversation-section-label,
+#zeydal-chat-panel[data-theme="light"] .conversation-heading,
+#zeydal-chat-panel[data-theme="light"] .conversation-empty {
+  color: #647c96;
+}
+
+#zeydal-chat-panel[data-theme="light"] .chat-main {
+  background:
+    radial-gradient(ellipse at 50% 0%, rgba(75, 153, 235, 0.12), transparent 60%),
+    linear-gradient(145deg, #f5f8fc, #eaf1f8);
+}
+
+#zeydal-chat-panel[data-theme="light"] .chat-header {
+  background: rgba(255, 255, 255, 0.82);
+  border-bottom-color: var(--border);
+}
+
+#zeydal-chat-panel[data-theme="light"] .chat-header-title strong {
+  color: #203750;
+}
+
+#zeydal-chat-panel[data-theme="light"] .chat-header-title span {
+  color: #687f98;
+}
+
+#zeydal-chat-panel[data-theme="light"] .chat-header-actions button {
+  background: #e8eff7;
+  color: #29445f;
+}
+
+#zeydal-chat-panel[data-theme="light"] .assistant-message {
+  background: #ffffff;
+  border-color: rgba(55, 91, 130, 0.15);
+  color: #253f59;
+}
+
+#zeydal-chat-panel[data-theme="light"] #zeydal-chat-messages {
+  background: transparent;
+}
+
+#zeydal-chat-panel[data-theme="light"] #zeydal-chat-form {
+  background: #ffffff;
+  border-color: rgba(40, 127, 224, 0.3);
+}
+
+#zeydal-chat-panel[data-theme="light"] #zeydal-chat-input {
+  color: #203750;
+}
+
+#zeydal-chat-panel[data-theme="light"] #zeydal-chat-input::placeholder {
+  color: #71869d;
+}
+
+#zeydal-chat-panel[data-theme="light"] .feature-content h1,
+#zeydal-chat-panel[data-theme="light"] .setting-group h3,
+#zeydal-chat-panel[data-theme="light"] .visualization-result-title {
+  color: #203750;
+}
+
+#zeydal-chat-panel[data-theme="light"] .feature-placeholder {
+  background: rgba(255, 255, 255, 0.75);
+  color: #29445f;
+  border-color: rgba(43, 75, 110, 0.18);
+  box-shadow: 0 10px 30px rgba(30, 60, 90, 0.08);
+}
+
+#zeydal-chat-panel[data-theme="light"] .setting-group {
+  background: rgba(255, 255, 255, 0.8);
+}
+
+#zeydal-chat-panel[data-theme="light"] .setting-choice {
+  background: #edf3f9;
+  color: #29445f;
+}
+
+#zeydal-chat-panel[data-theme="light"] .setting-choice.selected {
+  background: #d9eaff;
+  color: #174f8c;
+}
+
+#zeydal-chat-panel[data-theme="light"] .visualization-input,
+#zeydal-chat-panel[data-theme="light"] .visualization-result {
+  background: #fff;
+  color: #203750;
+  border-color: rgba(43, 75, 110, 0.2);
+}
+
+#zeydal-chat-panel[data-theme="light"] .visualization-input::placeholder {
+  color: #8294a8;
+}
+
+#zeydal-chat-panel[data-theme="light"] .visualization-select {
+  background: #fff;
+  color: #203750;
+  border-color: rgba(43, 75, 110, 0.2);
+}
+
+#zeydal-chat-panel[data-theme="light"] .library-card {
+  background: #fff;
+  color: #203750;
+}
+
+#zeydal-chat-panel[data-theme="light"] .library-card p {
+  color: #405a74;
+}
+
+#zeydal-chat-panel[data-theme="light"] .library-search {
+  background: #fff;
+  color: #203750;
+}
+
+
+/* =========================================
+   YAZI BOYUTU AYARLARI
+========================================= */
+
+#zeydal-chat-panel[data-font-size="small"] .user-message p,
+#zeydal-chat-panel[data-font-size="small"] .assistant-message p {
+  font-size: 12px;
+}
+
+#zeydal-chat-panel[data-font-size="medium"] .user-message p,
+#zeydal-chat-panel[data-font-size="medium"] .assistant-message p {
+  font-size: 14px;
+}
+
+#zeydal-chat-panel[data-font-size="large"] .user-message p,
+#zeydal-chat-panel[data-font-size="large"] .assistant-message p {
+  font-size: 17px;
+}
+
+#zeydal-chat-panel[data-font-size="small"] .feature-content p {
+  font-size: 12px;
+}
+
+#zeydal-chat-panel[data-font-size="large"] .feature-content p {
+  font-size: 16px;
+}
+
+
+/* =========================================
+   KOMPAKT / GENİŞ SOHBET
+========================================= */
+
+#zeydal-chat-panel[data-chat-view="compact"] #zeydal-chat-messages {
+  max-width: 820px;
+  padding-top: 22px;
+  padding-bottom: 22px;
+  gap: 12px;
+}
+
+#zeydal-chat-panel[data-chat-view="compact"] .user-message,
+#zeydal-chat-panel[data-chat-view="compact"] .assistant-message {
+  padding: 9px 13px;
+}
+
+#zeydal-chat-panel[data-chat-view="wide"] #zeydal-chat-messages {
+  max-width: 1100px;
+  gap: 22px;
+}
+
+
+/* =========================================
+   KAYDIRMA ÇUBUKLARI
+========================================= */
 
 .conversation-list::-webkit-scrollbar,
 #zeydal-chat-messages::-webkit-scrollbar,
@@ -1060,10 +1426,11 @@ body > footer {
 }
 
 
-/* 23. TABLET VE KÜÇÜK EKRANLAR */
+/* =========================================
+   TABLET
+========================================= */
 
 @media (max-width: 900px) {
-
   .chat-sidebar {
     width: 245px;
     min-width: 245px;
@@ -1077,14 +1444,14 @@ body > footer {
   #zeydal-chat-panel .user-message {
     max-width: 82%;
   }
-
 }
 
 
-/* 24. MOBİL TASARIM */
+/* =========================================
+   MOBİL
+========================================= */
 
 @media (max-width: 700px) {
-
   body > header nav {
     flex-direction: column;
     padding: 15px 0;
@@ -1240,19 +1607,44 @@ body > footer {
     font-size: 23px;
   }
 
-  .feature-placeholder {
-    min-height: 140px;
-    padding: 20px;
-    font-size: 12px;
+  .library-card {
+    padding: 15px;
   }
 
+  .library-toolbar {
+    align-items: stretch;
+  }
+
+  .library-search {
+    max-width: 100%;
+  }
+
+  .visualization-options {
+    grid-template-columns: 1fr;
+  }
+
+  .setting-group {
+    padding: 16px;
+  }
+
+  .setting-choices {
+    gap: 7px;
+  }
+
+  .setting-choice {
+    flex: 1;
+    min-width: 85px;
+    padding: 9px 8px;
+    font-size: 11px;
+  }
 }
 
 
-/* 25. ÇOK KÜÇÜK EKRANLAR */
+/* =========================================
+   ÇOK KÜÇÜK EKRANLAR
+========================================= */
 
 @media (max-width: 430px) {
-
   .chat-sidebar {
     width: 155px;
     min-width: 155px;
@@ -1295,14 +1687,14 @@ body > footer {
   #zeydal-chat-panel #zeydal-chat-send {
     padding: 9px 8px;
   }
-
 }
 
 
-/* 26. HAREKET AZALTMA TERCİHİ */
+/* =========================================
+   HAREKETİ AZALTMA
+========================================= */
 
 @media (prefers-reduced-motion: reduce) {
-
   *,
   *::before,
   *::after {
@@ -1310,5 +1702,4 @@ body > footer {
     transition-duration: 0.01ms !important;
     animation-duration: 0.01ms !important;
   }
-
 }
