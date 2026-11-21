@@ -6,6 +6,57 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>ZEYDAL AI</title>
   <link rel="stylesheet" href="style.css">
+
+  <!-- SOHBET SİLME BUTONU TASARIMI -->
+  <style>
+    .conversation-row {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      width: 100%;
+    }
+
+    .conversation-row .conversation-item {
+      flex: 1;
+      min-width: 0;
+      width: auto;
+    }
+
+    .conversation-delete {
+      flex-shrink: 0;
+      width: 34px;
+      height: 34px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid transparent;
+      border-radius: 8px;
+      background: transparent;
+      color: #b0c1d6;
+      font-size: 15px;
+      opacity: 0.65;
+      transition: 0.2s ease;
+    }
+
+    .conversation-delete:hover {
+      background: rgba(224, 82, 82, 0.16);
+      border-color: rgba(224, 82, 82, 0.4);
+      color: #ff7777;
+      opacity: 1;
+    }
+
+    .conversation-row:hover .conversation-delete {
+      opacity: 1;
+    }
+
+    @media (max-width: 700px) {
+      .conversation-delete {
+        width: 27px;
+        height: 30px;
+        font-size: 13px;
+      }
+    }
+  </style>
 </head>
 
 <body>
@@ -30,13 +81,13 @@
     <section id="home" class="hero">
       <h1>Geleceğin Yapay Zekâsı</h1>
       <p>ZEYDAL AI ile geleceği keşfet.</p>
-      <button id="zeydal-open-assistant">Asistanı Başlat</button>
+      <button class="zeydal-open-assistant">Asistanı Başlat</button>
     </section>
 
     <section id="assistant" class="section">
       <h2>ZEYDAL AI Asistan</h2>
       <p>Akıllı asistanınla sohbet etmeye başla.</p>
-      <button id="zeydal-open-assistant">Sohbete Başla</button>
+      <button class="zeydal-open-assistant">Sohbete Başla</button>
     </section>
 
     <section id="tools" class="section">
@@ -437,8 +488,13 @@
 
       sortedChats.forEach(chat => {
 
-        const button =
-          document.createElement("button");
+        // Her sohbet için kapsayıcı
+        const row = document.createElement("div");
+
+        row.className = "conversation-row";
+
+        // Sohbeti açma butonu
+        const button = document.createElement("button");
 
         button.type = "button";
         button.className = "conversation-item";
@@ -455,9 +511,98 @@
           switchChat(chat.id);
         });
 
-        conversationList.appendChild(button);
+
+        // Sohbet silme butonu
+        const deleteButton =
+          document.createElement("button");
+
+        deleteButton.type = "button";
+        deleteButton.className = "conversation-delete";
+        deleteButton.textContent = "🗑";
+
+        deleteButton.setAttribute(
+          "aria-label",
+          (chat.title || "Sohbet") + " konuşmasını sil"
+        );
+
+        deleteButton.title = "Bu sohbeti sil";
+
+        deleteButton.addEventListener("click", event => {
+
+          event.stopPropagation();
+
+          deleteChat(chat.id);
+
+        });
+
+
+        row.appendChild(button);
+        row.appendChild(deleteButton);
+
+        conversationList.appendChild(row);
 
       });
+
+    }
+
+
+    // SOHBET SİL
+
+    function deleteChat(chatId) {
+
+      const selectedChat =
+        chats.find(chat => chat.id === chatId);
+
+      if (!selectedChat) return;
+
+      const confirmed = window.confirm(
+        '"' + (selectedChat.title || "Yeni sohbet") +
+        '" konuşmasını silmek istediğine emin misin? Bu işlem geri alınamaz.'
+      );
+
+      if (!confirmed) return;
+
+      // Seçilen sohbeti listeden kaldır.
+      chats = chats.filter(chat => chat.id !== chatId);
+
+
+      // Aktif sohbet silindiyse başka bir sohbete geç.
+      if (activeChatId === chatId) {
+
+        if (chats.length > 0) {
+
+          chats.sort(
+            (a, b) => b.updatedAt - a.updatedAt
+          );
+
+          activeChatId = chats[0].id;
+
+          history = chats[0].messages.slice(-12);
+
+        } else {
+
+          // Hiç sohbet kalmadıysa yeni sohbet oluştur.
+          const newChat = createChatRecord();
+
+          chats = [newChat];
+
+          activeChatId = newChat.id;
+
+          history = [];
+
+        }
+
+      }
+
+
+      // Yeni durumu kaydet ve ekranı güncelle.
+      saveHistory();
+
+      renderHistory();
+
+      renderConversationList();
+
+      chatInput.focus();
 
     }
 
@@ -478,6 +623,7 @@
       saveHistory();
 
       renderHistory();
+
       renderConversationList();
 
     }
@@ -498,6 +644,7 @@
       saveHistory();
 
       renderHistory();
+
       renderConversationList();
 
       chatInput.focus();
@@ -796,6 +943,7 @@
       chatButton.style.display = "none";
 
       renderHistory();
+
       renderConversationList();
 
       chatInput.focus();
@@ -821,8 +969,10 @@
     chatButton.addEventListener("click", openChat);
 
     document
-      .getElementById("zeydal-open-assistant")
-      ?.addEventListener("click", openChat);
+      .querySelectorAll(".zeydal-open-assistant")
+      .forEach(button => {
+        button.addEventListener("click", openChat);
+      });
 
     document
       .getElementById("zeydal-chat-close")
