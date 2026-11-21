@@ -1,7 +1,7 @@
 
 "use strict";
 
-const CACHE_NAME = "zeydal-ai-offline-v2";
+const CACHE_NAME = "zeydal-ai-offline-v3";
 
 const APP_FILES = [
   "./",
@@ -9,7 +9,8 @@ const APP_FILES = [
   "./style.css",
   "./voice.js",
   "./manifest.json",
-  "./offline.js"
+  "./offline.js",
+  "./local-ai.js"
 ];
 
 // Uygulama dosyalarını önbelleğe al
