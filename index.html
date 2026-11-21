@@ -32,6 +32,7 @@
     <section id="home" class="hero">
       <h1>Geleceğin Yapay Zekâsı</h1>
       <p>ZEYDAL AI ile geleceği keşfet.</p>
+
       <button class="zeydal-open-assistant" type="button">
         Asistanı Başlat
       </button>
@@ -40,6 +41,7 @@
     <section id="assistant" class="section">
       <h2>ZEYDAL AI Asistan</h2>
       <p>Akıllı asistanınla sohbet etmeye başla.</p>
+
       <button class="zeydal-open-assistant" type="button">
         Sohbete Başla
       </button>
@@ -136,10 +138,10 @@
   </button>
 
 
-  <!-- TAM EKRAN SOHBET PANELİ -->
+  <!-- TAM EKRAN UYGULAMA PANELİ -->
   <div id="zeydal-chat-panel" style="display:none;">
 
-    <!-- SOL SOHBET GEÇMİŞİ -->
+    <!-- SOL MENÜ -->
     <aside class="chat-sidebar">
 
       <div class="sidebar-brand">
@@ -151,6 +153,66 @@
         Yeni Sohbet
       </button>
 
+      <!-- UYGULAMA MENÜLERİ -->
+      <div class="sidebar-tools">
+
+        <button
+          class="sidebar-tool active"
+          type="button"
+          data-page="chat"
+        >
+          <span>✉</span>
+          Sohbet
+        </button>
+
+        <button
+          class="sidebar-tool"
+          type="button"
+          data-page="visualization"
+        >
+          <span>✧</span>
+          Görselleştirme
+        </button>
+
+        <button
+          class="sidebar-tool"
+          type="button"
+          data-page="library"
+        >
+          <span>▤</span>
+          Kitaplık
+        </button>
+
+        <button
+          class="sidebar-tool"
+          type="button"
+          data-page="customize"
+        >
+          <span>⚙</span>
+          Özelleştir
+        </button>
+
+        <button
+          class="sidebar-tool"
+          type="button"
+          data-page="remote"
+        >
+          <span>⌘</span>
+          Remote
+        </button>
+
+        <button
+          class="sidebar-tool"
+          type="button"
+          data-page="discover"
+        >
+          <span>◇</span>
+          Keşfet
+        </button>
+
+      </div>
+
+      <!-- SOHBET GEÇMİŞİ -->
       <div class="conversation-heading">
         Sohbet Geçmişi
       </div>
@@ -178,9 +240,10 @@
     </aside>
 
 
-    <!-- ANA SOHBET ALANI -->
+    <!-- ANA ÇALIŞMA ALANI -->
     <section class="chat-main">
 
+      <!-- ÜST BAŞLIK -->
       <div class="chat-header">
 
         <div class="chat-header-title">
@@ -215,12 +278,37 @@
       </div>
 
 
-      <!-- MESAJLAR -->
+      <!-- SOHBET MESAJLARI -->
       <div
         id="zeydal-chat-messages"
         aria-live="polite"
         aria-label="Sohbet mesajları"
       ></div>
+
+
+      <!-- ÖZELLİK SAYFALARI -->
+      <div id="zeydal-feature-view" class="feature-view" hidden>
+
+        <div class="feature-content">
+
+          <div class="feature-heading">
+            <span class="feature-label">ZEYDAL AI WORKSPACE</span>
+            <h1 id="zeydal-feature-title">Görselleştirme</h1>
+            <p id="zeydal-feature-description">
+              ZEYDAL AI çalışma alanı.
+            </p>
+          </div>
+
+          <div
+            id="zeydal-feature-placeholder"
+            class="feature-placeholder"
+          >
+            Bu özellik üzerinde çalışmalar devam ediyor.
+          </div>
+
+        </div>
+
+      </div>
 
 
       <!-- MESAJ YAZMA ALANI -->
@@ -259,6 +347,9 @@
     const OLD_TOKEN_KEY = "zeydal_ai_session";
     const HISTORY_KEY = "zeydalChatHistory";
 
+
+    // HTML ELEMANLARI
+
     const authPanel =
       document.getElementById("zeydal-auth-panel");
 
@@ -289,6 +380,19 @@
     const sendButton =
       document.getElementById("zeydal-chat-send");
 
+    const featureView =
+      document.getElementById("zeydal-feature-view");
+
+    const featureTitle =
+      document.getElementById("zeydal-feature-title");
+
+    const featureDescription =
+      document.getElementById("zeydal-feature-description");
+
+    const featurePlaceholder =
+      document.getElementById("zeydal-feature-placeholder");
+
+
     const requiredElements = [
       authPanel,
       chatPanel,
@@ -300,6 +404,10 @@
       conversationList,
       searchInput,
       sendButton,
+      featureView,
+      featureTitle,
+      featureDescription,
+      featurePlaceholder,
       document.getElementById("zeydal-login-form"),
       document.getElementById("zeydal-register-form"),
       document.getElementById("zeydal-new-chat"),
@@ -320,6 +428,7 @@
       localStorage.getItem(TOKEN_KEY);
 
     if (!sessionToken) {
+
       const oldToken =
         localStorage.getItem(OLD_TOKEN_KEY);
 
@@ -328,6 +437,7 @@
         localStorage.setItem(TOKEN_KEY, oldToken);
         localStorage.removeItem(OLD_TOKEN_KEY);
       }
+
     }
 
     let sessionVerified = false;
@@ -341,25 +451,117 @@
     let isSending = false;
 
 
+    // ÖZELLİK SAYFALARI
+
+    const featurePages = {
+
+      visualization: {
+        title: "Görselleştirme",
+        description: "ZEYDAL AI görsel oluşturma ve görsel çalışma alanı.",
+        placeholder: "Görselleştirme özelliği geliştirme aşamasında."
+      },
+
+      library: {
+        title: "Kitaplık",
+        description: "Kaydedilen içeriklerini ve dosyalarını yönet.",
+        placeholder: "Kitaplık sistemi geliştirme aşamasında."
+      },
+
+      customize: {
+        title: "Özelleştir",
+        description: "ZEYDAL AI deneyimini kişiselleştir.",
+        placeholder: "Özelleştirme ayarları geliştirme aşamasında."
+      },
+
+      remote: {
+        title: "Remote",
+        description: "ZEYDAL AI uzaktan erişim çalışma alanı.",
+        placeholder: "Remote sistemi geliştirme aşamasında."
+      },
+
+      discover: {
+        title: "Keşfet",
+        description: "ZEYDAL AI araçlarını ve yeni özelliklerini keşfet.",
+        placeholder: "Keşfet bölümü geliştirme aşamasında."
+      }
+
+    };
+
+
+    // SOHBET EKRANINI GÖSTER
+
+    function showChatPage() {
+
+      featureView.hidden = true;
+
+      chatMessages.style.display = "flex";
+      chatForm.style.display = "flex";
+
+      document.querySelectorAll(".sidebar-tool").forEach(button => {
+
+        button.classList.toggle(
+          "active",
+          button.dataset.page === "chat"
+        );
+
+      });
+
+    }
+
+
+    // ÖZELLİK SAYFASINI GÖSTER
+
+    function showFeaturePage(page) {
+
+      const selectedPage = featurePages[page];
+
+      if (!selectedPage) return;
+
+      chatMessages.style.display = "none";
+      chatForm.style.display = "none";
+
+      featureView.hidden = false;
+
+      featureTitle.textContent = selectedPage.title;
+      featureDescription.textContent = selectedPage.description;
+      featurePlaceholder.textContent = selectedPage.placeholder;
+
+      document.querySelectorAll(".sidebar-tool").forEach(button => {
+
+        button.classList.toggle(
+          "active",
+          button.dataset.page === page
+        );
+
+      });
+
+    }
+
+
     // YENİ SOHBET KAYDI OLUŞTUR
 
     function createChatRecord() {
+
       return {
         id: window.crypto?.randomUUID
           ? window.crypto.randomUUID()
           : "chat-" + Date.now() + "-" + Math.random().toString(36).slice(2),
+
         title: "Yeni sohbet",
         messages: [],
         isPinned: false,
         updatedAt: Date.now()
       };
+
     }
 
 
     // SOHBETLERİ KALICI KAYDET
 
     function persistChats() {
+
       try {
+
         localStorage.setItem(
           HISTORY_KEY,
           JSON.stringify({
@@ -367,16 +569,21 @@
             activeChatId
           })
         );
+
       } catch (error) {
+
         console.error("Sohbetler kaydedilemedi:", error);
+
         window.alert(
           "Sohbet geçmişi kaydedilemedi. Tarayıcı depolama alanını kontrol et."
         );
+
       }
+
     }
 
 
-    // AKTİF SOHBETİ VE TÜM SOHBETLERİ KAYDET
+    // AKTİF SOHBETİ KAYDET
 
     function saveHistory() {
 
@@ -384,11 +591,14 @@
         chats.find(chat => chat.id === activeChatId);
 
       if (activeChat) {
+
         activeChat.messages = [...history];
         activeChat.updatedAt = Date.now();
+
       }
 
       persistChats();
+
     }
 
 
@@ -406,6 +616,7 @@
           const parsed = JSON.parse(saved);
 
           // ESKİ MESAJ DİZİSİ FORMATINI DÖNÜŞTÜR
+
           if (Array.isArray(parsed)) {
 
             const oldChat = createChatRecord();
@@ -440,14 +651,17 @@
               )
               .map(chat => ({
                 id: chat.id,
+
                 title: typeof chat.title === "string"
                   ? chat.title
                   : "Yeni sohbet",
+
                 messages: chat.messages.filter(message =>
                   message &&
                   (message.role === "user" || message.role === "assistant") &&
                   typeof message.content === "string"
                 ),
+
                 isPinned: chat.isPinned === true,
                 updatedAt: Number(chat.updatedAt) || Date.now()
               }));
@@ -495,6 +709,7 @@
       history = [...activeChat.messages];
 
       persistChats();
+
     }
 
 
@@ -537,6 +752,7 @@
         conversationList.appendChild(empty);
 
         return;
+
       }
 
 
@@ -556,7 +772,9 @@
           conversationList.appendChild(label);
 
           pinnedLabelAdded = true;
+
         }
+
 
         if (!chat.isPinned && !normalLabelAdded) {
 
@@ -568,6 +786,7 @@
           conversationList.appendChild(label);
 
           normalLabelAdded = true;
+
         }
 
 
@@ -682,6 +901,7 @@
 
       persistChats();
       renderConversationList();
+
     }
 
 
@@ -712,6 +932,7 @@
 
       persistChats();
       renderConversationList();
+
     }
 
 
@@ -765,8 +986,10 @@
       saveHistory();
       renderHistory();
       renderConversationList();
+      showChatPage();
 
       chatInput.focus();
+
     }
 
 
@@ -790,8 +1013,10 @@
       saveHistory();
       renderHistory();
       renderConversationList();
+      showChatPage();
 
       chatInput.focus();
+
     }
 
 
@@ -814,8 +1039,10 @@
       saveHistory();
       renderHistory();
       renderConversationList();
+      showChatPage();
 
       chatInput.focus();
+
     }
 
 
@@ -844,6 +1071,7 @@
       }
 
       activeChat.updatedAt = Date.now();
+
     }
 
 
@@ -851,16 +1079,14 @@
 
     function addMessage(role, content) {
 
-      const message =
-        document.createElement("div");
+      const message = document.createElement("div");
 
       message.className =
         role === "user"
           ? "user-message"
           : "assistant-message";
 
-      const paragraph =
-        document.createElement("p");
+      const paragraph = document.createElement("p");
 
       paragraph.textContent = content;
 
@@ -870,6 +1096,7 @@
 
       chatMessages.scrollTop =
         chatMessages.scrollHeight;
+
     }
 
 
@@ -887,11 +1114,13 @@
         );
 
         return;
+
       }
 
       history.forEach(message => {
         addMessage(message.role, message.content);
       });
+
     }
 
 
@@ -930,6 +1159,7 @@
       }
 
       return result;
+
     }
 
 
@@ -946,6 +1176,7 @@
       return result.token ||
         result.data?.token ||
         null;
+
     };
 
 
@@ -981,6 +1212,7 @@
       }
 
       return result.response;
+
     }
 
 
@@ -1002,7 +1234,10 @@
         chatPanel.style.display = "none";
 
         return;
+
       }
+
+      showChatPage();
 
       isSending = true;
       sendButton.disabled = true;
@@ -1036,8 +1271,6 @@
 
       } catch (error) {
 
-        // HATALI İSTEKTE KULLANICI MESAJINI GERİ AL
-
         history.pop();
 
         saveHistory();
@@ -1067,16 +1300,19 @@
 
         authPanel.style.display = "flex";
         return;
+
       }
 
       authPanel.style.display = "none";
       chatPanel.style.display = "flex";
       chatButton.style.display = "none";
 
+      showChatPage();
       renderHistory();
       renderConversationList();
 
       chatInput.focus();
+
     }
 
 
@@ -1089,6 +1325,7 @@
       if (sessionVerified) {
         chatButton.style.display = "block";
       }
+
     }
 
 
@@ -1096,6 +1333,25 @@
 
     searchInput.addEventListener("input", () => {
       renderConversationList();
+    });
+
+
+    // SOL MENÜ GEÇİŞLERİ
+
+    document.querySelectorAll(".sidebar-tool").forEach(button => {
+
+      button.addEventListener("click", () => {
+
+        const page = button.dataset.page;
+
+        if (page === "chat") {
+          showChatPage();
+        } else {
+          showFeaturePage(page);
+        }
+
+      });
+
     });
 
 
@@ -1212,6 +1468,7 @@
         chatButton.style.display = "block";
 
         return;
+
       }
 
       try {
@@ -1254,6 +1511,7 @@
         authPanel.style.display = "flex";
 
       }
+
     }
 
 
@@ -1306,7 +1564,6 @@
     "DOMContentLoaded",
     initializeZeydal
   );
-
   </script>
 
   <!-- SESLİ ASİSTAN -->
