@@ -4,107 +4,10 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#172b45">
+  <meta name="description" content="ZEYDAL AI - Geleceğin yapay zekâ asistanı.">
   <title>ZEYDAL AI</title>
   <link rel="stylesheet" href="style.css">
-
-  <style>
-    /* SOHBET LİSTESİ */
-    .conversation-search {
-      width: 100%;
-      box-sizing: border-box;
-      margin: 12px 0;
-      padding: 10px 12px;
-      border: 1px solid rgba(176, 193, 214, 0.2);
-      border-radius: 9px;
-      background: rgba(10, 25, 43, 0.35);
-      color: #f0f5fc;
-      outline: none;
-    }
-
-    .conversation-search:focus {
-      border-color: #58a5ff;
-    }
-
-    .conversation-search::placeholder {
-      color: #b0c1d6;
-    }
-
-    .conversation-row {
-      display: flex;
-      align-items: center;
-      gap: 4px;
-      width: 100%;
-      margin-bottom: 5px;
-    }
-
-    .conversation-row .conversation-item {
-      flex: 1;
-      min-width: 0;
-      width: auto;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      white-space: nowrap;
-    }
-
-    .conversation-actions {
-      display: flex;
-      flex-shrink: 0;
-      gap: 2px;
-    }
-
-    .conversation-action {
-      width: 30px;
-      height: 32px;
-      border: 0;
-      border-radius: 7px;
-      background: transparent;
-      color: #b0c1d6;
-      cursor: pointer;
-      opacity: 0.65;
-      transition: 0.2s ease;
-    }
-
-    .conversation-row:hover .conversation-action,
-    .conversation-action:focus {
-      opacity: 1;
-    }
-
-    .conversation-action:hover {
-      background: rgba(88, 165, 255, 0.15);
-      color: #58a5ff;
-    }
-
-    .conversation-action.delete:hover {
-      background: rgba(224, 82, 82, 0.16);
-      color: #ff7777;
-    }
-
-    .conversation-row.pinned .conversation-item::before {
-      content: "📌 ";
-    }
-
-    .conversation-section-label {
-      margin: 14px 0 7px;
-      color: #b0c1d6;
-      font-size: 12px;
-      font-weight: 600;
-    }
-
-    .conversation-empty {
-      padding: 12px 5px;
-      color: #b0c1d6;
-      font-size: 13px;
-      text-align: center;
-    }
-
-    @media (max-width: 700px) {
-      .conversation-action {
-        width: 27px;
-        height: 30px;
-        font-size: 12px;
-      }
-    }
-  </style>
 </head>
 
 <body>
@@ -129,13 +32,17 @@
     <section id="home" class="hero">
       <h1>Geleceğin Yapay Zekâsı</h1>
       <p>ZEYDAL AI ile geleceği keşfet.</p>
-      <button class="zeydal-open-assistant">Asistanı Başlat</button>
+      <button class="zeydal-open-assistant" type="button">
+        Asistanı Başlat
+      </button>
     </section>
 
     <section id="assistant" class="section">
       <h2>ZEYDAL AI Asistan</h2>
       <p>Akıllı asistanınla sohbet etmeye başla.</p>
-      <button class="zeydal-open-assistant">Sohbete Başla</button>
+      <button class="zeydal-open-assistant" type="button">
+        Sohbete Başla
+      </button>
     </section>
 
     <section id="tools" class="section">
@@ -150,7 +57,10 @@
 
     <section id="about" class="section">
       <h2>Hakkımızda</h2>
-      <p>ZEYDAL AI, yenilikçi yapay zekâ teknolojileri geliştirme amacıyla oluşturulmuştur.</p>
+      <p>
+        ZEYDAL AI, yenilikçi yapay zekâ teknolojileri geliştirme
+        amacıyla oluşturulmuştur.
+      </p>
     </section>
 
   </main>
@@ -173,6 +83,7 @@
           type="email"
           id="zeydal-login-email"
           placeholder="E-posta adresi"
+          autocomplete="email"
           required
         >
 
@@ -180,6 +91,7 @@
           type="password"
           id="zeydal-login-password"
           placeholder="Şifre"
+          autocomplete="current-password"
           required
         >
 
@@ -193,6 +105,7 @@
           type="email"
           id="zeydal-register-email"
           placeholder="E-posta adresi"
+          autocomplete="email"
           required
         >
 
@@ -200,20 +113,25 @@
           type="password"
           id="zeydal-register-password"
           placeholder="Şifre"
+          autocomplete="new-password"
           required
         >
 
         <button type="submit">Kayıt Ol</button>
       </form>
 
-      <p id="zeydal-auth-message"></p>
+      <p id="zeydal-auth-message" role="status" aria-live="polite"></p>
     </div>
 
   </div>
 
 
   <!-- SOHBETİ AÇMA BUTONU -->
-  <button id="zeydal-chat-button" aria-label="ZEYDAL AI sohbetini aç">
+  <button
+    id="zeydal-chat-button"
+    type="button"
+    aria-label="ZEYDAL AI sohbetini aç"
+  >
     ZEYDAL AI
   </button>
 
@@ -229,7 +147,8 @@
       </div>
 
       <button id="zeydal-new-chat" type="button">
-        <span>＋</span> Yeni Sohbet
+        <span>＋</span>
+        Yeni Sohbet
       </button>
 
       <div class="conversation-heading">
@@ -279,10 +198,7 @@
             Ses
           </button>
 
-          <button
-            id="zeydal-logout"
-            type="button"
-          >
+          <button id="zeydal-logout" type="button">
             Çıkış
           </button>
 
@@ -318,10 +234,7 @@
           required
         >
 
-        <button
-          type="submit"
-          id="zeydal-chat-send"
-        >
+        <button type="submit" id="zeydal-chat-send">
           Gönder
         </button>
 
@@ -456,7 +369,9 @@
         );
       } catch (error) {
         console.error("Sohbetler kaydedilemedi:", error);
-        window.alert("Sohbet geçmişi kaydedilemedi. Tarayıcı depolama alanını kontrol et.");
+        window.alert(
+          "Sohbet geçmişi kaydedilemedi. Tarayıcı depolama alanını kontrol et."
+        );
       }
     }
 
@@ -469,7 +384,6 @@
         chats.find(chat => chat.id === activeChatId);
 
       if (activeChat) {
-        // Mesajların tamamı saklanır.
         activeChat.messages = [...history];
         activeChat.updatedAt = Date.now();
       }
@@ -491,7 +405,7 @@
 
           const parsed = JSON.parse(saved);
 
-          // Eski sürümde doğrudan mesaj dizisi saklanıyordu.
+          // ESKİ MESAJ DİZİSİ FORMATINI DÖNÜŞTÜR
           if (Array.isArray(parsed)) {
 
             const oldChat = createChatRecord();
@@ -554,7 +468,6 @@
       }
 
 
-      // Hiç sohbet yoksa yeni sohbet oluştur.
       if (chats.length === 0) {
 
         const newChat = createChatRecord();
@@ -565,7 +478,6 @@
       }
 
 
-      // Aktif sohbet kaydı geçersizse son sohbeti aç.
       if (!chats.some(chat => chat.id === activeChatId)) {
 
         const latestChat = [...chats].sort(
@@ -580,7 +492,6 @@
       const activeChat =
         chats.find(chat => chat.id === activeChatId);
 
-      // Yerel geçmişin tamamı yüklenir.
       history = [...activeChat.messages];
 
       persistChats();
@@ -635,7 +546,6 @@
 
       sortedChats.forEach(chat => {
 
-        // Bölüm başlıkları
         if (chat.isPinned && !pinnedLabelAdded) {
 
           const label = document.createElement("div");
@@ -671,6 +581,7 @@
 
 
         // SOHBETİ AÇ
+
         const openButton = document.createElement("button");
 
         openButton.type = "button";
@@ -693,6 +604,7 @@
 
 
         // SABİTLEME BUTONU
+
         const pinButton = document.createElement("button");
 
         pinButton.type = "button";
@@ -712,6 +624,7 @@
 
 
         // YENİDEN ADLANDIRMA BUTONU
+
         const renameButton = document.createElement("button");
 
         renameButton.type = "button";
@@ -727,6 +640,7 @@
 
 
         // SİLME BUTONU
+
         const deleteButton = document.createElement("button");
 
         deleteButton.type = "button";
@@ -805,6 +719,11 @@
 
     function deleteChat(chatId) {
 
+      if (isSending) {
+        window.alert("Yanıt hazırlanırken sohbet silinemez.");
+        return;
+      }
+
       const selectedChat =
         chats.find(chat => chat.id === chatId);
 
@@ -820,7 +739,6 @@
       chats = chats.filter(chat => chat.id !== chatId);
 
 
-      // Aktif sohbet silindiyse başka bir sohbete geç.
       if (activeChatId === chatId) {
 
         if (chats.length > 0) {
@@ -1044,8 +962,6 @@
           Authorization: "Bearer " + sessionToken
         },
 
-        // Yerel geçmişin tamamı saklanır.
-        // API'ye son 12 mesaj gönderilir.
         body: JSON.stringify({
           messages: history.slice(-12)
         })
@@ -1120,7 +1036,8 @@
 
       } catch (error) {
 
-        // Hatalı istekte gönderilen kullanıcı mesajını kaldır.
+        // HATALI İSTEKTE KULLANICI MESAJINI GERİ AL
+
         history.pop();
 
         saveHistory();
@@ -1331,7 +1248,8 @@
 
         console.error("Oturum kontrolü:", error);
 
-        // Ağ hatasında kayıtlı token silinmez.
+        // AĞ HATASINDA KAYITLI TOKEN SİLİNMEZ
+
         sessionVerified = false;
         authPanel.style.display = "flex";
 
