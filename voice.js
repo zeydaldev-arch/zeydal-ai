@@ -12,14 +12,11 @@
   const CHAT_API_URL =
     "https://zeydal-api.zeydal-dev.workers.dev/api/chat";
 
-  const button = document.getElementById(
-    "zeydal-voice-toggle"
-  );
+  const button = document.getElementById("zeydal-voice-toggle");
+  const statusElement = document.getElementById("zeydal-voice-status");
 
   if (!button) {
-    console.warn(
-      SYSTEM_NAME + ": Sesli görüşme düğmesi bulunamadı."
-    );
+    console.warn(SYSTEM_NAME + ": Mikrofon düğmesi bulunamadı.");
     return;
   }
 
@@ -32,18 +29,19 @@
   let listening = false;
   let speaking = false;
   let busy = false;
+  let recognitionShouldRestart = false;
 
   const conversationHistory = [];
 
   // ==========================================
-  // ARAYÜZ
+  // OLAYLAR VE ARAYÜZ
   // ==========================================
 
-  function notify(eventName, detail = {}) {
+  function notify(type, detail = {}) {
     window.dispatchEvent(
       new CustomEvent("zeydal:voice", {
         detail: {
-          event: eventName,
+          type,
           ...detail
         }
       })
@@ -55,12 +53,19 @@
     button.disabled = disabled;
   }
 
-  function setStatus(status) {
-    notify("status", { status });
+  function setStatus(status, message = "") {
+    if (statusElement) {
+      statusElement.textContent = message;
+    }
+
+    notify("status", {
+      status,
+      message
+    });
   }
 
   // ==========================================
-  // SESLİ GÖRÜŞMEYİ BAŞLAT
+  // MİKROFONU BAŞLAT
   // ==========================================
 
   function startVoice() {
@@ -75,9 +80,7 @@
     }
 
     if (!window.speechSynthesis) {
-      alert(
-        "Tarayıcınız seslendirme özelliğini desteklemiyor."
-      );
+      alert("Tarayıcınız seslendirme özelliğini desteklemiyor.");
       return;
     }
 
@@ -85,6 +88,7 @@
     busy = false;
     speaking = false;
     listening = false;
+    recognitionShouldRestart = true;
 
     conversationHistory.length = 0;
 
@@ -99,8 +103,8 @@
       listening = true;
 
       if (active && !busy && !speaking) {
-        setButton("🎙️ Seni dinliyorum...");
-        setStatus("listening");
+        setButton("🎙️", false);
+        setStatus("listening", "Seni dinliyorum...");
       }
     };
 
@@ -117,6 +121,7 @@
 
         if (!transcript || !active || busy) continue;
 
+        // Kullanıcının söylediğini ekrana yaz.
         notify("user-transcription", {
           text: transcript
         });
@@ -138,9 +143,7 @@
 
         stopVoice();
 
-        alert(
-          "Lütfen tarayıcı ayarlarından mikrofon izni verin."
-        );
+        alert("Lütfen tarayıcı ayarlarından mikrofon izni verin.");
         return;
       }
 
@@ -148,6 +151,7 @@
         notify("error", {
           message: "Mikrofon bulunamadı."
         });
+
         stopVoice();
       }
     };
@@ -155,24 +159,21 @@
     recognition.onend = () => {
       listening = false;
 
-      if (active && !busy && !speaking) {
+      if (
+        active &&
+        recognitionShouldRestart &&
+        !busy &&
+        !speaking
+      ) {
         restartRecognition();
       }
     };
 
     try {
-      setButton("🎙️ Bağlanıyor...", true);
-      setStatus("connecting");
+      setButton("⏳", true);
+      setStatus("connecting", "Mikrofon açılıyor...");
 
       recognition.start();
-
-      setTimeout(() => {
-        if (!active) return;
-
-        setButton("🎙️ Seni dinliyorum...");
-        setStatus("listening");
-        notify("connected");
-      }, 500);
 
     } catch (error) {
       console.error(error);
@@ -195,7 +196,8 @@
       busy ||
       speaking ||
       listening ||
-      !recognition
+      !recognition ||
+      !recognitionShouldRestart
     ) {
       return;
     }
@@ -211,7 +213,7 @@
   }
 
   // ==========================================
-  // ZEYDAL AI API BAĞLANTISI
+  // API BAĞLANTISI
   // ==========================================
 
   async function sendToZeydal(message) {
@@ -219,8 +221,8 @@
 
     busy = true;
 
-    setButton("ZEYDAL AI düşünüyor...");
-    setStatus("thinking");
+    setButton("⏳", true);
+    setStatus("thinking", "ZEYDAL AI düşünüyor...");
 
     try {
       conversationHistory.push({
@@ -228,20 +230,23 @@
         content: message
       });
 
-      const messages =
-        conversationHistory.slice(-12);
-
       const response = await fetch(CHAT_API_URL, {
         method: "POST",
         headers: {
           "Content-Type": "application/json"
         },
         body: JSON.stringify({
-          messages
+          messages: conversationHistory.slice(-12)
         })
       });
 
-      const result = await response.json();
+      let result;
+
+      try {
+        result = await response.json();
+      } catch {
+        throw new Error("Sunucudan geçerli yanıt alınamadı.");
+      }
 
       if (!response.ok) {
         throw new Error(
@@ -264,9 +269,7 @@
         "";
 
       if (!reply || typeof reply !== "string") {
-        throw new Error(
-          "ZEYDAL AI geçerli bir cevap vermedi."
-        );
+        throw new Error("ZEYDAL AI geçerli bir cevap vermedi.");
       }
 
       conversationHistory.push({
@@ -274,17 +277,16 @@
         content: reply
       });
 
+      // Cevabı sohbet ekranına gönder.
       notify("assistant-text", {
         text: reply
       });
 
+      // Cevabı seslendir.
       await speakReply(reply);
 
     } catch (error) {
-      console.error(
-        SYSTEM_NAME + " API hatası:",
-        error
-      );
+      console.error(SYSTEM_NAME + " API hatası:", error);
 
       notify("error", {
         message: error.message
@@ -293,15 +295,15 @@
       busy = false;
 
       if (active) {
-        setButton("🎙️ Seni dinliyorum...");
-        setStatus("listening");
+        setButton("🎙️", false);
+        setStatus("listening", "Seni dinliyorum...");
         restartRecognition();
       }
     }
   }
 
   // ==========================================
-  // ZEYDAL AI CEVABINI SESLENDİR
+  // CEVABI SESLENDİR
   // ==========================================
 
   function speakReply(text) {
@@ -320,6 +322,8 @@
         } catch (_) {}
       }
 
+      listening = false;
+
       window.speechSynthesis.cancel();
 
       const utterance =
@@ -330,8 +334,7 @@
       utterance.pitch = 1;
       utterance.volume = 1;
 
-      const voices =
-        window.speechSynthesis.getVoices();
+      const voices = window.speechSynthesis.getVoices();
 
       const turkishVoice = voices.find(voice =>
         voice.lang.toLowerCase().startsWith("tr")
@@ -344,8 +347,8 @@
       utterance.onstart = () => {
         if (!active) return;
 
-        setButton("🔊 ZEYDAL AI konuşuyor...");
-        setStatus("speaking");
+        setButton("🔊", false);
+        setStatus("speaking", "ZEYDAL AI konuşuyor...");
       };
 
       utterance.onend = () => {
@@ -354,8 +357,8 @@
         resolve();
 
         if (active) {
-          setButton("🎙️ Seni dinliyorum...");
-          setStatus("listening");
+          setButton("🎙️", false);
+          setStatus("listening", "Seni dinliyorum...");
 
           setTimeout(() => {
             restartRecognition();
@@ -374,6 +377,8 @@
         resolve();
 
         if (active) {
+          setButton("🎙️", false);
+          setStatus("listening", "Seni dinliyorum...");
           restartRecognition();
         }
       };
@@ -393,8 +398,7 @@
     listening = false;
     speaking = false;
     busy = false;
-
-    setStatus("stopping");
+    recognitionShouldRestart = false;
 
     if (recognition) {
       try {
@@ -409,8 +413,8 @@
       window.speechSynthesis.cancel();
     }
 
-    setButton("🎙️ Sesli Görüşme");
-    setStatus("disconnected");
+    setButton("🎙️", false);
+    setStatus("disconnected", "Sesli görüşme sona erdi.");
 
     notify("disconnected");
 
@@ -420,7 +424,7 @@
   }
 
   // ==========================================
-  // DÜĞME OLAYI
+  // MİKROFON DÜĞMESİ
   // ==========================================
 
   button.addEventListener("click", () => {
