@@ -364,6 +364,8 @@ footer {
   box-shadow: 0 15px 55px rgba(0,0,0,.5);
 }
 
+/* CHAT HEADER */
+
 .chat-header {
   min-height: 60px;
   padding: 12px;
@@ -386,8 +388,7 @@ footer {
   flex-wrap: wrap;
 }
 
-.chat-header button,
-#zeydal-voice-toggle {
+.chat-header button {
   border: 1px solid var(--border);
   background: #0a1c31;
   color: var(--silver);
@@ -396,8 +397,7 @@ footer {
   font-size: 12px;
 }
 
-.chat-header button:hover,
-#zeydal-voice-toggle:hover {
+.chat-header button:hover {
   border-color: var(--blue);
   color: white;
 }
@@ -444,21 +444,64 @@ footer {
   min-height: 65px;
   padding: 10px;
   display: flex;
+  flex-direction: row;
+  align-items: center;
   gap: 8px;
   background: #10233b;
   border-top: 1px solid var(--border);
+  width: 100%;
 }
 
-#zeydal-chat-input {
-  flex: 1;
+/* MESSAGE INPUT */
+
+#zeydal-chat-form #zeydal-chat-input {
+  flex: 1 1 auto;
+  width: 0;
   min-width: 0;
   padding: 10px;
 }
 
-#zeydal-chat-send {
+/* MICROPHONE - ONLY BESIDE SEND BUTTON */
+
+#zeydal-chat-form #zeydal-voice-toggle {
+  display: inline-flex;
+  flex: 0 0 44px;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  min-width: 44px;
+  height: 44px;
+  min-height: 44px;
+  padding: 0;
+  border: 1px solid var(--border);
+  border-radius: 7px;
+  background: #0a1c31;
+  color: var(--silver);
+  font-size: 20px;
+  cursor: pointer;
+}
+
+#zeydal-chat-form #zeydal-voice-toggle:hover {
+  border-color: var(--blue);
+  color: white;
+}
+
+/* HIDE MICROPHONE FROM CHAT HEADER */
+
+.chat-header #zeydal-voice-toggle,
+.chat-header-actions #zeydal-voice-toggle {
+  display: none !important;
+}
+
+/* SEND BUTTON */
+
+#zeydal-chat-form #zeydal-chat-send {
+  flex: 0 0 auto;
+  white-space: nowrap;
   border: none;
   border-radius: 7px;
   padding: 0 15px;
+  min-height: 44px;
   color: white;
   background: #087fe5;
 }
@@ -499,5 +542,17 @@ footer {
   #zeydal-chat-button {
     right: 15px;
     bottom: 15px;
+  }
+
+  #zeydal-chat-form {
+    gap: 5px;
+  }
+
+  #zeydal-chat-form #zeydal-voice-toggle {
+    flex-basis: 42px;
+    width: 42px;
+    min-width: 42px;
+    height: 42px;
+    min-height: 42px;
   }
 }
