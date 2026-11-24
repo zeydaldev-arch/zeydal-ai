@@ -1,190 +1,189 @@
- 
+
 <!DOCTYPE html>
 <html lang="tr">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="ZEYDAL AI Personal - Kişisel yapay zekâ asistanı.">
+  <meta name="description" content="ZEYDAL AI - Yapay zekâ asistanları ve akıllı dijital teknolojiler.">
   <meta name="theme-color" content="#071426">
-  <link rel="manifest" href="./manifest.json">
-  <link rel="stylesheet" href="./style.css">
-  <title>ZEYDAL AI Personal</title>
+  <title>ZEYDAL AI | Artificial Intelligence</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
 <header>
   <div class="container navbar">
-    <a href="./zeydal-ai.html" class="logo">
-      ZEYDAL <span>AI PERSONAL</span>
-    </a>
+    <a href="#home" class="logo">ZEYDAL <span>AI</span></a>
+    <nav>
+      <a href="#home">Ana Sayfa</a>
+      <a href="#assistant">Asistan</a>
+      <a href="#tools">Teknolojiler</a>
+      <a href="#projects">Projeler</a>
+      <a href="#about">Hakkımızda</a>
+    </nav>
   </div>
 </header>
 
-<main class="personal-app">
-
-  <!-- GİRİŞ PANELİ -->
-  <section id="zeydal-auth-panel">
-
-    <h2>ZEYDAL AI Personal</h2>
-
-    <p class="auth-description">
-      Kişisel asistanına erişmek için giriş yap.
-    </p>
-
-    <form id="zeydal-login-form" class="auth-form">
-      <h3>Giriş Yap</h3>
-
-      <input
-        id="zeydal-login-email"
-        type="email"
-        placeholder="E-posta adresin"
-        autocomplete="email"
-        required
-      >
-
-      <input
-        id="zeydal-login-password"
-        type="password"
-        placeholder="Şifren"
-        autocomplete="current-password"
-        minlength="12"
-        maxlength="128"
-        required
-      >
-
-      <button type="submit">Giriş Yap</button>
-    </form>
-
-    <form id="zeydal-register-form" class="auth-form">
-      <h3>Yeni Hesap Oluştur</h3>
-
-      <input
-        id="zeydal-register-email"
-        type="email"
-        placeholder="E-posta adresin"
-        autocomplete="email"
-        required
-      >
-
-      <input
-        id="zeydal-register-password"
-        type="password"
-        placeholder="Şifre (12-128 karakter)"
-        autocomplete="new-password"
-        minlength="12"
-        maxlength="128"
-        required
-      >
-
-      <button type="submit">Kayıt Ol</button>
-    </form>
-
-    <p id="zeydal-auth-message" role="status" aria-live="polite"></p>
-
-  </section>
-
-  <!-- SOHBET AÇMA DÜĞMESİ -->
-  <button
-    id="zeydal-chat-button"
-    type="button"
-    aria-label="Sohbeti aç"
-    style="display:none;"
-  >
-    AI
-  </button>
-
-  <!-- SOHBET PANELİ -->
-  <section
-    id="zeydal-chat-panel"
-    aria-label="ZEYDAL AI Personal sohbet"
-    style="display:none;"
-  >
-
-    <div class="chat-header">
-      <strong>ZEYDAL AI Personal</strong>
-
-      <div class="chat-header-actions">
-        <button id="zeydal-new-chat" type="button">
-          Yeni
-        </button>
-
-        <button id="zeydal-voice-toggle" type="button">
-          🎙️ Sesli Görüşme
-        </button>
-
-        <button id="zeydal-logout" type="button">
-          Çıkış
-        </button>
-
-        <button
-          id="zeydal-chat-close"
-          type="button"
-          aria-label="Sohbeti kapat"
-        >
-          ✕
-        </button>
-      </div>
-    </div>
-
-    <!-- YEREL AI DURUMU -->
-    <div id="zeydal-ai-control">
-
-      <div class="ai-status-header">
-        <strong>Yerel Yapay Zekâ</strong>
-        <span id="zeydal-ai-indicator">Hazır değil</span>
-      </div>
-
-      <p
-        id="zeydal-ai-status"
-        role="status"
-        aria-live="polite"
-      >
-        Yapay zekâ modeli başlatılmayı bekliyor.
+<main>
+  <section class="hero" id="home">
+    <div class="container hero-content">
+      <div class="eyebrow">ZEYDRION FORGE ENTERTAINMENT</div>
+      <h1>BUILDING THE <span>FUTURE</span></h1>
+      <p>
+        Yapay zekâ, akıllı yazılımlar ve yenilikçi dijital teknolojilerle
+        geleceği bugünden şekillendiriyoruz.
       </p>
-
-      <button
-        id="zeydal-ai-start"
-        type="button"
-      >
-        AI'ı Başlat
-      </button>
-
+      <a class="button" href="#assistant">ZEYDAL AI'ı Keşfet</a>
     </div>
-
-    <!-- MESAJLAR -->
-    <div
-      id="zeydal-chat-messages"
-      aria-live="polite"
-    ></div>
-
-    <!-- MESAJ GÖNDERME -->
-    <form id="zeydal-chat-form">
-
-      <input
-        id="zeydal-chat-input"
-        type="text"
-        placeholder="Önce AI modelinin yüklenmesini bekle..."
-        autocomplete="off"
-        disabled
-        required
-      >
-
-      <button
-        id="zeydal-chat-send"
-        type="submit"
-        disabled
-      >
-        Gönder
-      </button>
-
-    </form>
-
   </section>
 
+  <section class="section" id="assistant">
+    <div class="container">
+      <h2 class="section-title">ZEYDAL AI Assistant</h2>
+      <p class="section-description">
+        Sorularına yanıt veren, fikirlerini geliştirmene yardımcı olan
+        yapay zekâ asistanı.
+      </p>
+      <div style="text-align:center">
+        <button class="button" id="zeydal-open-assistant" type="button">
+          Asistanı Aç
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="tools">
+    <div class="container">
+      <h2 class="section-title">AI Technologies</h2>
+      <p class="section-description">
+        Akıllı yazılım çözümleri ve yeni nesil dijital teknolojiler.
+      </p>
+      <div class="cards">
+        <article class="card">
+          <h3>AI Assistant</h3>
+          <p>Yapay zekâ destekli dijital asistan teknolojileri.</p>
+        </article>
+        <article class="card">
+          <h3>Smart Software</h3>
+          <p>Günlük ihtiyaçlara yönelik akıllı yazılım çözümleri.</p>
+        </article>
+        <article class="card">
+          <h3>AI Development</h3>
+          <p>Makine öğrenmesi ve üretken yapay zekâ uygulamaları.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="projects">
+    <div class="container">
+      <h2 class="section-title">Our Projects</h2>
+      <p class="section-description">
+        ZEYDRION FORGE ENTERTAINMENT çatısı altında geliştirilen projeler.
+      </p>
+      <div class="cards">
+        <article class="card">
+          <h3>ZEYDAL AI</h3>
+          <p>Yapay zekâ ve akıllı yazılım geliştirme.</p>
+        </article>
+        <article class="card">
+          <h3>ZEYDAL DRONE AI</h3>
+          <p>Otonom drone ve uçuş teknolojileri.</p>
+        </article>
+        <article class="card">
+          <h3>ZEYDAL GAMING</h3>
+          <p>Bilgisayar oyunları ve interaktif eğlence deneyimleri.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="about">
+    <div class="container about-box">
+      <h2 class="section-title">About ZEYDAL AI</h2>
+      <p class="section-description">Build the Future. Forge the Impossible.</p>
+      <p>
+        ZEYDAL AI, ZEYDRION FORGE ENTERTAINMENT çatısı altında
+        geliştirilen yapay zekâ ve akıllı yazılım markasıdır.
+      </p>
+      <p>
+        Amacımız yenilikçi teknolojiler geliştirerek geleceğin
+        dijital dünyasına katkı sağlamaktır.
+      </p>
+    </div>
+  </section>
+
+  <section class="section cta">
+    <div class="container">
+      <h2 class="section-title">The Future Starts Here</h2>
+      <p class="section-description">Build the Future. Forge the Impossible.</p>
+      <a href="#assistant" class="button">ZEYDAL AI ile Tanış</a>
+    </div>
+  </section>
 </main>
 
-<!-- YEREL AI MOTORU -->
-<script src="./local-ai.js"></script>
+<footer>
+  <div class="container">
+    © 2026 ZEYDAL AI | ZEYDRION FORGE ENTERTAINMENT
+  </div>
+</footer>
+
+<!-- AUTH PANEL -->
+<section id="zeydal-auth-panel" style="display:none;">
+  <h2>ZEYDAL AI</h2>
+  <p class="auth-description">
+    Devam etmek için hesabına giriş yap veya yeni hesap oluştur.
+  </p>
+
+  <form id="zeydal-login-form" class="auth-form">
+    <h3>Giriş Yap</h3>
+    <input id="zeydal-login-email" type="email"
+      placeholder="E-posta adresin" autocomplete="email" required>
+    <input id="zeydal-login-password" type="password"
+      placeholder="Şifren" autocomplete="current-password"
+      minlength="12" maxlength="128" required>
+    <button type="submit">Giriş Yap</button>
+  </form>
+
+  <form id="zeydal-register-form" class="auth-form">
+    <h3>Yeni Hesap Oluştur</h3>
+    <input id="zeydal-register-email" type="email"
+      placeholder="E-posta adresin" autocomplete="email" required>
+    <input id="zeydal-register-password" type="password"
+      placeholder="Şifre (12-128 karakter)" autocomplete="new-password"
+      minlength="12" maxlength="128" required>
+    <button type="submit">Kayıt Ol</button>
+  </form>
+
+  <p id="zeydal-auth-message" role="status" aria-live="polite"></p>
+</section>
+
+<!-- CHAT BUTTON -->
+<button id="zeydal-chat-button" type="button"
+  aria-label="ZEYDAL AI sohbetini aç" style="display:none;">AI</button>
+
+<!-- CHAT PANEL -->
+<section id="zeydal-chat-panel" aria-label="ZEYDAL AI sohbet"
+  style="display:none;">
+  <div class="chat-header">
+    <strong>ZEYDAL AI</strong>
+    <div class="chat-header-actions">
+      <button id="zeydal-new-chat" type="button">Yeni</button>
+      <button id="zeydal-voice-toggle" type="button">🎙️ Sesli Görüşme</button>
+      <button id="zeydal-logout" type="button">Çıkış</button>
+      <button id="zeydal-chat-close" type="button"
+        aria-label="Sohbeti kapat">✕</button>
+    </div>
+  </div>
+
+  <div id="zeydal-chat-messages" aria-live="polite"></div>
+
+  <form id="zeydal-chat-form">
+    <input id="zeydal-chat-input" type="text"
+      placeholder="Mesajını yaz..." autocomplete="off" required>
+    <button id="zeydal-chat-send" type="submit">Gönder</button>
+  </form>
+</section>
 
 <script>
 (() => {
@@ -192,10 +191,10 @@
 
   function initializeZeydal() {
 
-    // MEVCUT HESAP API'Sİ
-    // Kişisel hesap altyapısı daha sonra ayrılacak.
-    const API_URL =
-      "https://zeydal-ai-api.zeydal-dev.workers.dev/";
+    // API ADRESLERİ
+    const API_URL = "https://zeydal-ai-api.zeydal-dev.workers.dev/";
+    const CHAT_API_URL =
+      "https://zeydal-api.zeydal-dev.workers.dev/api/chat";
 
     const SESSION_KEY = "zeydalSessionToken";
     const HISTORY_KEY = "zeydalChatHistory";
@@ -206,56 +205,36 @@
     const panel = $("zeydal-chat-panel");
     const authPanel = $("zeydal-auth-panel");
     const authMessage = $("zeydal-auth-message");
-
     const messages = $("zeydal-chat-messages");
     const input = $("zeydal-chat-input");
     const sendButton = $("zeydal-chat-send");
 
-    const aiStartButton = $("zeydal-ai-start");
-    const aiStatus = $("zeydal-ai-status");
-    const aiIndicator = $("zeydal-ai-indicator");
-
     const requiredElements = [
-      button,
-      panel,
-      authPanel,
-      authMessage,
-      messages,
-      input,
-      sendButton,
-      aiStartButton,
-      aiStatus,
-      aiIndicator,
-      $("zeydal-chat-form"),
+      button, panel, authPanel, authMessage, messages, input, sendButton,
+      $("zeydal-open-assistant"),
       $("zeydal-chat-close"),
       $("zeydal-new-chat"),
       $("zeydal-logout"),
+      $("zeydal-chat-form"),
       $("zeydal-login-form"),
       $("zeydal-register-form"),
       $("zeydal-voice-toggle")
     ];
 
     if (requiredElements.some(element => !element)) {
-      console.error("ZEYDAL AI Personal: HTML öğeleri eksik.");
+      console.error("ZEYDAL AI: Gerekli HTML öğeleri bulunamadı.");
       return;
     }
 
     // ESKİ OTURUM ANAHTARINI TAŞI
-    let sessionToken =
-      localStorage.getItem(SESSION_KEY) || "";
+    let sessionToken = localStorage.getItem(SESSION_KEY) || "";
 
     if (!sessionToken) {
-      const oldToken =
-        localStorage.getItem("zeydal_ai_session");
+      const oldToken = localStorage.getItem("zeydal_ai_session");
 
       if (oldToken) {
         sessionToken = oldToken;
-
-        localStorage.setItem(
-          SESSION_KEY,
-          oldToken
-        );
-
+        localStorage.setItem(SESSION_KEY, oldToken);
         localStorage.removeItem("zeydal_ai_session");
       }
     }
@@ -280,7 +259,6 @@
             item.content.trim()
           ).slice(-12);
         }
-
       } catch {
         history = [];
       }
@@ -294,7 +272,7 @@
           JSON.stringify(history.slice(-12))
         );
       } catch (error) {
-        console.warn("Sohbet geçmişi kaydedilemedi.");
+        console.warn("ZEYDAL AI: Sohbet geçmişi kaydedilemedi.");
       }
     }
 
@@ -302,18 +280,15 @@
     function addMessage(role, content) {
       const message = document.createElement("div");
 
-      message.className =
-        "zeydal-message " +
-        (role === "user"
-          ? "zeydal-user"
-          : "zeydal-assistant");
+      message.className = role === "user"
+        ? "user-message"
+        : "assistant-message";
 
       const text = document.createElement("p");
       text.textContent = content;
 
       message.appendChild(text);
       messages.appendChild(message);
-
       messages.scrollTop = messages.scrollHeight;
 
       return message;
@@ -326,9 +301,8 @@
       if (history.length === 0) {
         addMessage(
           "assistant",
-          "Merhaba! Ben ZEYDAL AI Personal. Sana nasıl yardımcı olabilirim?"
+          "Merhaba! Ben ZEYDAL AI. Size nasıl yardımcı olabilirim?"
         );
-
         return;
       }
 
@@ -338,26 +312,73 @@
     }
 
     // HESAP API İSTEĞİ
-    async function apiRequest(
-      action,
-      data = {},
-      authenticated = false
-    ) {
+    async function apiRequest(action, data = {}, authenticated = false) {
       const headers = {
         "Content-Type": "application/json"
       };
 
       if (authenticated && sessionToken) {
-        headers.Authorization =
-          `Bearer ${sessionToken}`;
+        headers.Authorization = `Bearer ${sessionToken}`;
       }
 
       const response = await fetch(API_URL, {
         method: "POST",
         headers,
+        body: JSON.stringify({ action, ...data })
+      });
+
+      let result;
+
+      try {
+        result = await response.json();
+      } catch {
+        throw new Error("Sunucudan geçerli yanıt alınamadı.");
+      }
+
+      if (!response.ok || result.success === false) {
+        throw new Error(
+          result.error || result.message || "İşlem başarısız."
+        );
+      }
+
+      return result;
+    }
+
+    // SESLİ GÖRÜŞME TOKEN BAĞLANTISI
+    window.zeydalRequestVoiceToken = async function () {
+      if (!sessionToken || !sessionVerified) {
+        throw new Error("Önce hesabına giriş yapmalısın.");
+      }
+
+      const result = await apiRequest(
+        "voice-token",
+        {},
+        true
+      );
+
+      const token =
+        result.token ||
+        result.data?.token ||
+        result.client_secret?.value ||
+        result.data?.client_secret?.value;
+
+      if (!token) {
+        console.error("ZEYDAL AI: Token yanıtı:", result);
+        throw new Error("Ses bağlantı anahtarı alınamadı.");
+      }
+
+      return token;
+    };
+
+    // GEMINI API İSTEĞİ
+    async function sendChatMessage() {
+      const response = await fetch(CHAT_API_URL, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
         body: JSON.stringify({
-          action,
-          ...data
+          messages: history.slice(-12)
         })
       });
 
@@ -366,215 +387,93 @@
       try {
         result = await response.json();
       } catch {
+        throw new Error("Gemini sunucusundan geçerli yanıt alınamadı.");
+      }
+
+      if (!response.ok || result.success !== true) {
         throw new Error(
-          "Sunucudan geçerli yanıt alınamadı."
+          result.error || "ZEYDAL AI şu anda yanıt veremiyor."
         );
       }
 
-      if (!response.ok || result.success === false) {
-        throw new Error(
-          result.error ||
-          result.message ||
-          "İşlem başarısız."
-        );
+      if (typeof result.response !== "string") {
+        throw new Error("Yapay zekâ yanıtı beklenen biçimde değil.");
       }
 
-      return result;
+      return result.response;
     }
-
-    // YEREL AI DURUMU
-    function updateAIInterface(status) {
-      aiStatus.textContent =
-        status.message || "AI durumu kontrol ediliyor.";
-
-      if (status.ready) {
-        aiIndicator.textContent = "Çalışıyor";
-        aiStartButton.textContent = "AI Hazır";
-        aiStartButton.disabled = true;
-
-        input.disabled = false;
-        sendButton.disabled = false;
-
-        input.placeholder = "Mesajını yaz...";
-
-        return;
-      }
-
-      input.disabled = true;
-      sendButton.disabled = true;
-
-      if (status.loading) {
-        aiIndicator.textContent = "Yükleniyor";
-        aiStartButton.textContent = "AI Yükleniyor...";
-        aiStartButton.disabled = false;
-
-        input.placeholder = "AI modeli yükleniyor...";
-        return;
-      }
-
-      aiIndicator.textContent =
-        status.supported === false
-          ? "Desteklenmiyor"
-          : "Hazır değil";
-
-      aiStartButton.textContent = "AI'ı Başlat";
-      aiStartButton.disabled = false;
-
-      input.placeholder = "Önce AI modelini başlat...";
-    }
-
-    // OTOMATİK VE MANUEL AI BAŞLATMA
-    async function startLocalAI() {
-      if (!sessionVerified) return;
-
-      if (!window.ZEYDAL_LOCAL_AI) {
-        updateAIInterface({
-          ready: false,
-          loading: false,
-          supported: false,
-          message: "Yerel AI motoru bulunamadı."
-        });
-
-        return;
-      }
-
-      const currentStatus =
-        window.ZEYDAL_LOCAL_AI.getStatus();
-
-      updateAIInterface(currentStatus);
-
-      if (currentStatus.ready) return;
-
-      try {
-        await window.ZEYDAL_LOCAL_AI.initialize(
-          progress => {
-            updateAIInterface({
-              ready: false,
-              loading: true,
-              supported: true,
-              message:
-                progress.text || "Model yükleniyor."
-            });
-          }
-        );
-
-        updateAIInterface(
-          window.ZEYDAL_LOCAL_AI.getStatus()
-        );
-
-      } catch (error) {
-        console.error("Yerel AI başlatma hatası:", error);
-
-        updateAIInterface(
-          window.ZEYDAL_LOCAL_AI.getStatus()
-        );
-      }
-    }
-
-    // AI DURUM DEĞİŞİKLİKLERİNİ DİNLE
-    window.addEventListener(
-      "zeydal:local-ai",
-      event => {
-        updateAIInterface(event.detail);
-      }
-    );
-
-    // MANUEL BAŞLATMA
-    aiStartButton.addEventListener(
-      "click",
-      startLocalAI
-    );
 
     // SOHBET GÖNDER
-    $("zeydal-chat-form").addEventListener(
-      "submit",
-      async event => {
-        event.preventDefault();
+    $("zeydal-chat-form").addEventListener("submit", async event => {
+      event.preventDefault();
 
-        if (!sessionVerified || isSending) return;
+      if (!sessionVerified) {
+        authMessage.textContent = "Oturum doğrulanmadı. Lütfen tekrar giriş yap.";
+        return;
+      }
 
-        const ai =
-          window.ZEYDAL_LOCAL_AI;
+      const message = input.value.trim();
 
-        if (!ai || !ai.getStatus().ready) {
-          aiStatus.textContent =
-            "Önce yapay zekâ modelini başlatmalısın.";
+      if (!message || isSending) return;
 
-          return;
-        }
+      isSending = true;
+      sendButton.disabled = true;
+      input.disabled = true;
 
-        const message = input.value.trim();
+      history.push({
+        role: "user",
+        content: message
+      });
 
-        if (!message) return;
+      history = history.slice(-12);
+      saveHistory();
+      addMessage("user", message);
 
-        isSending = true;
-        sendButton.disabled = true;
-        input.disabled = true;
+      input.value = "";
+
+      const waiting = addMessage(
+        "assistant",
+        "ZEYDAL AI yanıt hazırlıyor..."
+      );
+
+      try {
+        const reply = await sendChatMessage();
+
+        waiting.querySelector("p").textContent = reply;
 
         history.push({
-          role: "user",
-          content: message
+          role: "assistant",
+          content: reply
         });
 
         history = history.slice(-12);
         saveHistory();
 
-        addMessage("user", message);
+      } catch (error) {
+        waiting.querySelector("p").textContent =
+          "Bağlantı sorunu: " + error.message;
 
-        input.value = "";
+        const lastItem = history[history.length - 1];
 
-        const waiting = addMessage(
-          "assistant",
-          "ZEYDAL AI düşünüyor..."
-        );
-
-        try {
-          const reply = await ai.chat(history);
-
-          waiting.querySelector("p").textContent = reply;
-
-          history.push({
-            role: "assistant",
-            content: reply
-          });
-
-          history = history.slice(-12);
-          saveHistory();
-
-        } catch (error) {
-          waiting.querySelector("p").textContent =
-            "Yanıt oluşturulamadı: " + error.message;
-
-          const lastItem = history[history.length - 1];
-
-          if (
-            lastItem &&
-            lastItem.role === "user" &&
-            lastItem.content === message
-          ) {
-            history.pop();
-          }
-
-          saveHistory();
-
-          console.error("Yerel AI sohbet hatası:", error);
-
-        } finally {
-          isSending = false;
-
-          const ready =
-            window.ZEYDAL_LOCAL_AI &&
-            window.ZEYDAL_LOCAL_AI.getStatus().ready;
-
-          input.disabled = !ready;
-          sendButton.disabled = !ready;
-
-          if (ready) input.focus();
-
-          messages.scrollTop = messages.scrollHeight;
+        if (
+          lastItem &&
+          lastItem.role === "user" &&
+          lastItem.content === message
+        ) {
+          history.pop();
         }
+
+        saveHistory();
+        console.error("ZEYDAL AI chat error:", error);
+
+      } finally {
+        isSending = false;
+        sendButton.disabled = false;
+        input.disabled = false;
+        input.focus();
+        messages.scrollTop = messages.scrollHeight;
       }
-    );
+    });
 
     // SOHBETİ AÇ
     function openChat() {
@@ -582,8 +481,14 @@
         panel.style.display = "none";
         authPanel.style.display = "block";
 
-        authMessage.textContent =
-          "Devam etmek için hesabına giriş yapmalısın.";
+        authMessage.textContent = sessionToken
+          ? "Oturum doğrulanamadı. Bağlantını kontrol edip sayfayı yenile."
+          : "Devam etmek için giriş yapmalısın.";
+
+        authPanel.scrollIntoView({
+          behavior: "smooth",
+          block: "center"
+        });
 
         return;
       }
@@ -593,114 +498,87 @@
       button.style.display = "none";
 
       renderHistory();
-
-      updateAIInterface(
-        window.ZEYDAL_LOCAL_AI.getStatus()
-      );
-
       input.focus();
     }
 
+    // SOHBET AÇMA DÜĞMELERİ
     button.addEventListener("click", openChat);
+    $("zeydal-open-assistant").addEventListener("click", openChat);
 
     // SOHBETİ KAPAT
-    $("zeydal-chat-close").addEventListener(
-      "click",
-      () => {
-        panel.style.display = "none";
+    $("zeydal-chat-close").addEventListener("click", () => {
+      panel.style.display = "none";
 
-        if (sessionVerified) {
-          button.style.display = "block";
-        }
+      if (sessionVerified) {
+        button.style.display = "block";
       }
-    );
+    });
 
     // YENİ SOHBET
-    $("zeydal-new-chat").addEventListener(
-      "click",
-      () => {
-        if (!sessionVerified) return;
+    $("zeydal-new-chat").addEventListener("click", () => {
+      if (!sessionVerified) return;
 
-        history = [];
-
-        localStorage.removeItem(HISTORY_KEY);
-
-        renderHistory();
-        input.focus();
-      }
-    );
+      history = [];
+      localStorage.removeItem(HISTORY_KEY);
+      renderHistory();
+      input.focus();
+    });
 
     // GİRİŞ
-    $("zeydal-login-form").addEventListener(
-      "submit",
-      async event => {
-        event.preventDefault();
+    $("zeydal-login-form").addEventListener("submit", async event => {
+      event.preventDefault();
 
-        authMessage.textContent = "Giriş yapılıyor...";
+      authMessage.textContent = "Giriş yapılıyor...";
 
-        try {
-          const result = await apiRequest("login", {
-            email: $("zeydal-login-email").value.trim(),
-            password: $("zeydal-login-password").value
-          });
+      try {
+        const result = await apiRequest("login", {
+          email: $("zeydal-login-email").value.trim(),
+          password: $("zeydal-login-password").value
+        });
 
-          const token =
-            result.token ||
-            result.sessionToken ||
-            result.data?.token;
+        const token =
+          result.token ||
+          result.sessionToken ||
+          result.data?.token;
 
-          if (!token) {
-            throw new Error(
-              "Sunucu oturum anahtarı döndürmedi."
-            );
-          }
-
-          sessionToken = token;
-
-          localStorage.setItem(
-            SESSION_KEY,
-            sessionToken
-          );
-
-          sessionVerified = true;
-
-          authMessage.textContent = "Giriş başarılı.";
-
-          openChat();
-
-          // OTOMATİK AI BAŞLATMA
-          startLocalAI();
-
-        } catch (error) {
-          authMessage.textContent = error.message;
+        if (!token) {
+          throw new Error("Sunucu oturum anahtarı döndürmedi.");
         }
+
+        sessionToken = token;
+        localStorage.setItem(SESSION_KEY, sessionToken);
+
+        // Başarılı giriş yanıtı oturumun ilk doğrulamasıdır.
+        sessionVerified = true;
+
+        authMessage.textContent = "Giriş başarılı.";
+        openChat();
+
+      } catch (error) {
+        authMessage.textContent = error.message;
       }
-    );
+    });
 
     // KAYIT
-    $("zeydal-register-form").addEventListener(
-      "submit",
-      async event => {
-        event.preventDefault();
+    $("zeydal-register-form").addEventListener("submit", async event => {
+      event.preventDefault();
+
+      authMessage.textContent = "Hesap oluşturuluyor...";
+
+      try {
+        const result = await apiRequest("register", {
+          email: $("zeydal-register-email").value.trim(),
+          password: $("zeydal-register-password").value
+        });
 
         authMessage.textContent =
-          "Hesap oluşturuluyor...";
+          result.message ||
+          "Kayıt işlemi tamamlandı. Giriş yapabilirsiniz.";
 
-        try {
-          const result = await apiRequest("register", {
-            email: $("zeydal-register-email").value.trim(),
-            password: $("zeydal-register-password").value
-          });
-
-          authMessage.textContent =
-            result.message ||
-            "Kayıt tamamlandı. Şimdi giriş yapabilirsin.";
-
-        } catch (error) {
-          authMessage.textContent = error.message;
-        }
+      } catch (error) {
+        authMessage.textContent = error.message;
       }
-    );
+    });
 
     // OTURUM KONTROLÜ
     async function checkSession() {
@@ -715,13 +593,13 @@
 
       if (!sessionToken) {
         authPanel.style.display = "block";
-
+        button.style.display = "block";
+        authMessage.textContent = "Devam etmek için giriş yapmalısın.";
         isCheckingSession = false;
         return;
       }
 
-      authMessage.textContent =
-        "Oturum kontrol ediliyor...";
+      authMessage.textContent = "Oturum kontrol ediliyor...";
 
       try {
         const result = await apiRequest(
@@ -737,6 +615,7 @@
           result.data?.authenticated === true;
 
         if (!isValid) {
+          // Sunucu açıkça geçersiz dediğinde token silinir.
           const isInvalid =
             result.valid === false ||
             result.authenticated === false ||
@@ -745,17 +624,15 @@
 
           if (isInvalid) {
             sessionToken = "";
-
             localStorage.removeItem(SESSION_KEY);
-
-            authMessage.textContent =
-              "Oturum sona ermiş. Tekrar giriş yap.";
+            authMessage.textContent = "Oturum süresi sona ermiş. Tekrar giriş yap.";
           } else {
             authMessage.textContent =
-              "Oturum doğrulama yanıtı beklenen biçimde değil.";
+              "Sunucu oturum doğrulama yanıtı beklenen biçimde değil.";
           }
 
           authPanel.style.display = "block";
+          button.style.display = "block";
           return;
         }
 
@@ -764,97 +641,69 @@
         authPanel.style.display = "none";
         button.style.display = "block";
 
-        // OTOMATİK AI BAŞLATMA
-        startLocalAI();
-
-        console.log("ZEYDAL AI Personal: Oturum doğrulandı.");
+        console.log("ZEYDAL AI: Oturum doğrulandı.");
 
       } catch (error) {
+        // Ağ hatasında token silinmez.
+        // Ancak doğrulama yapılmadan sohbet açılmaz.
         sessionVerified = false;
 
         authPanel.style.display = "block";
+        button.style.display = "block";
 
         authMessage.textContent =
-          "Oturum doğrulanamadı. İnternet bağlantını kontrol et.";
+          "Oturum sunucuda doğrulanamadı. İnternet bağlantını kontrol edip sayfayı yenile.";
 
-        console.warn("Oturum kontrol hatası:", error);
+        console.warn("ZEYDAL AI session check:", error);
 
       } finally {
         isCheckingSession = false;
       }
     }
 
-    // SESLİ GÖRÜŞME MESAJLARI
-    window.addEventListener(
-      "zeydal:voice",
-      event => {
-        const detail = event.detail || {};
-
-        if (detail.type === "user-transcription") {
-          addMessage("user", detail.text);
-
-        } else if (detail.type === "assistant-text") {
-          addMessage("assistant", detail.text);
-        }
-      }
-    );
-
     // ÇIKIŞ
-    $("zeydal-logout").addEventListener(
-      "click",
-      async () => {
-        $("zeydal-logout").disabled = true;
+    $("zeydal-logout").addEventListener("click", async () => {
+      $("zeydal-logout").disabled = true;
 
-        try {
-          if (sessionToken) {
-            await apiRequest("logout", {}, true);
-          }
-        } catch (error) {
-          console.warn("Sunucu çıkış isteği tamamlanamadı:", error);
-        } finally {
-          sessionToken = "";
-          sessionVerified = false;
-
-          localStorage.removeItem(SESSION_KEY);
-          localStorage.removeItem("zeydal_ai_session");
-
-          panel.style.display = "none";
-          button.style.display = "none";
-          authPanel.style.display = "block";
-
-          authMessage.textContent = "Oturum kapatıldı.";
-
-          $("zeydal-logout").disabled = false;
+      try {
+        if (sessionToken) {
+          await apiRequest("logout", {}, true);
         }
+      } catch (error) {
+        console.warn("Sunucu çıkış isteği tamamlanamadı:", error);
+      } finally {
+        sessionToken = "";
+        sessionVerified = false;
+
+        localStorage.removeItem(SESSION_KEY);
+        localStorage.removeItem("zeydal_ai_session");
+
+        panel.style.display = "none";
+        authPanel.style.display = "block";
+        button.style.display = "block";
+
+        authMessage.textContent = "Oturum kapatıldı.";
+
+        $("zeydal-logout").disabled = false;
       }
-    );
+    });
 
     // BAŞLANGIÇ
     loadHistory();
     checkSession();
 
-    console.log(
-      "ZEYDAL AI Personal: Uygulama başlatıldı."
-    );
+    console.log("ZEYDAL AI: Arayüz başlatıldı.");
   }
 
   if (document.readyState === "loading") {
-    document.addEventListener(
-      "DOMContentLoaded",
-      initializeZeydal
-    );
+    document.addEventListener("DOMContentLoaded", initializeZeydal);
   } else {
     initializeZeydal();
   }
-
 })();
 </script>
 
-<!-- SESLİ ASİSTAN -->
-<script src="./voice.js"></script>
-
-<!-- ÇEVRİMDIŞI ALTYAPI -->
-<script src="./offline.js"></script>
+<script src="voice.js"></script>
 
 </body>
 </html>
