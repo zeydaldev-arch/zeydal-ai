@@ -14,31 +14,42 @@
       overflow-y: auto;
     }
 
-    /* Mesaj alanı */
+    /* Mesaj alanı: Yazı - Mikrofon - Gönder */
     #zeydal-chat-form {
       display: flex !important;
-      align-items: center;
+      flex-direction: row !important;
+      align-items: center !important;
       gap: 8px;
       width: 100%;
+      box-sizing: border-box;
     }
 
     #zeydal-chat-input {
-      flex: 1;
-      min-width: 0;
+      flex: 1 1 auto !important;
+      min-width: 0 !important;
+      width: 0;
     }
 
-    /* Mikrofon yalnızca mesaj alanında görünsün */
     #zeydal-chat-form #zeydal-voice-toggle {
       display: inline-flex !important;
+      flex: 0 0 44px !important;
       align-items: center;
       justify-content: center;
-      flex-shrink: 0;
+      width: 44px;
       min-width: 44px;
+      height: 44px;
       min-height: 44px;
+      padding: 0;
       cursor: pointer;
+      font-size: 20px;
     }
 
-    /* Başlıkta eski mikrofon düğmesi görünmesin */
+    #zeydal-chat-form #zeydal-chat-send {
+      flex: 0 0 auto;
+      white-space: nowrap;
+    }
+
+    /* Başlıkta mikrofon bulunmayacak */
     .chat-header #zeydal-voice-toggle,
     .chat-header-actions #zeydal-voice-toggle {
       display: none !important;
@@ -48,6 +59,21 @@
       padding: 5px 10px;
       font-size: 13px;
       text-align: center;
+    }
+
+    /* Mobil düzen */
+    @media (max-width: 600px) {
+      #zeydal-chat-form {
+        gap: 5px;
+      }
+
+      #zeydal-chat-form #zeydal-voice-toggle {
+        flex-basis: 42px !important;
+        width: 42px;
+        min-width: 42px;
+        height: 42px;
+        min-height: 42px;
+      }
     }
   </style>
 </head>
@@ -225,68 +251,19 @@
   <div id="zeydal-voice-status"
     role="status" aria-live="polite"></div>
 
-  <!-- MİKROFON SADECE BURADA -->
+  <!-- TEK MİKROFON: MESAJ ALANI İÇİNDE -->
   <form id="zeydal-chat-form">
     <input id="zeydal-chat-input" type="text"
       placeholder="Mesajını yaz..." autocomplete="off" required>
 
     <button id="zeydal-voice-toggle" type="button"
       aria-label="Sesli görüşmeyi başlat"
-      title="Sesli görüşme">🎙️</button>
+      title="Sesli görüşmeyi başlat">🎙️</button>
 
     <button id="zeydal-chat-send" type="submit">Gönder</button>
   </form>
 
 </section>
-
-<!-- ESKİ MİKROFON DÜĞMELERİNİ TEMİZLE -->
-<script>
-(function () {
-  const form = document.getElementById("zeydal-chat-form");
-  const sendButton = document.getElementById("zeydal-chat-send");
-
-  if (!form || !sendButton) return;
-
-  const oldButtons = [
-    ...document.querySelectorAll('[id="zeydal-voice-toggle"]')
-  ];
-
-  let microphone = oldButtons.find(button =>
-    form.contains(button)
-  ) || oldButtons[0];
-
-  if (!microphone) {
-    microphone = document.createElement("button");
-    microphone.id = "zeydal-voice-toggle";
-    microphone.type = "button";
-    microphone.textContent = "🎙️";
-    microphone.setAttribute(
-      "aria-label",
-      "Sesli görüşmeyi başlat"
-    );
-    microphone.title = "Sesli görüşme";
-  }
-
-  oldButtons.forEach(button => {
-    if (button !== microphone) {
-      button.remove();
-    }
-  });
-
-  /* Mikrofonu Gönder düğmesinin hemen önüne yerleştir */
-  form.insertBefore(microphone, sendButton);
-
-  /* Başlıkta eski sesli görüşme düğmesi kalmışsa kaldır */
-  document.querySelectorAll(".chat-header button").forEach(button => {
-    if (
-      button !== microphone &&
-      button.textContent.toLowerCase().includes("sesli görüşme")
-    ) {
-      button.remove();
-    }
-  });
-})();
-</script>
 
 <script>
 (() => {
@@ -869,7 +846,6 @@
 })();
 </script>
 
-<!-- Sesli asistan dosyası -->
 <script src="voice.js"></script>
 
 </body>
