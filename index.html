@@ -163,6 +163,17 @@
       <div class="composer-wrap">
         <form class="chat-form" id="chat-form">
           <textarea id="chat-input" rows="1" placeholder="ZEYDAL AI'ye mesaj gönder..." required></textarea>
+
+          <!-- KONUŞMAYI YAZIYA ÇEVİRME -->
+          <button
+            type="button"
+            id="speech-to-text-button"
+            class="icon-btn"
+            aria-label="Konuşmayı yazıya çevir"
+            title="Konuşmayı yazıya çevir">
+            🎙
+          </button>
+
           <button type="submit" id="send-button" aria-label="Mesajı gönder">➤</button>
         </form>
         <p class="composer-note">ZEYDAL AI yanıtlarında hata yapabilir. Önemli bilgileri kontrol et.</p>
@@ -1033,8 +1044,10 @@ async function initializeZeydal() {
 }
 </script>
 
-<script src="voice.js"></script>
-<script src="offline.js"></script>
+<!-- SES VE DİĞER MODÜLLER -->
+<script src="./speech-to-text.js"></script>
+<script src="./voice.js"></script>
+<script src="./offline.js"></script>
 <script src="./local-ai.js"></script>
 
 </body>
