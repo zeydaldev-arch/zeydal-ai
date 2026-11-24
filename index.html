@@ -1,4 +1,4 @@
- 
+
 <!DOCTYPE html>
 <html lang="tr">
 <head>
@@ -8,7 +8,41 @@
   <meta name="theme-color" content="#071426">
   <title>ZEYDAL AI | Artificial Intelligence</title>
   <link rel="stylesheet" href="style.css">
+
+  <style>
+    /* Sohbet mesaj alanı */
+    #zeydal-chat-messages {
+      overflow-y: auto;
+    }
+
+    /* Mesaj yazma alanı */
+    #zeydal-chat-form {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    #zeydal-chat-input {
+      flex: 1;
+      min-width: 0;
+    }
+
+    /* Mikrofon düğmesi */
+    #zeydal-voice-toggle {
+      flex-shrink: 0;
+      min-width: 44px;
+      min-height: 44px;
+      cursor: pointer;
+    }
+
+    #zeydal-voice-status {
+      padding: 5px 10px;
+      font-size: 13px;
+      text-align: center;
+    }
+  </style>
 </head>
+
 <body>
 
 <header>
@@ -165,11 +199,12 @@
 <!-- CHAT PANEL -->
 <section id="zeydal-chat-panel" aria-label="ZEYDAL AI sohbet"
   style="display:none;">
+
   <div class="chat-header">
     <strong>ZEYDAL AI</strong>
+
     <div class="chat-header-actions">
       <button id="zeydal-new-chat" type="button">Yeni</button>
-      <button id="zeydal-voice-toggle" type="button">🎙️ Sesli Görüşme</button>
       <button id="zeydal-logout" type="button">Çıkış</button>
       <button id="zeydal-chat-close" type="button"
         aria-label="Sohbeti kapat">✕</button>
@@ -178,11 +213,22 @@
 
   <div id="zeydal-chat-messages" aria-live="polite"></div>
 
+  <!-- Sesli görüşme durumu -->
+  <div id="zeydal-voice-status"
+    role="status" aria-live="polite"></div>
+
+  <!-- MESAJ ALANI VE MİKROFON -->
   <form id="zeydal-chat-form">
     <input id="zeydal-chat-input" type="text"
       placeholder="Mesajını yaz..." autocomplete="off" required>
+
+    <button id="zeydal-voice-toggle" type="button"
+      aria-label="Sesli görüşmeyi başlat"
+      title="Sesli görüşme">🎙️</button>
+
     <button id="zeydal-chat-send" type="submit">Gönder</button>
   </form>
+
 </section>
 
 <script>
@@ -208,9 +254,11 @@
     const messages = $("zeydal-chat-messages");
     const input = $("zeydal-chat-input");
     const sendButton = $("zeydal-chat-send");
+    const voiceStatus = $("zeydal-voice-status");
 
     const requiredElements = [
-      button, panel, authPanel, authMessage, messages, input, sendButton,
+      button, panel, authPanel, authMessage, messages,
+      input, sendButton, voiceStatus,
       $("zeydal-open-assistant"),
       $("zeydal-chat-close"),
       $("zeydal-new-chat"),
@@ -311,6 +359,92 @@
       });
     }
 
+    // SESLİ GÖRÜŞME OLAYLARINI SOHBETE AKTAR
+    function getEventText(event) {
+      const detail = event.detail;
+
+      if (typeof detail === "string") {
+        return detail.trim();
+      }
+
+      if (detail && typeof detail === "object") {
+        const value =
+          detail.text ||
+          detail.transcript ||
+          detail.message ||
+          detail.response;
+
+        if (typeof value === "string") {
+          return value.trim();
+        }
+      }
+
+      return "";
+    }
+
+    // Kullanıcının konuşmasını yazılı göster
+    window.addEventListener("zeydal:voice", event => {
+      const detail = event.detail || {};
+      const type = detail.type;
+
+      if (type === "user-transcription") {
+        const text = getEventText(event);
+
+        if (!text) return;
+
+        addMessage("user", text);
+
+        history.push({
+          role: "user",
+          content: text
+        });
+
+        history = history.slice(-12);
+        saveHistory();
+      }
+
+      // ZEYDAL AI cevabını yazılı göster
+      if (type === "assistant-text") {
+        const text = getEventText(event);
+
+        if (!text) return;
+
+        addMessage("assistant", text);
+
+        history.push({
+          role: "assistant",
+          content: text
+        });
+
+        history = history.slice(-12);
+        saveHistory();
+      }
+
+      if (type === "status") {
+        voiceStatus.textContent =
+          typeof detail.message === "string"
+            ? detail.message
+            : "Sesli görüşme devam ediyor...";
+      }
+
+      if (type === "connected") {
+        voiceStatus.textContent = "Mikrofon aktif. Seni dinliyorum.";
+      }
+
+      if (type === "error") {
+        voiceStatus.textContent =
+          typeof detail.message === "string"
+            ? detail.message
+            : "Sesli görüşmede bir hata oluştu.";
+      }
+
+      if (type === "disconnected") {
+        voiceStatus.textContent = "Sesli görüşme sona erdi.";
+      }
+
+      messages.scrollTop = messages.scrollHeight;
+    });
+
     // HESAP API İSTEĞİ
     async function apiRequest(action, data = {}, authenticated = false) {
       const headers = {
@@ -403,12 +537,13 @@
       return result.response;
     }
 
-    // SOHBET GÖNDER
+    // YAZILI SOHBET GÖNDER
     $("zeydal-chat-form").addEventListener("submit", async event => {
       event.preventDefault();
 
       if (!sessionVerified) {
-        authMessage.textContent = "Oturum doğrulanmadı. Lütfen tekrar giriş yap.";
+        authMessage.textContent =
+          "Oturum doğrulanmadı. Lütfen tekrar giriş yap.";
         return;
       }
 
@@ -547,8 +682,6 @@
 
         sessionToken = token;
         localStorage.setItem(SESSION_KEY, sessionToken);
-
-        // Başarılı giriş yanıtı oturumun ilk doğrulamasıdır.
         sessionVerified = true;
 
         authMessage.textContent = "Giriş başarılı.";
@@ -615,7 +748,6 @@
           result.data?.authenticated === true;
 
         if (!isValid) {
-          // Sunucu açıkça geçersiz dediğinde token silinir.
           const isInvalid =
             result.valid === false ||
             result.authenticated === false ||
@@ -625,7 +757,8 @@
           if (isInvalid) {
             sessionToken = "";
             localStorage.removeItem(SESSION_KEY);
-            authMessage.textContent = "Oturum süresi sona ermiş. Tekrar giriş yap.";
+            authMessage.textContent =
+              "Oturum süresi sona ermiş. Tekrar giriş yap.";
           } else {
             authMessage.textContent =
               "Sunucu oturum doğrulama yanıtı beklenen biçimde değil.";
@@ -644,8 +777,6 @@
         console.log("ZEYDAL AI: Oturum doğrulandı.");
 
       } catch (error) {
-        // Ağ hatasında token silinmez.
-        // Ancak doğrulama yapılmadan sohbet açılmaz.
         sessionVerified = false;
 
         authPanel.style.display = "block";
@@ -703,6 +834,7 @@
 })();
 </script>
 
+<!-- Sesli asistan dosyası -->
 <script src="voice.js"></script>
 
 </body>
