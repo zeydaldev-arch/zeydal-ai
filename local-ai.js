@@ -2,15 +2,17 @@
 (() => {
   "use strict";
 
-  // ------------------------------------------
   // ZEYDAL AI PERSONAL - YEREL AI MOTORU
-  // ------------------------------------------
 
   const MODEL_ID =
     "Qwen2.5-0.5B-Instruct-q4f16_1-MLC";
 
   const LIBRARY_URL =
     "https://esm.run/@mlc-ai/web-llm@0.2.89";
+
+  const SYSTEM_PROMPT =
+    "Sen ZEYDAL AI Personal'sın. " +
+    "Kullanıcıya Türkçe, açık, yardımcı ve doğru cevaplar ver.";
 
   let engine = null;
   let loadingPromise = null;
@@ -21,10 +23,6 @@
     supported: false,
     message: "Yerel AI henüz başlatılmadı."
   };
-
-  // ------------------------------------------
-  // DURUM BİLDİRİMİ
-  // ------------------------------------------
 
   function updateStatus(data) {
     status = {
@@ -43,10 +41,6 @@
     return { ...status };
   }
 
-  // ------------------------------------------
-  // WEBGPU KONTROLÜ
-  // ------------------------------------------
-
   function isSupported() {
     return Boolean(
       navigator.gpu &&
@@ -54,14 +48,8 @@
     );
   }
 
-  // ------------------------------------------
-  // MODELİ YÜKLE
-  // ------------------------------------------
-
   async function initialize(onProgress) {
-    if (engine) {
-      return true;
-    }
+    if (engine) return true;
 
     if (loadingPromise) {
       return loadingPromise;
@@ -72,8 +60,7 @@
         supported: false,
         ready: false,
         loading: false,
-        message:
-          "Bu tarayıcıda WebGPU kullanılamıyor."
+        message: "Bu tarayıcıda WebGPU kullanılamıyor."
       });
 
       throw new Error(
@@ -92,20 +79,17 @@
         const webllm = await import(LIBRARY_URL);
 
         updateStatus({
-          message: "Yapay zeka modeli yükleniyor."
+          message: "Yapay zekâ modeli yükleniyor."
         });
 
         engine = await webllm.CreateMLCEngine(
           MODEL_ID,
           {
-            initProgressCallback: (progress) => {
-              const message =
-                progress.text ||
-                "Model yükleniyor.";
-
+            initProgressCallback: progress => {
               updateStatus({
                 loading: true,
-                message
+                message:
+                  progress.text || "Model yükleniyor."
               });
 
               if (typeof onProgress === "function") {
@@ -132,8 +116,8 @@
         updateStatus({
           ready: false,
           loading: false,
-          message: error.message ||
-            "Yerel AI başlatılamadı."
+          message:
+            error.message || "Yerel AI başlatılamadı."
         });
 
         throw error;
@@ -145,10 +129,6 @@
 
     return loadingPromise;
   }
-
-  // ------------------------------------------
-  // YEREL AI İLE SOHBET
-  // ------------------------------------------
 
   async function chat(messages) {
     if (!engine) {
@@ -166,12 +146,11 @@
     const safeMessages = messages
       .filter(message =>
         message &&
-        ["system", "user", "assistant"].includes(
-          message.role
-        ) &&
-        typeof message.content === "string"
+        ["user", "assistant"].includes(message.role) &&
+        typeof message.content === "string" &&
+        message.content.trim()
       )
-      .slice(-12)
+      .slice(-11)
       .map(message => ({
         role: message.role,
         content: message.content
@@ -188,10 +167,7 @@
         messages: [
           {
             role: "system",
-            content:
-              "Sen ZEYDAL AI Personal'sın. " +
-              "Kullanıcıya Türkçe, açık, yardımcı " +
-              "ve doğru cevaplar ver."
+            content: SYSTEM_PROMPT
           },
           ...safeMessages
         ],
@@ -211,10 +187,6 @@
     return reply;
   }
 
-  // ------------------------------------------
-  // MODELİ BELLEKTEN BOŞALT
-  // ------------------------------------------
-
   async function unload() {
     if (!engine) return;
 
@@ -230,10 +202,6 @@
     });
   }
 
-  // ------------------------------------------
-  // DIŞ ERİŞİM
-  // ------------------------------------------
-
   window.ZEYDAL_LOCAL_AI = {
     initialize,
     chat,
@@ -247,4 +215,3 @@
   );
 
 })();
-
