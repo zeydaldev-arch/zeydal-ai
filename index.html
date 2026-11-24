@@ -164,7 +164,6 @@
         <form class="chat-form" id="chat-form">
           <textarea id="chat-input" rows="1" placeholder="ZEYDAL AI'ye mesaj gönder..." required></textarea>
 
-          <!-- KONUŞMAYI YAZIYA ÇEVİRME -->
           <button
             type="button"
             id="speech-to-text-button"
@@ -465,9 +464,14 @@ async function initializeZeydal() {
     chatMessages.scrollTop = chatMessages.scrollHeight;
   }
 
+  // GELİŞTİRİLMİŞ SOHBET SİSTEMİ
   async function sendChatMessage(message) {
+    message = String(message || "").trim();
+
+    if (!message || isSending) return;
+
     if (!navigator.onLine) {
-      addMessage("assistant", "Şu anda çevrimdışısın. Yerel yapay zekâ motoru henüz kurulmadı. Sohbet geçmişin cihazında saklanıyor.");
+      addMessage("assistant", "Şu anda internet bağlantısı bulunmuyor. Lütfen bağlantını kontrol edip tekrar dene.");
       return;
     }
 
@@ -475,7 +479,6 @@ async function initializeZeydal() {
       showAuth("login");
       return;
     }
-    if (isSending) return;
 
     isSending = true;
     sendButton.disabled = true;
@@ -485,35 +488,64 @@ async function initializeZeydal() {
 
     const typing = document.createElement("div");
     typing.className = "typing-indicator";
-    typing.textContent = "ZEYDAL AI yanıt hazırlıyor...";
+    typing.textContent = "ZEYDAL AI düşünüyor...";
     chatMessages.appendChild(typing);
     chatMessages.scrollTop = chatMessages.scrollHeight;
 
     try {
+      // Son 20 mesajı konuşma bağlamı olarak hazırla.
+      const conversationContext = history
+        .slice(-20)
+        .map(item => ({
+          role: item.role,
+          content: String(item.content || "")
+        }))
+        .filter(item =>
+          ["user", "assistant"].includes(item.role) &&
+          item.content.trim().length > 0
+        );
+
       const response = await fetch(CHAT_API_URL, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
           Authorization: "Bearer " + sessionToken
         },
-        body: JSON.stringify({ messages: history.slice(-12) })
+        body: JSON.stringify({
+          messages: conversationContext
+        })
       });
 
       const result = await response.json().catch(() => ({}));
+
       if (response.status === 401 || response.status === 403) {
         localStorage.removeItem(TOKEN_KEY);
         sessionToken = null;
         throw new Error("Oturumun sona ermiş. Lütfen tekrar giriş yap.");
       }
-      if (!response.ok || result.success !== true || typeof result.response !== "string") {
-        throw new Error(result.message || "ZEYDAL AI şu anda yanıt veremiyor.");
+
+      if (!response.ok) {
+        throw new Error(result.message || "Sunucuya ulaşılırken bir hata oluştu.");
+      }
+
+      if (
+        result.success !== true ||
+        typeof result.response !== "string" ||
+        !result.response.trim()
+      ) {
+        throw new Error(result.message || "ZEYDAL AI geçerli bir yanıt oluşturamadı.");
       }
 
       typing.remove();
       addMessage("assistant", result.response);
+
     } catch (error) {
       typing.remove();
+
+      console.error("ZEYDAL AI sohbet hatası:", error);
+
       addMessage("assistant", "Bir hata oluştu: " + error.message);
+
     } finally {
       isSending = false;
       sendButton.disabled = false;
@@ -1005,7 +1037,7 @@ async function initializeZeydal() {
     event.preventDefault();
 
     const message = chatInput.value.trim();
-    if (!message) return;
+    if (!message || isSending) return;
 
     if (!activeChatId) createChatRecord();
 
