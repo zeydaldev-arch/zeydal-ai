@@ -138,7 +138,7 @@
       <button class="icon-btn mobile-menu-btn" id="sidebar-open" aria-label="Menüyü aç">☰</button>
       <div class="app-header-title" id="app-header-title">Sohbet</div>
       <div class="header-actions">
-        <button class="icon-btn" id="zeydal-voice-toggle" title="Sesli asistan" aria-label="Sesli asistan">🎙</button>
+        <!-- Üst menüdeki mikrofon kaldırıldı. -->
         <button class="icon-btn" id="logout-btn" title="Çıkış yap" aria-label="Çıkış yap">⇥</button>
         <button class="icon-btn" id="close-app" title="Uygulamayı kapat" aria-label="Uygulamayı kapat">×</button>
       </div>
@@ -164,12 +164,13 @@
         <form class="chat-form" id="chat-form">
           <textarea id="chat-input" rows="1" placeholder="ZEYDAL AI'ye mesaj gönder..." required></textarea>
 
+          <!-- Tek mikrofon: kısa basış yazıya çevirir, basılı tutma sesli asistanı açar. -->
           <button
             type="button"
             id="speech-to-text-button"
             class="icon-btn"
-            aria-label="Konuşmayı yazıya çevir"
-            title="Konuşmayı yazıya çevir">
+            aria-label="Kısa bas: konuşmayı yazıya çevir. Basılı tut: sesli görüşmeyi başlat veya durdur."
+            title="Kısa bas: konuşmayı yazıya çevir | Basılı tut: sesli görüşme">
             🎙
           </button>
 
@@ -414,8 +415,8 @@ async function initializeZeydal() {
     };
 
     conversationList.innerHTML =
-      renderGroup("SABİTLENENLER", pinned) +
-      renderGroup("GEÇMİŞ", others) ||
+      (renderGroup("SABİTLENENLER", pinned) +
+      renderGroup("GEÇMİŞ", others)) ||
       `<p class="history-empty">Henüz sohbet yok.</p>`;
   }
 
@@ -493,7 +494,6 @@ async function initializeZeydal() {
     chatMessages.scrollTop = chatMessages.scrollHeight;
 
     try {
-      // Son 20 mesajı konuşma bağlamı olarak hazırla.
       const conversationContext = history
         .slice(-20)
         .map(item => ({
@@ -1059,7 +1059,7 @@ async function initializeZeydal() {
     });
   });
 
-  // voice.js tarafından kullanılacak token fonksiyonu
+  // Sesli asistan modülünün kullanabileceği oturum fonksiyonu
   window.zeydalRequestVoiceToken = async function() {
     const result = await apiRequest("voice-token", {}, true);
     return result.token || result.data?.token || null;
