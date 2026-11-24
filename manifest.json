@@ -1,1 +1,19 @@
 
+{
+  "id": "./",
+  "name": "ZEYDAL AI Personal",
+  "short_name": "ZEYDAL Personal",
+  "description": "Kişisel yapay zeka asistanın.",
+  "lang": "tr",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#071426",
+  "theme_color": "#0A192F",
+  "categories": [
+    "productivity",
+    "utilities"
+  ]
+}
+
