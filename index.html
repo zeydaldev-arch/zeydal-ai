@@ -10,16 +10,16 @@
   <link rel="stylesheet" href="style.css">
 
   <style>
-    /* Sohbet mesaj alanı */
     #zeydal-chat-messages {
       overflow-y: auto;
     }
 
-    /* Mesaj yazma alanı */
+    /* Mesaj alanı */
     #zeydal-chat-form {
-      display: flex;
+      display: flex !important;
       align-items: center;
       gap: 8px;
+      width: 100%;
     }
 
     #zeydal-chat-input {
@@ -27,12 +27,21 @@
       min-width: 0;
     }
 
-    /* Mikrofon düğmesi */
-    #zeydal-voice-toggle {
+    /* Mikrofon yalnızca mesaj alanında görünsün */
+    #zeydal-chat-form #zeydal-voice-toggle {
+      display: inline-flex !important;
+      align-items: center;
+      justify-content: center;
       flex-shrink: 0;
       min-width: 44px;
       min-height: 44px;
       cursor: pointer;
+    }
+
+    /* Başlıkta eski mikrofon düğmesi görünmesin */
+    .chat-header #zeydal-voice-toggle,
+    .chat-header-actions #zeydal-voice-toggle {
+      display: none !important;
     }
 
     #zeydal-voice-status {
@@ -213,11 +222,10 @@
 
   <div id="zeydal-chat-messages" aria-live="polite"></div>
 
-  <!-- Sesli görüşme durumu -->
   <div id="zeydal-voice-status"
     role="status" aria-live="polite"></div>
 
-  <!-- MESAJ ALANI VE MİKROFON -->
+  <!-- MİKROFON SADECE BURADA -->
   <form id="zeydal-chat-form">
     <input id="zeydal-chat-input" type="text"
       placeholder="Mesajını yaz..." autocomplete="off" required>
@@ -231,13 +239,61 @@
 
 </section>
 
+<!-- ESKİ MİKROFON DÜĞMELERİNİ TEMİZLE -->
+<script>
+(function () {
+  const form = document.getElementById("zeydal-chat-form");
+  const sendButton = document.getElementById("zeydal-chat-send");
+
+  if (!form || !sendButton) return;
+
+  const oldButtons = [
+    ...document.querySelectorAll('[id="zeydal-voice-toggle"]')
+  ];
+
+  let microphone = oldButtons.find(button =>
+    form.contains(button)
+  ) || oldButtons[0];
+
+  if (!microphone) {
+    microphone = document.createElement("button");
+    microphone.id = "zeydal-voice-toggle";
+    microphone.type = "button";
+    microphone.textContent = "🎙️";
+    microphone.setAttribute(
+      "aria-label",
+      "Sesli görüşmeyi başlat"
+    );
+    microphone.title = "Sesli görüşme";
+  }
+
+  oldButtons.forEach(button => {
+    if (button !== microphone) {
+      button.remove();
+    }
+  });
+
+  /* Mikrofonu Gönder düğmesinin hemen önüne yerleştir */
+  form.insertBefore(microphone, sendButton);
+
+  /* Başlıkta eski sesli görüşme düğmesi kalmışsa kaldır */
+  document.querySelectorAll(".chat-header button").forEach(button => {
+    if (
+      button !== microphone &&
+      button.textContent.toLowerCase().includes("sesli görüşme")
+    ) {
+      button.remove();
+    }
+  });
+})();
+</script>
+
 <script>
 (() => {
   "use strict";
 
   function initializeZeydal() {
 
-    // API ADRESLERİ
     const API_URL = "https://zeydal-ai-api.zeydal-dev.workers.dev/";
     const CHAT_API_URL =
       "https://zeydal-api.zeydal-dev.workers.dev/api/chat";
@@ -274,7 +330,6 @@
       return;
     }
 
-    // ESKİ OTURUM ANAHTARINI TAŞI
     let sessionToken = localStorage.getItem(SESSION_KEY) || "";
 
     if (!sessionToken) {
@@ -292,7 +347,6 @@
     let sessionVerified = false;
     let isCheckingSession = false;
 
-    // GEÇMİŞİ YÜKLE
     function loadHistory() {
       try {
         const saved = JSON.parse(
@@ -312,7 +366,6 @@
       }
     }
 
-    // GEÇMİŞİ KAYDET
     function saveHistory() {
       try {
         localStorage.setItem(
@@ -324,7 +377,6 @@
       }
     }
 
-    // MESAJ GÖSTER
     function addMessage(role, content) {
       const message = document.createElement("div");
 
@@ -342,7 +394,6 @@
       return message;
     }
 
-    // GEÇMİŞİ GÖSTER
     function renderHistory() {
       messages.replaceChildren();
 
@@ -359,7 +410,6 @@
       });
     }
 
-    // SESLİ GÖRÜŞME OLAYLARINI SOHBETE AKTAR
     function getEventText(event) {
       const detail = event.detail;
 
@@ -382,7 +432,6 @@
       return "";
     }
 
-    // Kullanıcının konuşmasını yazılı göster
     window.addEventListener("zeydal:voice", event => {
       const detail = event.detail || {};
       const type = detail.type;
@@ -403,7 +452,6 @@
         saveHistory();
       }
 
-      // ZEYDAL AI cevabını yazılı göster
       if (type === "assistant-text") {
         const text = getEventText(event);
 
@@ -445,7 +493,6 @@
       messages.scrollTop = messages.scrollHeight;
     });
 
-    // HESAP API İSTEĞİ
     async function apiRequest(action, data = {}, authenticated = false) {
       const headers = {
         "Content-Type": "application/json"
@@ -478,7 +525,6 @@
       return result;
     }
 
-    // SESLİ GÖRÜŞME TOKEN BAĞLANTISI
     window.zeydalRequestVoiceToken = async function () {
       if (!sessionToken || !sessionVerified) {
         throw new Error("Önce hesabına giriş yapmalısın.");
@@ -504,7 +550,6 @@
       return token;
     };
 
-    // GEMINI API İSTEĞİ
     async function sendChatMessage() {
       const response = await fetch(CHAT_API_URL, {
         method: "POST",
@@ -537,7 +582,6 @@
       return result.response;
     }
 
-    // YAZILI SOHBET GÖNDER
     $("zeydal-chat-form").addEventListener("submit", async event => {
       event.preventDefault();
 
@@ -610,7 +654,6 @@
       }
     });
 
-    // SOHBETİ AÇ
     function openChat() {
       if (!sessionToken || !sessionVerified) {
         panel.style.display = "none";
@@ -636,11 +679,9 @@
       input.focus();
     }
 
-    // SOHBET AÇMA DÜĞMELERİ
     button.addEventListener("click", openChat);
     $("zeydal-open-assistant").addEventListener("click", openChat);
 
-    // SOHBETİ KAPAT
     $("zeydal-chat-close").addEventListener("click", () => {
       panel.style.display = "none";
 
@@ -649,7 +690,6 @@
       }
     });
 
-    // YENİ SOHBET
     $("zeydal-new-chat").addEventListener("click", () => {
       if (!sessionVerified) return;
 
@@ -659,7 +699,6 @@
       input.focus();
     });
 
-    // GİRİŞ
     $("zeydal-login-form").addEventListener("submit", async event => {
       event.preventDefault();
 
@@ -692,7 +731,6 @@
       }
     });
 
-    // KAYIT
     $("zeydal-register-form").addEventListener("submit", async event => {
       event.preventDefault();
 
@@ -713,7 +751,6 @@
       }
     });
 
-    // OTURUM KONTROLÜ
     async function checkSession() {
       if (isCheckingSession) return;
 
@@ -792,7 +829,6 @@
       }
     }
 
-    // ÇIKIŞ
     $("zeydal-logout").addEventListener("click", async () => {
       $("zeydal-logout").disabled = true;
 
@@ -819,7 +855,6 @@
       }
     });
 
-    // BAŞLANGIÇ
     loadHistory();
     checkSession();
 
